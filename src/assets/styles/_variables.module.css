@@ -1,0 +1,23 @@
+:root {
+  --ff-noto-sans: 'Noto Sans', sans-serif;
+  --ff-merienda: 'Merienda', cursive;
+  --ff-manrope: 'Manrope', sans-serif;
+  --ff-dm-sans: 'DM Sans', sans-serif;
+
+  --fw-regular: 400;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --color-green: #649179;
+  --color-black: #070721;
+  --color-light-green: #D1E0D8;
+  --color-red: #AD6A6C;
+  --color-purple: #7678ED;
+  --color-white-bg: #F7FFFB;
+  --color-green-darker: #374F42;
+  --color-gray: #595D62;
+  --color-light-gray: #9F9F9F;
+  --color-text: #000;
+
+  --transition: 0.3s ease;
+}
