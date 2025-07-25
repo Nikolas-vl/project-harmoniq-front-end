@@ -27,7 +27,7 @@
 /* Desktop */
 @media only screen and (min-width: 1440px) {
   .container {
-    max-width: 1225px;
+    max-width: 1440px;
     /* 1440 - 2 * 107.5 */
     padding-left: 107.5px;
     padding-right: 107.5px;
