@@ -1,0 +1,146 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 36px;
+}
+
+.heroImage {
+  background-image: image-set(
+    url('/images/hero-bg-tel.webp') 1x,
+    url('/images/hero-bg-tel@2x.webp') 2x
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 361px;
+  height: 323px;
+}
+
+.heroTitle {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #374f42;
+  margin: 0 auto;
+  width: 372px;
+  margin-bottom: 30px;
+}
+
+.heroTitleSpan {
+  font-family: 'Merienda', sans-serif;
+}
+
+.buttons {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.articlesBtn {
+  border-radius: 64px;
+  padding: 16px;
+  width: 361px;
+  height: 57px;
+  background: #649179;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #f7fffb;
+  text-align: center;
+}
+
+.registerBtn {
+  border: 1px solid #374f42;
+  border-radius: 64px;
+  padding: 16px;
+  width: 361px;
+  height: 57px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #374f42;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding: 22px 32px;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  .heroImage {
+    background-image: image-set(
+      url('/images/hero-bg-tab.webp') 1x,
+      url('/images/hero-bg-tab@2x.webp') 2x
+    );
+    min-width: 430px;
+    height: 385px;
+  }
+
+  .heroTitle {
+    margin-bottom: 133px;
+    margin-right: -160px;
+    margin-left: 0px;
+  }
+
+  .buttons {
+    margin-right: 25px;
+  }
+
+  .articlesBtn {
+    width: 249px;
+  }
+
+  .registerBtn {
+    width: 249px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero {
+    padding-top: 48px;
+    padding-right: 105px;
+    padding-left: 108px;
+    padding-bottom: 0;
+    display: flex;
+    align-items: start;
+  }
+
+  .heroImage {
+    background-image: image-set(
+      url('/images/hero-bg.webp') 1x,
+      url('/images/hero-bg@2x.webp') 2x
+    );
+    min-width: 806px;
+    height: 562px;
+  }
+
+  .heroTitle {
+    margin-bottom: 56px;
+    margin-right: -178px;
+    font-weight: 800;
+    font-size: 92px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    width: 599px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 29px;
+  }
+
+  .articlesBtn {
+    width: 184px;
+  }
+
+  .registerBtn {
+    width: 184px;
+  }
+}
