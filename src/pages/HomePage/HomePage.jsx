@@ -1,5 +1,13 @@
+import PopularArticles from '../../modules/PopularArticles/PopularArticles';
+import Creators from '../../modules/Creators/Creators';
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <>
+      <PopularArticles />
+      <Creators/>
+    </>
+  );
 };
 
 export default HomePage;
