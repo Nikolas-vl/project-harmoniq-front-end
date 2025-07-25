@@ -1,0 +1,8 @@
+.title {
+  font-weight: var(--fw-bold);
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+.section {
+  padding-block: 48px;
+}
