@@ -1,0 +1,137 @@
+@import '../../assets/styles/_variables.module.css';
+
+
+
+.wrapper {
+  padding-top: 61px;
+}
+
+.contentBlock {
+  margin-left: 24px;
+}
+
+.title {
+  font-family: var(--ff-manrope);
+  font-weight: var(--fw-bold);
+  font-size: 40px;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 286px);
+  justify-content: start;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.authorItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 12px 12px 12px;
+  width: 286px;
+  height: 335px;
+  border-radius: 32px;
+  background-color: var(--color-white-bg);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+
+.authorItem:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 262px;
+  height: 262px;
+  border-radius: 256px;
+  margin-bottom: 61px;
+  object-fit: cover;
+}
+
+.name {
+  font-family: var(--ff-manrope);
+  font-weight: var(--fw-bold);
+  font-size: 24px;
+  color: var(--color-black);
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 12px;
+}
+
+.loadMore {
+  display: block;
+  margin: 24px auto 0;
+  width: 390px;
+  height: 57px;
+  border-radius: 64px;
+  background: var(--color-green);
+  padding: 16px;
+  color: white;
+  font-family: var(--ff-manrope);
+  font-weight: var(--fw-bold);
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+}
+
+.loadMore:hover {
+  background: var(--color-green-darker);
+}
+
+.noAuthors {
+  font-family: var(--ff-manrope);
+  font-size: 20px;
+  color: var(--color-gray);
+  text-align: center;
+  margin-top: 32px;
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .authorItem {
+    width: 100%;
+    height: auto;
+    padding: 12px;
+  }
+  .avatar {
+    width: 262px;
+    height: 262px;
+    margin-bottom: 24px;
+  }
+  .loadMore {
+    width: 340px;
+  }
+}
+
+@media (max-width: 767px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .authorItem {
+    width: 100%;
+    height: auto;
+    padding: 12px 8px;
+  }
+  .avatar {
+    width: 148px;
+    height: 148px;
+    margin-bottom: 12px;
+  }
+  .loadMore {
+    width: 340px;
+  }
+}
+
