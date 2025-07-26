@@ -1,11 +1,25 @@
+import { Toaster } from 'react-hot-toast';
 import Layout from './modules/Layout/Layout';
 import AppRoutes from './routes/AppRoutes';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from './redux/auth/authOperations';
+import { useEffect } from 'react';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
-    <Layout>
-      <AppRoutes />
-    </Layout>
+    <>
+      <Toaster position="top-center" />
+
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </>
   );
 }
 
