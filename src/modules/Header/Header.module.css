@@ -1,0 +1,30 @@
+/* components/Header/Header.module.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px ; /* Adjust padding as needed */
+  background-color: #D1E0D8; /* Match the background from your screenshots */
+  /* color: #333; */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* .logo {
+  font-size: 2rem; 
+  font-weight: bold;
+  color: #6C9A7D; 
+} */
+
+/* On tablet and mobile, the logo might be aligned differently or have different size */
+@media (min-width: 768px) {
+  .header {
+    padding: 14px 32px ; 
+  }
+}
+
+@media (min-width: 1440px) {
+   .header {
+    padding: 14px 108px ; 
+  }
+}
