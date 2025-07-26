@@ -3,11 +3,8 @@
 
 
 .wrapper {
-  padding-top: 61px;
-}
-
-.contentBlock {
-  margin-left: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .title {
@@ -51,7 +48,7 @@
   width: 262px;
   height: 262px;
   border-radius: 256px;
-  margin-bottom: 61px;
+  margin-bottom: 16px;
   object-fit: cover;
 }
 
