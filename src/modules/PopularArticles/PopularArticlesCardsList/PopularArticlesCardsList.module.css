@@ -1,0 +1,20 @@
+.list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+    .list {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .list {
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+}
