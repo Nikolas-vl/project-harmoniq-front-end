@@ -1,14 +1,23 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
-import styles from './RegisterForm.module.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/authOperations';
+import styles from './RegisterForm.module.css';
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  name: Yup.string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(32, 'Name must be at most 32 characters')
+    .required('Name is required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .max(64, 'Email must be at most 64 characters')
+    .required('Email is required'),
   password: Yup.string()
-    .min(6, 'At least 6 characters')
+    .min(8, 'Password must be at least 8 characters')
+    .max(64, 'Password must be at most 64 characters')
     .required('Password is required'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
@@ -17,6 +26,7 @@ const validationSchema = Yup.object({
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -28,9 +38,27 @@ const RegisterForm = () => {
       confirmPassword: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log('Registered:', values);
-      navigate('/upload-photo');
+
+    //     onSubmit: values => {
+    //   console.log('Registered:', values);
+    //   navigate('/upload-photo');
+    // },
+    // прибрав заглушку
+
+    onSubmit: async values => {
+      try {
+        const user = {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        };
+
+        await dispatch(register(user)).unwrap();
+        navigate('/upload-photo');
+      } catch (error) {
+        console.error('Registration failed:', error);
+        alert(error.message || 'Registration failed');
+      }
     },
   });
 
@@ -55,9 +83,11 @@ const RegisterForm = () => {
           onBlur={handleBlur}
           className={styles.input}
         />
-        {touched.name && errors.name && (
-          <span className={styles.error}>{errors.name}</span>
-        )}
+        <div className={styles.errorContainer}>
+          {touched.name && errors.name && (
+            <span className={styles.error}>{errors.name}</span>
+          )}
+        </div>
       </label>
 
       <label className={styles.label}>
@@ -71,9 +101,11 @@ const RegisterForm = () => {
           onBlur={handleBlur}
           className={styles.input}
         />
-        {touched.email && errors.email && (
-          <span className={styles.error}>{errors.email}</span>
-        )}
+        <div className={styles.errorContainer}>
+          {touched.email && errors.email && (
+            <span className={styles.error}>{errors.email}</span>
+          )}
+        </div>
       </label>
 
       <label className={styles.label}>
@@ -125,9 +157,11 @@ const RegisterForm = () => {
             )}
           </button>
         </div>
-        {touched.password && errors.password && (
-          <span className={styles.error}>{errors.password}</span>
-        )}
+        <div className={styles.errorContainer}>
+          {touched.password && errors.password && (
+            <span className={styles.error}>{errors.password}</span>
+          )}
+        </div>
       </label>
 
       <label className={styles.label}>
@@ -179,9 +213,11 @@ const RegisterForm = () => {
             )}
           </button>
         </div>
-        {touched.confirmPassword && errors.confirmPassword && (
-          <span className={styles.error}>{errors.confirmPassword}</span>
-        )}
+        <div className={styles.errorContainer}>
+          {touched.confirmPassword && errors.confirmPassword && (
+            <span className={styles.error}>{errors.confirmPassword}</span>
+          )}
+        </div>
       </label>
 
       <button type="submit" className={styles.button}>
