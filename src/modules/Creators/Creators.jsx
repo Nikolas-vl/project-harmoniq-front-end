@@ -5,7 +5,7 @@ import CreatorsCardsList from './CreatorsCardsList/CreatorsCardsList';
 const Creators = () => {
     return (
         <>
-            <section className={`container ${css.container}`}>
+            <section className='container'>
                 <div className={css.section_container}>
                     <div className={css.section_title_link_container}>
                         <h2 className={css.section_title}>Top Creators</h2>

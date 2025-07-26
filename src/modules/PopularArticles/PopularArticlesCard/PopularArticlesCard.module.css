@@ -104,15 +104,18 @@
         width: 320px;
         transition: var(--transition);
     }
-    .load_more_link:hover {
+    .load_more_link:hover,
+    .load_more_link:focus {
         background-color: var(--color-green-darker);
         color: white;
     }
-    .save_button:hover {
+    .save_button:hover,
+    .save_button:focus {
         background-color: var(--color-green-darker);
         color: white;
     }
-    .card_container:hover {
+    .card_container:hover,
+    .card_container:focus {
         box-shadow: 0 0 5px #404040, 0 0 10px #404040;
     }
 }
