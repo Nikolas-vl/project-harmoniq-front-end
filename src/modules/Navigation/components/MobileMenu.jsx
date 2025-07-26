@@ -1,0 +1,46 @@
+import { NavLink } from 'react-router-dom';
+import styles from '../Navigation.module.css'
+import logo from '../../../assets/icons/header-logo.svg';
+
+const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin }) => {
+  return (
+    <div className={`${styles.mobileMenuOverlay} ${isOpen ? styles.showMenu : ''}`}>
+      <div className={styles.mobileMenuContent}>
+        {/* Хедер */}
+        <header className={styles.mobileMenuHeader}>
+          <div className={styles.mobileMenuHeaderContent}>
+            <img src={logo} alt="Harmoniq Logo" className={styles.logoImage} />
+            <div className={styles.mobileMenuCloseContent}>
+              {isTablet && (
+                <button
+                  onClick={onJoin}
+                  className={`$ ${styles.joinButtonInModalHeader}`} /*{styles.authButton}*/
+                >
+                  Join now
+                </button>
+              )}
+              <button className={styles.closeButton} onClick={onClose}>
+                &#x2715;
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Навігація */}
+        <nav className={styles.mobileMenuNavigation}>
+          <ul className={styles.mobileLinkList}>
+            <li><NavLink to="/" onClick={onClose}>Home</NavLink></li>
+            <li><NavLink to="/articles" onClick={onClose}>Articles</NavLink></li>
+            <li><NavLink to="/creators" onClick={onClose}>Creators</NavLink></li>
+            <li><button onClick={onLogin} className={styles.mobileLoginBtn}>Log in</button></li>
+            {isMobile && (
+              <li><button onClick={onJoin} className={styles.mobileJoinBtn}>Join now</button></li>
+            )}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+};
+
+export default MobileMenu;

@@ -37,7 +37,15 @@
 .authButtons {
   display: flex;
   gap: 16px;
+
 }
+
+.authButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .authButton,
 .mobileLoginBtn,
@@ -51,6 +59,8 @@
   font-weight: 700;
   font-size: 12px;
   color: #374f42;
+  
+  
 }
 
 .authButton:hover{
@@ -201,6 +211,13 @@
   font-size: 12px;
   color: #374f42;
   box-sizing: border-box;
+}
+.mobileJoinBtn {
+  font-family: "Manrope", sans-serif;
+font-weight: 700;
+font-size: 16px;
+color: #f7fffb;
+
 }
 
 .mobileLoginBtn {

@@ -1,8 +1,11 @@
-
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
-import logo from '../../assets/icons/header-logo.svg'; 
+
+
+import AuthButtons from './components/AuthButtons';
+import Burger from './components/Burger';
+import MobileMenu from './components/MobileMenu';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -13,7 +16,6 @@ function Navigation() {
   const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1440);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1440);
@@ -22,7 +24,7 @@ function Navigation() {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); 
+    handleResize();
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -48,100 +50,59 @@ function Navigation() {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(prevState => !prevState);
+    setIsMenuOpen(prev => !prev);
   };
 
   return (
     <nav className={styles.nav}>
-     
+      {/* Навігація (десктоп) */}
       {isDesktop && (
         <ul className={styles.linkList}>
-          <li><NavLink to="/" className={({ isActive }) => isActive ? styles.active : undefined} onClick={() => setIsMenuOpen(false)}>Home</NavLink></li>
-          <li><NavLink to="/articles" className={({ isActive }) => isActive ? styles.active : undefined} onClick={() => setIsMenuOpen(false)}>Articles</NavLink></li>
-          <li><NavLink to="/creators" className={({ isActive }) => isActive ? styles.active : undefined} onClick={() => setIsMenuOpen(false)}>Creators</NavLink></li>
+          <li>
+            <NavLink to="/" className={({ isActive }) => isActive ? styles.active : undefined} >Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/articles" className={({ isActive }) => isActive ? styles.active : undefined} >Articles</NavLink>
+          </li>
+          <li>
+            <NavLink to="/creators" className={({ isActive }) => isActive ? styles.active : undefined} >Creators</NavLink>
+          </li>
         </ul>
       )}
 
-    {/* Кнопки десктоп */}
+      {/* Auth-кнопки (десктоп) */}
       {isDesktop && (
-        <div className={styles.authButtons}>
-          <button
-            onClick={handleLoginClick}
-            className={`${styles.authButton} ${activeAuthButton === 'login' ? styles.activeAuth : styles.inactiveAuth} ${styles.loginButton}`}
-          >
-            Log in
-          </button>
-          <button
-            onClick={handleJoinClick}
-            className={`${styles.authButton} ${activeAuthButton === 'join' ? styles.activeAuth : styles.inactiveAuth} ${styles.joinButton}`}
-          >
-            Join now
-          </button>
-        </div>
+        <AuthButtons
+          active={activeAuthButton}
+          onLogin={handleLoginClick}
+          onJoin={handleJoinClick}
+        />
       )}
 
-      {/* Кнопка "Join now" для планшетів (в основному хедері, перед гамбургером) */}
+      {/* Join now (планшет) */}
       {isTablet && (
         <button
           onClick={handleJoinClick}
-          className={`${styles.authButton} ${styles.joinButtonTablet}`}
+          className={` ${styles.joinButtonTablet}`} /*${styles.authButton}*/
         >
           Join now
         </button>
       )}
 
-
+      {/* Бургер */}
       {(isTablet || isMobile) && (
-        <button className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`} onClick={toggleMenu}>
-          <span className={styles.hamburgerLine}></span>
-          <span className={styles.hamburgerLine}></span>
-          <span className={styles.hamburgerLine}></span>
-        </button>
+        <Burger isOpen={isMenuOpen} onClick={toggleMenu} />
       )}
 
-  
-      <div className={`${styles.mobileMenuOverlay} ${isMenuOpen ? styles.showMenu : ''}`}>
-        <div className={styles.mobileMenuContent}>
-          <header className={styles.mobileMenuHeader}>
-            <div className={styles.mobileMenuHeaderContent}>
-              <img src={logo} alt="Harmoniq Logo" className={styles.logoImage} />
-
-              <div className={styles.mobileMenuCloseContent}>
-              {isTablet && (
-                
-                <button
-                  onClick={handleJoinClick}
-                  className={`${styles.authButton} ${styles.joinButtonInModalHeader}`}
-                >
-                  Join now
-                </button>
-              )}
-              
-              <button className={styles.closeButton} onClick={toggleMenu}>
-                &#x2715;
-              </button>
-              </div>
-            </div>
-          </header>
-
-          <nav className={styles.mobileMenuNavigation}>
-            <ul className={styles.mobileLinkList}>
-              <li><NavLink to="/" onClick={toggleMenu}>Home</NavLink></li>
-              <li><NavLink to="/articles" onClick={toggleMenu}>Articles</NavLink></li>
-              <li><NavLink to="/creators" onClick={toggleMenu}>Creators</NavLink></li>
-              <li>
-                <button onClick={handleLoginClick} className={styles.mobileLoginBtn}>Log in</button>
-              </li>
-            
-              {isMobile && (
-                <li>
-                  <button onClick={handleJoinClick} className={styles.mobileJoinBtn}>Join now</button>
-                </li>
-              )}
-            </ul>
-          </nav>
-        </div>
-      </div>
+      {/* Мобільне меню */}
+      <MobileMenu
+        isOpen={isMenuOpen}
+        isTablet={isTablet}
+        isMobile={isMobile}
+        onClose={toggleMenu}
+        onLogin={handleLoginClick}
+        onJoin={handleJoinClick}
+      />
     </nav>
   );
 }
