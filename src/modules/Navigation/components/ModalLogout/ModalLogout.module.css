@@ -1,36 +1,31 @@
-/* src/components/ModalLogout/ModalLogout.module.css */
 
-.logout { /* Це буде наш overlay, який перекриває весь екран */
-    position: fixed; /* Фіксоване позиціонування відносно viewport */
-    top: 0;
+
+.logout { 
+    position: fixed; 
+    /* top: 1000; */
     left: 0;
-    width: 100vw;    /* 100% ширини viewport */
-    height: 100vh;   /* 100% висоти viewport */
-    background-color: rgba(0, 0, 0, 0.4); /* Напівпрозорий чорний фон, як на макеті */
+    width: 100vw;  
+    height: 100vh;  
+    background-color: rgba(0, 0, 0, 0.4); 
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Гарантуємо, що модалка буде поверх іншого контенту */
+    z-index: 1000; 
   }
-  
-  /* Клас .showMenu більше не потрібен у компоненті, оскільки він умовно рендериться.
-     Якщо ви все одно хочете анімацію, то її потрібно реалізовувати через React Transition Group
-     або інші бібліотеки, або керувати visibility/opacity через цей клас.
-     Але для базової функціональності він зайвий.
-  */
-  
+    
   .modal {
-    position: relative; /* Щоб кнопка закриття позиціонувалася відносно модалки */
-    background-color: #E0F2F1; /* Колір фону з макетів */
-    border-radius: 12px;     /* Закруглені кути, як на макеті */
-    padding: 32px;           /* Внутрішні відступи, як на макеті */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Легка тінь */
-    max-width: 400px;        /* Максимальна ширина модалки */
-    width: 90%;              /* Адаптивна ширина для менших екранів */
+    position: relative;
+    border-radius: 32px;
+    padding: 56px 32px 32px 32px;
+    width: 420px;
+    height: 243px;
+    
+    background: #d1e0d8;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;      /* Центрування тексту */
+    text-align: center;   
+    gap:20px;  
   }
   
   .closeButton {
@@ -41,54 +36,63 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    font-size: 24px; /* Для символу &#x2715; */
-    line-height: 1; /* Для коректного вертикального вирівнювання &#x2715; */
-    color: #212121; /* Колір хрестика */
+    font-size: 24px; 
+    line-height: 1; 
+    color: #212121; 
   }
   
   .title {
-    font-size: 1.75rem; /* ~28px, як на макеті */
-    font-weight: 600;    /* Напівжирний, як на макеті */
-    color: #212121;
-    margin-bottom: 8px; /* Відступ після заголовка */
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    color: #070721;
+    
+    
   }
   
   .subtitle {
-    font-size: 1rem;     /* ~16px, як на макеті */
-    font-weight: 400;    /* Звичайний, як на макеті */
-    color: #424242;
-    margin-bottom: 24px; /* Відступ перед кнопками */
+    font-family: "Manrope", sans-serif;
+font-weight: 400;
+font-size: 16px;
+line-height: 1.55;
+text-align: center;
+color: #070721;
+
   }
   
-  .buttons { /* Контейнер для кнопок "Log out" та "Cancel" */
+  .buttons { 
     display: flex;
-    gap: 16px;           /* Відступ між кнопками */
+    gap: 27px;       
     width: 100%;
     justify-content: center;
   }
   
   .logoutBtn,
   .cancelBtn {
-    padding: 12px 24px; /* Паддінги кнопок */
-    border-radius: 8px; /* Закруглення кнопок */
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    flex-grow: 1; /* Кнопки займають доступний простір */
-    max-width: 160px; /* Обмеження ширини кнопок */
-    text-align: center;
-    text-decoration: none;
-    box-sizing: border-box; /* Включити padding та border в загальну ширину/висоту */
+    border-radius: 64px;
+    padding: 12px 16px;
+    width: 164px;
+    height: 46px;
+    background: #649179;
+    
   }
   
   .logoutBtn {
-    background-color: #6C8E6C; /* Зелений колір, схожий на макет */
-    color: white;
+    font-family: "Manrope", sans-serif;
+font-weight: 700;
+font-size: 16px;
+color: #f7fffb;
+
     border: none;
   }
   
   .cancelBtn {
     background-color: transparent;
-    color: #212121;
-    border: 1px solid #BDBDBD; /* Обведення, як на макеті */
+    border: 1px solid #070721;
+border-radius: 64px;
+padding: 12px 16px;
+width: 164px;
+height: 46px;
+
   }

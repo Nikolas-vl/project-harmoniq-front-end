@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from '../Navigation.module.css'
-import logo from '../../../assets/icons/header-logo.svg';
+
 import UserMenu from './UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
@@ -18,7 +18,11 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin }) =>
         {/* Хедер */}
         <header className={styles.mobileMenuHeader}>
           <div className={styles.mobileMenuHeaderContent}>
-            <img src={logo} alt="Harmoniq Logo" className={styles.logoImage} />
+          <Link className={styles.logoImage}  onClick={onClose} to="/">
+              <svg height="40">
+                <use href="/src/assets/icons/header-logo.svg#header-logo"></use>
+              </svg>
+            </Link>
             <div className={styles.mobileMenuCloseContent}>
               {isTablet && (
                  isAuthenticated ? '':
@@ -52,7 +56,7 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin }) =>
               :
               <>
               <li><button onClick={onLogin} className={styles.mobileLoginBtn}>Log in</button></li>
-              {/* <li><button onClick={onJoin} className={styles.mobileJoinBtn}>Join now</button></li> */}
+              
               </>
             )}
            
