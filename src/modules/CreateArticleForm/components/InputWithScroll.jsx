@@ -32,7 +32,7 @@ export const InputWithScroll = ({ touched, error, value, onChange }) => {
         value={value}
         onChange={e => onChange(e.target.value)}
       />
-      {touched && error && <span className={s.error}>{error}</span>}
+      <span className={s.error}>{touched && error ? error : '\u00A0'}</span>
     </label>
   );
 };

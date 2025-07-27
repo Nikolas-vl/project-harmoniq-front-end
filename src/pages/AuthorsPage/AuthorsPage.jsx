@@ -15,6 +15,7 @@ const AuthorsPage = () => {
 
   return (
     <section className={css.wrapper}>
+      <div className="container">
       <div className={css.contentBlock}>
         <h2 className={css.title}>Authors</h2>
 
@@ -29,7 +30,7 @@ const AuthorsPage = () => {
         )}
       </div>
 
-      <div className="container">
+      
         {mockAuthors.length > visibleCount && (
           <button className={css.loadMore} onClick={handleLoadMore}>
             Load More

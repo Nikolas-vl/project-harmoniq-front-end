@@ -9,14 +9,37 @@ const prepareAuth = thunkAPI => {
   setAuthHeader(token);
 };
 
+export const login = createAsyncThunk(
+  'auth/login',
+  async (credentials, thunkApi) => {
+    try {
+      const response = await axios.post('/auth/login', credentials);
+      const token = response.data.data.accessToken;
+      const user = response.data.data.user;
+      setAuthHeader(token);
+      toast.success('Login successful!');
+      return { token, user };
+    } catch (e) {
+      toast.error('Login error!');
+      return thunkApi.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkApi) => {
     try {
-      const response = await axios.post('/auth/register', credentials);
-      setAuthHeader(response.data.token);
-      toast.success('Registration successful!');
-      return response.data;
+      await axios.post('/auth/register', credentials);
+
+      const loginResult = await thunkApi.dispatch(login(credentials));
+
+      if (loginResult.error) {
+        return thunkApi.rejectWithValue('Login after registration failed');
+      }
+
+      toast.success('Registration and login successful!');
+      return loginResult.payload;
     } catch (e) {
       if (e.response && e.response.data && e.response.data.errors) {
         toast.error('Registration error!');
@@ -24,21 +47,6 @@ export const register = createAsyncThunk(
       }
       toast.error('Server error!');
       return thunkApi.rejectWithValue({ general: 'Server error' });
-    }
-  }
-);
-
-export const login = createAsyncThunk(
-  'auth/login',
-  async (credentials, thunkApi) => {
-    try {
-      const response = await axios.post('/auth/login', credentials);
-      setAuthHeader(response.data.token);
-      toast.success('Login successful!');
-      return response.data;
-    } catch (e) {
-      toast.error('Login error!');
-      return thunkApi.rejectWithValue(e.message);
     }
   }
 );
@@ -59,8 +67,10 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       prepareAuth(thunkAPI);
-      const response = await axios.get('/auth/current');
-      return response.data;
+      const response = await axios.post('/auth/refresh');
+      const token = response.data.data.accessToken;
+      setAuthHeader(token);
+      return { token };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
