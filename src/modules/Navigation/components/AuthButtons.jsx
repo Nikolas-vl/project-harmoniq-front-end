@@ -8,6 +8,7 @@ const AuthButtons = () => {
 
   return (
     <div className={styles.authButtons}>
+     
       <NavLink
         to="/login"
         className={`${styles.authButton} ${isLogin ? styles.activeAuth : styles.inactiveAuth}`}
