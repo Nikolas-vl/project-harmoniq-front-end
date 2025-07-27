@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout, refreshUser, register } from './authOperations';
+import { setAuthHeader } from '../../api/axios';
 
 const initialState = {
   user: {
     name: null,
     email: null,
+    id: null,
   },
   token: null,
   isLoggedIn: false,
@@ -27,7 +29,7 @@ const slice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, state => {
-        state.user = { name: null, email: null };
+        state.user = { name: null, email: null, id: null };
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -35,7 +37,10 @@ const slice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        const token = action.payload.token;
+        setAuthHeader(token);
+
+        state.token = token;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
