@@ -5,7 +5,11 @@ import { validateAndUploadImage } from '../utils/validateImage';
 import { getDescription } from '../utils/getDescription';
 import { useLocalStorageState } from './useLocalStorageState';
 import cameraPlaceholder from '../../../assets/icons/createArticlePage/camera.svg';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../../redux/auth/authSelectors';
+
 export const useArticleForm = onSubmitSuccess => {
+  const ownerId = useSelector(selectUserId);
   const [draft, setDraft] = useLocalStorageState('articleDraft', {
     title: '',
     text: '',
@@ -46,8 +50,6 @@ export const useArticleForm = onSubmitSuccess => {
         ),
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
-      const ownerId = 'User id from store';
-
       const imageUrl = await validateAndUploadImage(values.image);
       if (!imageUrl) {
         setErrors({
@@ -72,14 +74,14 @@ export const useArticleForm = onSubmitSuccess => {
       await onSubmitSuccess(articleObject);
 
       setDraft({ title: '', text: '', image: null });
-      setPreviewUrl(null);
+      setPreviewUrl(cameraPlaceholder);
       setSubmitting(false);
     },
   });
 
   const handleFileChange = file => {
     if (!file) {
-      setPreviewUrl(null);
+      setPreviewUrl(cameraPlaceholder);
       formik.setFieldValue('image', null);
 
       return;
