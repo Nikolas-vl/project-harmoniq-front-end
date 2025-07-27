@@ -1,27 +1,29 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { getArticleById } from '../services/articlesApi';
+import { setLoading } from '../../redux/global/globalSlice';
 
 export const useGetArticleById = id => {
   const [article, setArticle] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!id) return;
 
     const fetch = async () => {
-      setIsLoading(true);
+      dispatch(setLoading(true));
       try {
         const res = await getArticleById(id);
         setArticle(res.data.article);
       } catch (err) {
         console.error('Failed to fetch article:', err);
       } finally {
-        setIsLoading(false);
+        dispatch(setLoading(false));
       }
     };
 
     fetch();
-  }, [id]);
+  }, [id, dispatch]);
 
-  return { article, isLoading };
+  return { article };
 };

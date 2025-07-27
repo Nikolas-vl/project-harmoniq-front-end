@@ -1,25 +1,27 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { getArticles } from '../services/articlesApi';
+import { setLoading } from '../../redux/global/globalSlice';
 
 export const useGetArticles = () => {
   const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const fetch = useCallback(async () => {
-    setIsLoading(true);
+    dispatch(setLoading(true));
     try {
       const res = await getArticles();
       setArticles(res.data);
     } catch (err) {
       console.error('Failed to fetch articles:', err);
     } finally {
-      setIsLoading(false);
+      dispatch(setLoading(false));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     fetch();
   }, [fetch]);
 
-  return { articles, isLoading, refetch: fetch };
+  return { articles, refetch: fetch };
 };
