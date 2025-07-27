@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
- import { useDispatch} from 'react-redux'; //, useSelector
+ import { useDispatch, useSelector} from 'react-redux'; //, useSelector
  import { useNavigate } from 'react-router-dom';
 //  import { selectName } from '../../../redux/auth/authSelectors';
 
 import styles from './UserMenu.module.css'
 import { logout } from '../../../../redux/auth/authOperations';
 import ModalLogout from '../ModalLogout/ModalLogout';
+import { selectUserName } from '../../../../redux/auth/authSelectors';
 
 const UserMenu = () => {
    
    const dispatch = useDispatch();
    const navigate = useNavigate();
-    // const userName = useSelector(selectName); 
+    const userName = useSelector(selectUserName); 
    
 
-    const [IsLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+    const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
     const handleOpenLogoutConfirm = () => {
-        setIsLogoutConfirmOpen(true);
+      setIsLogoutConfirmOpen(true);
     };
 
     const handleCancelLogout = () => {
@@ -31,14 +32,14 @@ const UserMenu = () => {
       } finally {
        
         localStorage.clear();
-      
+        setIsLogoutConfirmOpen(false);
         navigate('/login');
       }
     };
 
   return (
     <div className={styles.userContainer}>
-    <h2 className={styles.userName}>Юзер</h2>  {/*{userName}*/} 
+    <h2 className={styles.userName}>{userName}</h2>  {/*{userName}*/} 
   
     <span className={styles.userSpan}></span> 
     <button className={styles.exitBtn} onClick={handleOpenLogoutConfirm}> 
@@ -49,12 +50,11 @@ const UserMenu = () => {
             
     </button>
 
-    {IsLogoutConfirmOpen && (
-        <ModalLogout
-          onConfirm={handleConfirmLogout}
-          onCancel={handleCancelLogout}
-        />
-      )}
+    <ModalLogout
+  isOpen={isLogoutConfirmOpen}
+  onClose={handleCancelLogout}
+  onConfirm={handleConfirmLogout}
+/>
 
     </div>
 

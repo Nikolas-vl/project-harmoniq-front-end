@@ -1,7 +1,8 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
-import { useSelector} from 'react-redux'; 
+import { useSelector,useDispatch} from 'react-redux'; 
+
 
 import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
@@ -10,13 +11,17 @@ import AuthButtons from './components/AuthButtons';
 import Burger from './components/Burger';
 import MobileMenu from './components/MobileMenu';
 import UserMenu from './components/UserMenu/UserMenu';
-import CreateArticle from './components/CreateArticle/CreateArticle';
+import CreateArticle from './components/CreateArticle/CreateArticleButton';
+import { logout } from '../../redux/auth/authOperations';
+import ModalLogout from './components/ModalLogout/ModalLogout';
 
 function Navigation() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [activeAuthButton, setActiveAuthButton] = useState('join');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
 
   const isAuthenticated = useSelector(selectIsLoggedIn);
@@ -59,6 +64,26 @@ function Navigation() {
     setIsMenuOpen(false);
   };
 
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleLogoutCancel = () => {
+    setIsLogoutModalOpen(false);
+  };
+
+  const handleLogoutConfirm = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+    } catch (err) {
+      console.error('Logout failed:', err);
+    } finally {
+      localStorage.clear();
+      setIsLogoutModalOpen(false);
+      navigate('/login');
+    }
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev);
   };
@@ -76,7 +101,7 @@ function Navigation() {
             <NavLink to="/articles" className={({ isActive }) => isActive ? styles.active : ''} >Articles</NavLink>
           </li>
           <li>
-            <NavLink to="/creators" className={({ isActive }) => isActive ? styles.active : ''} >Creators</NavLink>
+            <NavLink to="/authors" className={({ isActive }) => isActive ? styles.active : ''} >Creators</NavLink>
           </li>
         </ul>
       )}
@@ -85,7 +110,7 @@ function Navigation() {
         isAuthenticated ? ( 
           <>
             <CreateArticle /> 
-            <UserMenu/> 
+            <UserMenu onLogoutClick={handleLogoutClick} /> 
           </>
         ) : ( 
           <AuthButtons
@@ -125,7 +150,14 @@ function Navigation() {
         onLogin={handleLoginClick}
         onJoin={handleJoinClick}
      />
+          <ModalLogout
+        isOpen={isLogoutModalOpen} 
+        onConfirm={handleLogoutConfirm}
+        onClose={handleLogoutCancel}
+      />
+      
     </nav>
+       
   );
 }
 

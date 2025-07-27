@@ -4,7 +4,7 @@ import logo from '../../../assets/icons/header-logo.svg';
 import UserMenu from './UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
-import CreateArticle from './CreateArticle/CreateArticle';
+import CreateArticle from './CreateArticle/CreateArticleButton';
 
 
 
@@ -21,7 +21,7 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin }) =>
             <img src={logo} alt="Harmoniq Logo" className={styles.logoImage} />
             <div className={styles.mobileMenuCloseContent}>
               {isTablet && (
-                 !isAuthenticated ? '':
+                 isAuthenticated ? '':
                 <button
                   onClick={onJoin}
                   className={`$ ${styles.joinButtonInModalHeader}`} /*{styles.authButton}*/
@@ -44,7 +44,7 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin }) =>
             <li><NavLink to="/creators" onClick={onClose}>Creators</NavLink></li>
 
             {isTablet && (
-              !isAuthenticated ? 
+              isAuthenticated ? 
               <>
               <li><NavLink to="/profile" onClick={onClose}>My Profile</NavLink></li>
               <li><UserMenu/></li>
@@ -52,19 +52,22 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin }) =>
               :
               <>
               <li><button onClick={onLogin} className={styles.mobileLoginBtn}>Log in</button></li>
-              <li><button onClick={onJoin} className={styles.mobileJoinBtn}>Join now</button></li>
+              {/* <li><button onClick={onJoin} className={styles.mobileJoinBtn}>Join now</button></li> */}
               </>
             )}
            
             {isMobile && (
-                !isAuthenticated ? 
+                isAuthenticated ? 
                 <>
-                <li><NavLink to="/profile" onClick={onClose}>My Profile</NavLink></li>
+                <li><NavLink to="/authors/:id" onClick={onClose}>My Profile</NavLink></li>
                 <li><CreateArticle/></li>
                 <li> <UserMenu/> </li>
                  </>
                 :
+                <>
+                <li><button onClick={onLogin} className={styles.mobileLoginBtn}>Log in</button></li>
               <li><button onClick={onJoin} className={styles.mobileJoinBtn}>Join now</button></li>
+              </>
             )}
           </ul>
         </nav>

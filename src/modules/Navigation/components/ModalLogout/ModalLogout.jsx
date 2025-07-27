@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 const ModalLogout = ({ isOpen, onClose } ) => {
     const dispatch = useDispatch();
+    if (!isOpen) return null;
   return (
     <div className={`${styles.logout} ${isOpen ? styles.showMenu : ''}`}>
       <div className={styles.modal}>
