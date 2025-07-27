@@ -19,7 +19,7 @@ const ArticlePage = () => {
       setRecLoading(true);
       try {
         const res = await getRecommendedArticles(id);
-        setRecommendedArticles(res.data);
+        setRecommendedArticles(res);
       } catch (e) {
         console.error('Failed to load recommended articles', e);
       } finally {
@@ -38,14 +38,20 @@ const ArticlePage = () => {
   if (error) return <p>Something went wrong...</p>;
   if (!article) return <p>Article not found</p>;
 
-  const { title, imageUrl, description, author, createdAt } = article;
+  const {
+    title,
+    img: imageUrl,
+    article: fullText,
+    author,
+    date: createdAt,
+  } = article;
 
   return (
     <div className={styles.articlePage}>
       <h1 className={styles.title}>{title}</h1>
       {imageUrl && <img src={imageUrl} alt={title} className={styles.image} />}
       <p className={styles.description}>
-        {description.split('\n').map((line, index) => (
+        {fullText.split('\n').map((line, index) => (
           <span key={index}>
             {line}
             <br />
@@ -69,7 +75,7 @@ const ArticlePage = () => {
           )}
           <ul className={styles.recommendationsList}>
             {recommendedArticles.map(
-              ({ id: recId, title: recTitle, author: recAuthor }) => (
+              ({ _id: recId, title: recTitle, author: ownerId }) => (
                 <li
                   key={recId}
                   className={styles.recommendationItem}
@@ -81,7 +87,7 @@ const ArticlePage = () => {
                   }}
                 >
                   <h4>{recTitle}</h4>
-                  <p>by {recAuthor}</p>
+                  <p>by {ownerId}</p>
                 </li>
               )
             )}

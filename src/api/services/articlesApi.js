@@ -9,12 +9,15 @@ export const getRecommendedArticles = async currentArticleId => {
   try {
     const response = await axiosInstance.get('/articles');
 
-    const filtered = response.data.filter(
-      article => article.id !== currentArticleId
+    const articles = response.data.articles || [];
+
+    console.log('Articles for recommendation:', articles);
+
+    const filtered = articles.filter(
+      article => article._id !== currentArticleId
     );
     const shuffled = filtered.sort(() => 0.5 - Math.random());
-    const recommended = shuffled.slice(0, 3);
-    return { data: recommended };
+    return shuffled.slice(0, 3);
   } catch (error) {
     throw error;
   }
