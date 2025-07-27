@@ -29,7 +29,7 @@ const slice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, state => {
-        state.user = { name: null, email: null };
+        state.user = { name: null, email: null, id: null };
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -37,7 +37,7 @@ const slice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        const token = action.payload.accessToken;
+        const token = action.payload.token;
         setAuthHeader(token);
 
         state.token = token;
