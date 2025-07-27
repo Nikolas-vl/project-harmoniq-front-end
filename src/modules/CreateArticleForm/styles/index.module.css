@@ -1,6 +1,6 @@
 .form {
   display: grid;
-  gap: 24px;
+  column-gap: 24px;
   grid-template-columns: 1fr;
   @media (width>=768px) {
     grid-template-columns: 1fr 1fr;
@@ -13,7 +13,6 @@
 label {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   color: var(--color-black);
   font-size: 18px;
 }
@@ -51,6 +50,7 @@ label {
   border-radius: 16px;
   width: 361px;
   height: 233px;
+
   @media (width>=768px) {
     width: 340px;
     height: 219px;
@@ -75,7 +75,6 @@ label {
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
-
   &::placeholder {
     color: var(--color-gray);
   }
@@ -97,6 +96,8 @@ label {
 .error {
   color: var(--color-red);
   font-size: 14px;
+  height: 16px;
+  margin-bottom: 8px;
 }
 .button {
   font-weight: var(--fw-bold);
