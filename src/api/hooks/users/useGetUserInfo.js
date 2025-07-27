@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUserInfo } from '../services/usersApi';
+import { getUserInfo } from '../../services/usersApi';
 
 export const useGetUserInfo = userId => {
   const [user, setUser] = useState(null);
