@@ -1,0 +1,22 @@
+.Button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 64px;
+    padding: 12px 16px;
+    width: 161px;
+    height: 46px;
+
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #f7fffb;
+    
+    background: #649179;
+
+}
+.Button:hover{
+    background-color: #374f42;
+    
+  }

@@ -8,8 +8,8 @@ const Header = () => {
   return (
     <header className={styles.header}>
     <Link className={styles.logoImage} to="/">
-              <svg width="149" height="36">
-                <use href="/src/assets/icons/InlineSprite.svg#Logo-min"></use>
+              <svg height="36">
+                <use href="/src/assets/icons/header-logo.svg#header-logo"></use>
               </svg>
             </Link>
   

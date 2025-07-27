@@ -1,28 +1,26 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
-import { useSelector} from 'react-redux'; /*, useDispatch */
-// import clsx from 'clsx';
-import { selectIsLoggedIn, selectName } from '../../redux/auth/authSelectors';
-// import { logout } from '../../redux/auth/authOperations';
+import { useSelector} from 'react-redux'; 
 
-// import ModalAddArticle from '../ModalAddArticle/ModalAddArticle';
-// import ModalLogoutConfirm from '../ModalLogoutConfirm/ModalLogoutConfirm';
+import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
+
 
 import AuthButtons from './components/AuthButtons';
 import Burger from './components/Burger';
 import MobileMenu from './components/MobileMenu';
+import UserMenu from './components/UserMenu/UserMenu';
+import CreateArticle from './components/CreateArticle/CreateArticle';
 
 function Navigation() {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+
   const [activeAuthButton, setActiveAuthButton] = useState('join');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [ setIsAddArticleOpen] = useState(false); /*isAddArticleOpen,*/
-  const [ setIsLogoutConfirmOpen] = useState(false); /*isLogoutConfirmOpen,*/
+
 
   const isAuthenticated = useSelector(selectIsLoggedIn);
-  const user = useSelector(selectName);
+
 
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1440);
   const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1440);
@@ -64,17 +62,7 @@ function Navigation() {
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev);
   };
-  // const handleLogout = async () => {
-  //   try {
-  //     await dispatch(logout()).unwrap();
-  //   } catch (error) {
-  //     alert('Logout failed: ' + error.message);
-  //   } finally {
-  //     setIsLogoutConfirmOpen(false);
-  //     localStorage.clear();
-  //     navigate('/login');
-  //   }
-  // };
+
 
   return (
     <nav className={styles.nav}>
@@ -82,43 +70,46 @@ function Navigation() {
       {isDesktop && (
         <ul className={styles.linkList}>
           <li>
-            <NavLink to="/" className={({ isActive }) => isActive ? styles.active : undefined} >Home</NavLink>
+            <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ''} >Home</NavLink>
           </li>
           <li>
-            <NavLink to="/articles" className={({ isActive }) => isActive ? styles.active : undefined} >Articles</NavLink>
+            <NavLink to="/articles" className={({ isActive }) => isActive ? styles.active : ''} >Articles</NavLink>
           </li>
           <li>
-            <NavLink to="/creators" className={({ isActive }) => isActive ? styles.active : undefined} >Creators</NavLink>
+            <NavLink to="/creators" className={({ isActive }) => isActive ? styles.active : ''} >Creators</NavLink>
           </li>
         </ul>
       )}
 
-      {/* Auth-кнопки (десктоп) */}
-      {isDesktop && !isAuthenticated &&(
-        <AuthButtons
-          active={activeAuthButton}
-          onLogin={handleLoginClick}
-          onJoin={handleJoinClick}
-        />
+{isDesktop && ( 
+        isAuthenticated ? ( 
+          <>
+            <CreateArticle /> 
+            <UserMenu/> 
+          </>
+        ) : ( 
+          <AuthButtons
+            active={activeAuthButton}
+            onLogin={handleLoginClick}
+            onJoin={handleJoinClick}
+          />
+        )
       )}
 
-{isAuthenticated && isDesktop && (
-        <div className={styles.authenticatedBlock}>
-          <button className={styles.createBtn} onClick={() => setIsAddArticleOpen(true)}>Create an article</button>
-          <span className={styles.username}>{user?.name}</span>
-          <button className={styles.exitBtn} onClick={() => setIsLogoutConfirmOpen(true)}>Exit</button>
-        </div>
+      {isTablet && ( 
+        isAuthenticated ? ( 
+          <>
+            <CreateArticle/> 
+          </>
+        ) : ( 
+          <button
+            onClick={handleJoinClick}
+            className={` ${styles.joinButtonTablet}`} 
+          >
+            Join now
+          </button>
+        )
       )}
-
-      {/* Join now (планшет) */}
-      {isTablet && !isAuthenticated ? (
-        <button
-          onClick={handleJoinClick}
-          className={` ${styles.joinButtonTablet}`}
-        >
-          Join now
-        </button>
-      ): <button className={styles.createBtn} onClick={() => setIsAddArticleOpen(true)}>Create an article</button>}
 
       {/* Бургер */}
       {(isTablet || isMobile) &&  (
@@ -126,17 +117,14 @@ function Navigation() {
       )}
 
       {/* Мобільне меню */}
-      { !isAuthenticated ?<MobileMenu
+      <MobileMenu
         isOpen={isMenuOpen}
         isTablet={isTablet}
         isMobile={isMobile}
         onClose={toggleMenu}
         onLogin={handleLoginClick}
         onJoin={handleJoinClick}
-      />:<><span className={styles.username}>{user?.name}</span>
-      <button className={styles.exitBtn} onClick={() => setIsLogoutConfirmOpen(true)}>Exit</button>
-      </>
-      }
+     />
     </nav>
   );
 }

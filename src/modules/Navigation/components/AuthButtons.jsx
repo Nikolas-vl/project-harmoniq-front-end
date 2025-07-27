@@ -17,7 +17,7 @@ const AuthButtons = () => {
       </NavLink>
       <NavLink
         to="/register"
-        className={`${styles.authButton} ${isRegister || !isLogin ? styles.activeAuth : styles.inactiveAuth}`}
+        className={`${styles.authButton} ${isRegister ? styles.activeAuth : styles.inactiveAuth}`}
       >
         Join now
       </NavLink>
