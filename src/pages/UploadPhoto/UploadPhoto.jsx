@@ -1,12 +1,11 @@
-// const UploadPhoto = () => {
-//   return <div>UploadPhoto</div>;
-// };
-
-// export default UploadPhoto;
-
-// Додав заглушку
-const UploadPhotoPage = () => {
-  return <h1>Upload Photo Page (Coming soon...)</h1>;
+import UploadForm from '../../modules/UploadForm/UploadForm';
+import s from './UploadPhoto.module.css';
+const UploadPhoto = () => {
+  return (
+    <div className={`container ${s.uploadPhotoWrapper}`}>
+      <UploadForm />
+    </div>
+  );
 };
 
-export default UploadPhotoPage;
+export default UploadPhoto;

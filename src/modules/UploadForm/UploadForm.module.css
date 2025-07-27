@@ -1,0 +1,110 @@
+@import '/src/assets/styles/_variables.module.css';
+
+.wrapper{
+  position: relative;
+}
+
+.form {
+  background: var(--color-light-green);
+  padding: 32px;
+  border-radius: 32px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 21px;
+  right: 21px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.mainText {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.fileInputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto;
+  background-color: var(--color-green);
+  border-radius: 50%;
+  width: 136px;
+  height: 136px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.fileInputWrapper input[type='file'] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+
+.photoIcon {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.saveBtn {
+  margin-top: 20px;
+  padding: 8px 129px;
+  background: var(--color-green);
+  border: none;
+  border-radius: 64px;
+  color:  var(--color-white-bg);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
+}
+
+.saveBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Адаптив
+@media (min-width: 768px) {
+  .form {
+    max-width: 480px;
+    padding: 48px 32px;
+  }
+
+  .mainText {
+    font-size: 32px;
+  }
+
+  .fileInputWrapper {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .form {
+    max-width: 600px;
+    padding: 64px 48px;
+  }
+} */
