@@ -3,8 +3,13 @@ import InputFileUpload from './components/InputFileUpload';
 import CustomTextArea from './components/CustomTextArea';
 import { InputWithScroll } from './components/InputWithScroll';
 import { useArticleForm } from './hooks/useArticleForm';
+import { useCreateArticle } from '../../api/hooks/articles/useCreateArticle';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const ArticleForm = () => {
+  const { create, isLoading } = useCreateArticle();
+  const navigate = useNavigate();
   const {
     formik,
     previewUrl,
@@ -12,8 +17,14 @@ const ArticleForm = () => {
     handleTitleChange,
     handleTextChange,
   } = useArticleForm(async articleObject => {
-    console.log('Відправляємо на бекенд:', articleObject);
-    // navigate(`/articles/${articleId}`);
+    try {
+      const result = await create(articleObject);
+      const articleId = result.data._id;
+      navigate(`/articles/${articleId}`);
+    } catch (err) {
+      toast.error('An error occurred when creating an article!');
+      console.error(err);
+    }
   });
 
   return (
@@ -41,7 +52,11 @@ const ArticleForm = () => {
         error={formik.errors.text}
         touched={formik.touched.text}
       />
-      <button disabled={formik.isSubmitting} type="submit" className={s.button}>
+      <button
+        disabled={formik.isSubmitting || isLoading}
+        type="submit"
+        className={s.button}
+      >
         Publish Article
       </button>
     </form>
