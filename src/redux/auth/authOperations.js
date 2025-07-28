@@ -2,13 +2,6 @@ import { toast } from 'react-hot-toast';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { setAuthHeader, clearAuthHeader } from '../../api/axios';
 
-const prepareAuth = thunkAPI => {
-  const state = thunkAPI.getState();
-  const token = state.auth.token;
-  if (!token) throw new Error('No token');
-  setAuthHeader(token);
-};
-
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials, thunkApi) => {
@@ -31,8 +24,8 @@ export const register = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       await axios.post('/auth/register', credentials);
-
-      const loginResult = await thunkApi.dispatch(login(credentials));
+      const { email, password } = credentials;
+      const loginResult = await thunkApi.dispatch(login({ email, password }));
 
       if (loginResult.error) {
         return thunkApi.rejectWithValue('Login after registration failed');
@@ -66,11 +59,14 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      prepareAuth(thunkAPI);
       const response = await axios.post('/auth/refresh');
       const token = response.data.data.accessToken;
+      const user = response.data.data.user;
       setAuthHeader(token);
-      return { token };
+      return {
+        token,
+        user,
+      };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }

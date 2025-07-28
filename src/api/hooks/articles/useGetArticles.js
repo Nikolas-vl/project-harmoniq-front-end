@@ -1,25 +1,26 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { getArticles } from '../../services/articlesApi';
 
-export const useGetArticles = () => {
+export const useGetArticles = (page = 1, perPage = 12) => {
   const [articles, setArticles] = useState([]);
+  const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetch = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const res = await getArticles();
-      setArticles(res.data);
-    } catch (err) {
-      console.error('Failed to fetch articles:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
+    const fetch = async () => {
+      setIsLoading(true);
+      try {
+        const res = await getArticles({ page, perPage });
+        setArticles(res.data.articles);
+        setPagination(res.data.paginationData);
+      } catch (err) {
+        console.error('Failed to fetch articles:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetch();
-  }, [fetch]);
+  }, [page, perPage]);
 
-  return { articles, isLoading, refetch: fetch };
+  return { articles, pagination, isLoading };
 };
