@@ -51,13 +51,13 @@ const LoginForm = () => {
                 <h1 className={s.h1LoginForm}>Login</h1> 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                     {({ isSubmitting }) => (
-                        <Form noValidate className={s.loginFormFields}>
-                            <div>
+                    <Form noValidate className={s.loginFormFields}>
+                        <div className={s.fieldWrapper}>
                             <label className={s.labelLoginForm}>Enter your email address</label>
                                 <Field name='email' type="email" className={s.inputLoginForm} placeholder="email@gmail.com" />
                                 <ErrorMessage name='email' component='div' className={s.errorLogin} />
                         </div>
-                        <div>
+                        <div className={s.fieldWrapper}>
                             <label className={s.labelLoginForm}>Enter a password</label>
                             <div className={s.inputWrapper}>
                                 <span onClick={() => setShowPassword(prev => !prev)} className={s.seePass}>

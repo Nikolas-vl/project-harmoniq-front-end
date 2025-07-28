@@ -64,6 +64,14 @@
     }
 }
 
+.fieldWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 24px;
+}
+
 .inputWrapper {
     position: relative;
     display: flex;
@@ -136,6 +144,7 @@
     font-weight: 700;
     font-size: 16px;
     margin-top: 11px;
+    transition: all 250 ease-in-out;
 }
 
 .loginBtn:hover {
@@ -183,6 +192,9 @@
 }
 
 .errorLogin {
+    position: absolute;
+    bottom: -16px;
+    left: 0;
     color: crimson;
     font-size: 10px;
     margin: 0;
