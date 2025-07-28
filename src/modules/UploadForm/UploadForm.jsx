@@ -1,51 +1,63 @@
 import { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import styles from './UploadForm.module.css';
 
 import closeIcon from '../../assets/icons/uploadPhoto/close.svg';
 import cameraIcon from '../../assets/icons/uploadPhoto/photo.svg';
+import { validateAndUploadImage } from '../CreateArticleForm/utils/validateImage';
 
 const UploadForm = () => {
   const navigate = useNavigate();
   const [previewUrl, setPreviewUrl] = useState(null);
-
-  const formik = useFormik({
-    initialValues: {
-      photo: null,
-    },
-    validationSchema: Yup.object({
-      photo: Yup.mixed().required('Photo is required'),
-    }),
-    onSubmit: async values => {
-      const formData = new FormData();
-      formData.append('photo', values.photo);
-
-      try {
-        await fakeUploadRequest(formData); // Імітація запиту
-        navigate('/home-authorised');
-      } catch (err) {
-        alert('Upload failed');
-      }
-    },
-  });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleFileChange = e => {
-    const file = e.currentTarget.files[0];
-    if (file) {
-      formik.setFieldValue('photo', file);
-      setPreviewUrl(URL.createObjectURL(file));
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      setError('The file is too large. Maximum 2MB.');
+      return;
+    }
+
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+      setError('Only JPG and PNG images are allowed.');
+      return;
+    }
+
+    setError('');
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!selectedFile) {
+      setError('Please select a photo');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const imageUrl = await validateAndUploadImage(selectedFile);
+      if (!imageUrl) throw new Error('Upload failed');
+      navigate('/home-authorised');
+    } catch (err) {
+      setError('Upload failed. Please try again.');
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className={styles.wrapper}>
-      <button className={styles.closeBtn} onClick={() => navigate(-1)}>
-        <img src={closeIcon} alt="close" className={styles.icon} />
-      </button>
-
-      <form onSubmit={formik.handleSubmit} className={styles.form}>
+    <div className={`container ${styles.wrapper}`}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <button className={styles.closeBtn} onClick={() => navigate(-1)}>
+          <img src={closeIcon} alt="close" className={styles.icon} />
+        </button>
         <h2 className={styles.mainText}>Upload your photo</h2>
 
         <label htmlFor="photo" className={styles.fileInputWrapper}>
@@ -60,27 +72,22 @@ const UploadForm = () => {
             type="file"
             accept="image/*"
             onChange={handleFileChange}
+            className={styles.fileInput}
           />
         </label>
 
-        {formik.touched.photo && formik.errors.photo && (
-          <div className={styles.error}>{formik.errors.photo}</div>
-        )}
+        {error && <div className={styles.error}>{error}</div>}
 
         <button
           type="submit"
           className={styles.saveBtn}
-          disabled={!formik.values.photo}
+          disabled={!selectedFile || loading}
         >
-          Save
+          {loading ? 'Uploading...' : 'Save'}
         </button>
       </form>
     </div>
   );
 };
-
-// Імітація бекенду
-const fakeUploadRequest = formData =>
-  new Promise(resolve => setTimeout(() => resolve({ success: true }), 1000));
 
 export default UploadForm;

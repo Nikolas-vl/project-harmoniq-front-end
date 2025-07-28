@@ -1,16 +1,13 @@
 @import '/src/assets/styles/_variables.module.css';
 
-.wrapper{
-  position: relative;
-}
-
 .form {
   background: var(--color-light-green);
   padding: 32px;
   border-radius: 32px;
   text-align: center;
   width: 100%;
-  max-width: 400px;
+  min-width: 360px;
+  position: relative;
 }
 
 .closeBtn {
@@ -40,6 +37,7 @@
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .fileInputWrapper input[type='file'] {
@@ -47,7 +45,9 @@
   width: 100%;
   height: 100%;
   position: absolute;
+  margin-bottom: 20px;
   cursor: pointer;
+  
 }
 
 .photoIcon {
@@ -69,8 +69,9 @@
 }
 
 .saveBtn {
-  margin-top: 20px;
-  padding: 8px 129px;
+  padding: 8px;
+    width: 100%;
+    height: 38px;
   background: var(--color-green);
   border: none;
   border-radius: 64px;
@@ -85,26 +86,17 @@
   cursor: not-allowed;
 }
 
-/* Адаптив
+
 @media (min-width: 768px) {
   .form {
-    max-width: 480px;
+    min-width: 522px;
     padding: 48px 32px;
   }
 
-  .mainText {
-    font-size: 32px;
-  }
-
-  .fileInputWrapper {
-    width: 160px;
-    height: 160px;
-  }
 }
 
 @media (min-width: 1440px) {
   .form {
-    max-width: 600px;
-    padding: 64px 48px;
+    min-width: 392px;
   }
-} */
+} 
