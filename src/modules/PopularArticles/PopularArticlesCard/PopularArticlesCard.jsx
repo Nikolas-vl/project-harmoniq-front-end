@@ -37,7 +37,7 @@ const PopularArticlesCard = ({ articles }) => {
                     <p className={css.card_description}>{articles.article}</p>
                 </div>
                 <div className={css.card_button_container}>
-                    <Link className={css.load_more_link} to="/">Learn more</Link>
+                    <Link className={css.load_more_link} to={`/articles/${articles._id}`}>Learn more</Link>
                     <button onClick={handleSave} className={`${css.save_button} ${isSaved ? css.saved_button : ''}`}>
                         <svg
                             className={css.save_svg}
