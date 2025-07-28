@@ -16,10 +16,10 @@ const Footer = () => {
             <p className={css.text}>&copy; 2025 Harmoniq. All rights reserved.</p>
             <ul className={css.link_list}>
               <li className={css.link_list_item}>
-                <NavLink className={css.redirect_link} to="/">Articles</NavLink>
+                <NavLink className={css.redirect_link} to="/articles">Articles</NavLink>
               </li>
               <li className={css.link_list_item}>
-                <NavLink className={css.redirect_link} to="/">Account</NavLink>
+                <NavLink className={css.redirect_link} to="/account">Account</NavLink>
               </li>
             </ul>
           </div>
