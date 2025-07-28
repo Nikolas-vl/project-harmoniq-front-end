@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
-import { AuthorsItem } from './AuthorsItem';
 import { getAllUsers } from '../../api/services/usersApi';
+import { AuthorsItem } from '../../modules/AuthorsList/AuthorsItem';
 
 const ITEMS_PER_PAGE = 20;
 
