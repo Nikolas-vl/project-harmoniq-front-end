@@ -63,24 +63,19 @@
   
 }
 
-.authButton:hover{
-  background-color: #374f42;
-  
-}
-
-
 .authButton.activeAuth {
   background-color: #649179;
   color: #f7fffb;
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
-
-
-
 }
 .authButton.inactiveAuth
  {
   background-color: transparent;
   color: #374f42;
+}
+.authButton:hover{
+  background-color: #374f42;
+  
 }
 
 .mobileMenuOverlay {
@@ -153,9 +148,11 @@
   font-weight: 700;
   font-size: 16px;
   color: #f7fffb;
-  
-  
 }
+.joinButtonInModalHeader:hover {
+  background-color: #374f42;
+}
+
 
 .closeButton {
   background: none;
@@ -219,12 +216,20 @@ font-size: 16px;
 color: #f7fffb;
 
 }
+.mobileLoginBtn:hover,
+.mobileJoinBtn :hover{
+  background-color: #374F42;
+}
 
 .mobileLoginBtn {
   background-color: transparent;
   color: #374f42;
 }
-
+.mobileLoginBtn:hover{
+  font-weight: 700;
+font-size: 16px;
+color: #f7fffb;
+}
 .hamburger {
   display: flex; 
   flex-direction: column;
@@ -277,6 +282,9 @@ color: #f7fffb;
   font-weight: 700;
   font-size: 16px;
   color: #f7fffb;
+}
+.joinButtonTablet:hover{
+  background: #374F42;
 }
   .nav {
     justify-content: flex-end; 
