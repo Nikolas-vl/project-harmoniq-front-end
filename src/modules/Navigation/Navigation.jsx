@@ -66,10 +66,12 @@ function Navigation() {
 
   const handleLogoutClick = () => {
     setIsLogoutModalOpen(true);
+    setIsMenuOpen(false); 
   };
 
   const handleLogoutCancel = () => {
     setIsLogoutModalOpen(false);
+    
   };
   
   const handleLogoutConfirm = async () => {
@@ -149,6 +151,7 @@ function Navigation() {
         onClose={toggleMenu}
         onLogin={handleLoginClick}
         onJoin={handleJoinClick}
+        onLogoutClick={handleLogoutClick}
      />
           <ModalLogout
         isOpen={isLogoutModalOpen} 

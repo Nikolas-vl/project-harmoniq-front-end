@@ -3,18 +3,18 @@
 import { Link } from 'react-router-dom';
 import styles from './CreateArticleButton.module.css'
 
-const CreateArticle = () => {
+const CreateArticle = (onClick) => {
  
   
 return(
     <>
        <Link
-        to="/create"
+        to="/create" onClick={onClick}
         className={`${styles.articleButton} `}
       >
         Create an article 
       </Link>
-    {/* <button className={styles.Button} >Create an article </button> */}
+
    
     </>
 )
