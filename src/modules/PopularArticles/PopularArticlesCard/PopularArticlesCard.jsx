@@ -1,17 +1,44 @@
 import css from "./PopularArticlesCard.module.css"
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { selectUserId } from "../../../redux/auth/authSelectors";
+import { useGetArticleById } from '../../../api/hooks/articles/useGetArticleById';
+import { useGetUserInfo } from '../../../api/hooks/users/useGetUserInfo';
+import { useSaveArticle } from '../../../api/hooks/users/useSaveArticle';
 import { Link } from "react-router-dom";
 
 const PopularArticlesCard = ({ articles }) => {
+    const userId = useSelector(selectUserId);
+    const [isSaved, setIsSaved] = useState(false);
+
+    const { user, isLoading } = useGetUserInfo(articles.ownerId);
+    const { article } = useGetArticleById();
+    const { saveArticle } = useSaveArticle(userId, article);
+
+    const handleSave = async () => {
+        try {
+            await saveArticle();
+            setIsSaved(true);
+        } catch (err) {
+            console.error("Failed to save article:", err);
+        }
+    };
+
+    if (isLoading) {
+        return <p>✋Loading...✋</p>
+    }
     return (
         <>
             <div className={css.card_container}>
-                <img className={css.card_image} src={articles.image} alt={articles.image_desc} />
-                <p className={css.card_author_name}>{articles.author}</p>
-                <h3 className={css.card_title}>{articles.topic}</h3>
-                <p className={css.card_description}>{articles.desc}</p>
+                <img className={css.card_image} src={articles.img} alt={articles.desc} />
+                <div>
+                    <p className={css.card_author_name}>{user?.name || 'Unknown author'}</p>
+                    <h3 className={css.card_title}>{articles.title}</h3>
+                    <p className={css.card_description}>{articles.article}</p>
+                </div>
                 <div className={css.card_button_container}>
                     <Link className={css.load_more_link} to="/">Learn more</Link>
-                    <button className={css.save_button}>
+                    <button onClick={handleSave} className={`${css.save_button} ${isSaved ? css.saved_button : ''}`}>
                         <svg
                             className={css.save_svg}
                             width="14"
