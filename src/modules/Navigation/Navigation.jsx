@@ -8,7 +8,7 @@ import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
 
 import AuthButtons from './components/AuthButtons';
-import Burger from './components/Burger';
+import Burger from './components/Burger/Burger';
 import MobileMenu from './components/MobileMenu';
 import UserMenu from './components/UserMenu/UserMenu';
 import CreateArticle from './components/CreateArticle/CreateArticleButton';
