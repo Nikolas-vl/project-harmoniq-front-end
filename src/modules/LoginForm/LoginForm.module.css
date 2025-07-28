@@ -64,6 +64,13 @@
     }
 }
 
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
 .labelLoginForm {
     font-size: 12px;
     font-weight: 400;
@@ -75,12 +82,26 @@
     border: 1px solid #9F9F9F;
     border-radius: 8px;
     padding: 8px;
+    padding-right: 32px;
     width: 266px;
     height: 41px;
     background-color: #F7FFFB;
     font-weight: 400;
     font-size: 16px;
     line-height: 155%;
+}
+
+.seePass {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    fill: #020202;
+    pointer-events: auto;
+    transition: fill 0.2s;
+}
+
+.seePass:hover {
+    fill: blueviolet;
 }
 
 .inputLoginForm::placeholder {
