@@ -1,15 +1,18 @@
-// components/Header/Header.jsx
+
 import styles from './Header.module.css';
 import Navigation from '../Navigation/Navigation';
-import logo from '../../assets/icons/header-logo.svg'; 
+import { Link } from 'react-router-dom';
+
 
 const Header = () => {
   return (
     <header className={styles.header}>
-   
-      <img src={logo} alt="Harmoniq Logo" className={styles.logoImage} />
-   
-   
+    <Link className={styles.logoImage} to="/">
+              <svg height="40">
+                <use href="/src/assets/icons/header-logo.svg#header-logo"></use>
+              </svg>
+            </Link>
+  
       <Navigation />
     </header>
   );

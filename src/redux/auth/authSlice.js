@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout, refreshUser, register } from './authOperations';
-import { setAuthHeader } from '../../api/axios';
 
 const initialState = {
   user: {
@@ -37,13 +36,13 @@ const slice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        const token = action.payload.token;
-        setAuthHeader(token);
-
+        const { token, user } = action.payload;
         state.token = token;
+        state.user = user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
+
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       });

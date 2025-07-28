@@ -4,13 +4,14 @@ import AppRoutes from './routes/AppRoutes';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from './redux/auth/authOperations';
 import { useEffect } from 'react';
+// import { selectUserToken } from './redux/auth/authSelectors';
 
 function App() {
-  const dispatch = useDispatch();
+const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+useEffect(() => {
+  dispatch(refreshUser());
+}, [dispatch]);
 
   return (
     <>

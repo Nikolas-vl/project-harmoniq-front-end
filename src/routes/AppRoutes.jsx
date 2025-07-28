@@ -4,9 +4,10 @@ import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
-// const HomeAuthorised = lazy(() =>
-//   import('../pages/HomeAuthorised/HomeAuthorised')
-// );
+const TestAuth = lazy(() => import('../pages/Test/TestAuth'));
+const TestUsers = lazy(() => import('../pages/Test/TestUsers'));
+const TestArticles = lazy(() => import('../pages/Test/TestArticles'));
+
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ArticlesPage = lazy(() => import('../pages/ArticlesPage/ArticlesPage'));
 const ArticlePage = lazy(() => import('../pages/ArticlePage/ArticlePage'));
@@ -31,6 +32,10 @@ const AppRoutes = () => {
         <Route path="/articles/:id" element={<ArticlePage />} />
         <Route path="/authors" element={<AuthorsPage />} />
         <Route path="/authors/:id" element={<AuthorProfilePage />} />
+
+        <Route path="/testauth" element={<TestAuth />} />
+        <Route path="/testusers" element={<TestUsers />} />
+        <Route path="/testarticles" element={<TestArticles />} />
 
         <Route
           path="/create"
