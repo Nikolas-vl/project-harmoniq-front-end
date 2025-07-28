@@ -1,0 +1,1 @@
+import{i as e}from"./index-CdisTONt.js";const a=({page:t,perPage:s}={})=>e.get("/articles",{params:{page:t,perPage:s}}),c=t=>e.get(`/articles/${t}`),i=t=>e.post("/articles",t);export{c as a,i as c,a as g};
