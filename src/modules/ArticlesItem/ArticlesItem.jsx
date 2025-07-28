@@ -1,10 +1,10 @@
 import ButtonAddToBookmarks from '../ButtonAddToBookmarks/ButtonAddToBookmarks';
 import s from './ArticlesItem.module.css';
-const ArticlesItem = ({ author, title, description, handleAdd }) => {
+const ArticlesItem = ({ author, title, description, img, handleAdd }) => {
   return (
     <article className={s.articleContainer}>
       <img
-        src="test"
+        src={img}
         alt="photo here"
         width={337}
         height={233}

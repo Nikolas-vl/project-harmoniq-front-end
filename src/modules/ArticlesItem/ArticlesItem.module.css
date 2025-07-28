@@ -12,6 +12,7 @@
 
 .articleImg {
   border-radius: 24px;
+  object-fit: contain;
 }
 
 .authorInfo {
