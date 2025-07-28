@@ -1,5 +1,11 @@
+import LoginForm from "../../modules/LoginForm/LoginForm";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return <div>
+    <LoginForm />
+  </div>;
 };
 
 export default LoginPage;
+
+
