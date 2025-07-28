@@ -5,6 +5,10 @@ import { useDispatch } from 'react-redux';
 
 const ModalLogout = ({ isOpen, onClose } ) => {
     const dispatch = useDispatch();
+    
+    const handleLogout = () => {
+      dispatch(logout());
+    };
     if (!isOpen) return null;
   return (
     <div className={`${styles.logout} ${isOpen ? styles.showMenu : ''}`}>
@@ -15,7 +19,8 @@ const ModalLogout = ({ isOpen, onClose } ) => {
         <h2 className={styles.title}>Are you sure?</h2>
         <p className={styles.subtitle}>We will miss you!</p>
         <div className={styles.buttons}>
-          <button className={styles.logoutBtn} onClick={() => dispatch(logout())} >
+          <button className={styles.logoutBtn} onClick={handleLogout }
+ >
 
             Log out
           </button>

@@ -71,7 +71,7 @@ function Navigation() {
   const handleLogoutCancel = () => {
     setIsLogoutModalOpen(false);
   };
-
+  
   const handleLogoutConfirm = async () => {
     try {
       await dispatch(logout()).unwrap();
@@ -152,8 +152,9 @@ function Navigation() {
      />
           <ModalLogout
         isOpen={isLogoutModalOpen} 
-        onConfirm={handleLogoutConfirm}
+         onConfirm={handleLogoutConfirm}
         onClose={handleLogoutCancel}
+        
       />
       
     </nav>
