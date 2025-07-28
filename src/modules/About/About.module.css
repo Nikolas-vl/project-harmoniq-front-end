@@ -7,13 +7,24 @@
   margin-bottom: 36px;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.textLotos {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .textBox {
   border-radius: 32px;
   padding: 32px;
   width: 361px;
   height: 365px;
   background: var(--color-light-green);
-  margin-bottom: 24px;
 }
 
 .aboutTitle {
@@ -32,13 +43,11 @@
   color: var(-color-black);
 }
 
-.picturesList {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
 @media screen and (min-width: 768px) {
+  .textLotos {
+    flex-direction: row;
+  }
+
   .textBox {
     width: 431px;
     height: 326px;
@@ -47,31 +56,25 @@
   .aboutText {
     width: 367px;
   }
-
-  .textLotos {
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-  }
 }
 
 @media screen and (min-width: 1440px) {
   .desktopOnly {
     display: block;
   }
+
+  .picturesList {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+
   .textBox {
     width: 496px;
     height: 326px;
   }
 
-  .textLotos {
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-    width: 1224px;
-  }
   .picturesList {
     flex-direction: row;
-    width: 1224px;
   }
 }
