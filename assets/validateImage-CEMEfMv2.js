@@ -1,0 +1,1 @@
+const e=async a=>{const t=new FormData;return t.append("file",a),t.append("upload_preset","article_images"),(await(await fetch("https://api.cloudinary.com/v1_1/dlgcrdtgc/image/upload",{method:"POST",body:t})).json()).secure_url},n=async a=>a?await e(a):null;export{n as v};
