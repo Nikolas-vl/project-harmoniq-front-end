@@ -3,15 +3,19 @@ import toast from 'react-hot-toast';
 import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../redux/auth/authSelectors';
+import TestNav from './TestNav';
 
 const TestUsers = () => {
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+  const loggedUserId = useSelector(selectUserId);
   const {
     users,
     isLoading: loadingUsers,
     paginationData,
-    page,
-    setPage,
-  } = useGetAllUsers();
+  } = useGetAllUsers(page, perPage);
 
   const [userId, setUserId] = useState('');
   const [articleId, setArticleId] = useState('');
@@ -30,9 +34,9 @@ const TestUsers = () => {
     if (!userId || !articleId) return;
     try {
       await saveArticle(userId, articleId);
-      toast('Article saved!');
+      toast.success('Article saved!');
     } catch {
-      toast('Error saving article.');
+      toast.error('Error saving article.');
     }
   };
 
@@ -43,6 +47,8 @@ const TestUsers = () => {
 
   return (
     <div style={{ padding: '1rem' }}>
+      <TestNav />
+
       <div
         style={{
           display: 'flex',
@@ -78,7 +84,7 @@ const TestUsers = () => {
           </button>
         </div>
       </div>
-
+      <p>Ur user id is {loggedUserId ? loggedUserId : 'ur not loggin'}</p>
       <div style={{ marginTop: '2rem' }}>
         <details>
           <summary style={{ fontWeight: 'bold' }}>
@@ -98,17 +104,42 @@ const TestUsers = () => {
                 ))}
               </ul>
 
-              <div style={{ marginTop: '1rem' }}>
+              <div
+                style={{
+                  marginTop: '1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                }}
+              >
                 <button
-                  onClick={() => setPage(page - 1)}
+                  onClick={() => setPage(prev => Math.max(prev - 1, 1))}
                   disabled={!paginationData?.hasPreviousPage}
                 >
                   Prev
                 </button>
+
+                <label>
+                  Users per page:{' '}
+                  <select
+                    value={perPage}
+                    onChange={e => setPerPage(Number(e.target.value))}
+                  >
+                    {[6, 12, 24, 48].map(n => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
                 <button
-                  onClick={() => setPage(page + 1)}
+                  onClick={() =>
+                    setPage(prev =>
+                      Math.min(prev + 1, paginationData?.totalPages || prev + 1)
+                    )
+                  }
                   disabled={!paginationData?.hasNextPage}
-                  style={{ marginLeft: '0.5rem' }}
                 >
                   Next
                 </button>
@@ -127,7 +158,8 @@ const TestUsers = () => {
                 <strong>Name:</strong> {user.name}
               </p>
               <p>
-                <strong>Saved:</strong> {user.saved.join(', ')}
+                <strong>Saved:</strong>{' '}
+                {Array.isArray(user.saved) ? user.saved.join(', ') : ''}
               </p>
               <h4>Articles:</h4>
               <ul>

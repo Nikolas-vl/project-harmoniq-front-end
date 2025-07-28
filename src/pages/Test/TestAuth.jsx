@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, register } from '../../redux/auth/authOperations';
 import { selectUserToken } from '../../redux/auth/authSelectors';
+import TestNav from './TestNav';
 
 const TestAuth = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const TestAuth = () => {
 
   return (
     <div style={{ padding: 20 }}>
+      <TestNav />
+
       <h3>Auth Test</h3>
       <p>{token}</p>
       <div>
