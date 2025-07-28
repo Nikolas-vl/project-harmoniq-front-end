@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { deleteArticle } from '../services/articlesApi';
+import { deleteArticle } from '../../services/articlesApi';
 
 export const useDeleteArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
