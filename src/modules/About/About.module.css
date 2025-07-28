@@ -1,0 +1,77 @@
+.desktopOnly {
+  display: none;
+}
+
+.about {
+  margin-top: 36px;
+  margin-bottom: 36px;
+}
+
+.textBox {
+  border-radius: 32px;
+  padding: 32px;
+  width: 361px;
+  height: 365px;
+  background: var(--color-light-green);
+  margin-bottom: 24px;
+}
+
+.aboutTitle {
+  font-family: var(--ff-manrope);
+  font-weight: var(--fw-bold);
+  font-size: 32px;
+  color: var(-color-black);
+  margin-bottom: 32px;
+}
+
+.aboutText {
+  font-family: var(--ff-manrope);
+  font-weight: var(--fw-regular);
+  font-size: 16px;
+  line-height: 155%;
+  color: var(-color-black);
+}
+
+.picturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .textBox {
+    width: 431px;
+    height: 326px;
+  }
+
+  .aboutText {
+    width: 367px;
+  }
+
+  .textLotos {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .desktopOnly {
+    display: block;
+  }
+  .textBox {
+    width: 496px;
+    height: 326px;
+  }
+
+  .textLotos {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: 1224px;
+  }
+  .picturesList {
+    flex-direction: row;
+    width: 1224px;
+  }
+}
