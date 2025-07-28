@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
 import { AuthorsItem } from './AuthorsItem';
-import axios from 'axios';
+import { getAllUsers } from '../../api/services/usersApi';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -14,7 +14,7 @@ const AuthorsPage = () => {
   const fetchAuthors = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/users?page=${page}&perPage=${ITEMS_PER_PAGE}`);
+      const res = await getAllUsers({ page, perPage: ITEMS_PER_PAGE });
 
       const newAuthors = Array.isArray(res.data.users) ? res.data.users : [];
 
