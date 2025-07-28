@@ -1,41 +1,72 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
 import { AuthorsItem } from './AuthorsItem';
-import { mockAuthors } from './mockAuthors';
+import axios from 'axios';
 
 const ITEMS_PER_PAGE = 20;
 
 const AuthorsPage = () => {
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-  const visibleAuthors = mockAuthors.slice(0, visibleCount);
+  const [authors, setAuthors] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const handleLoadMore = () => {
-    setVisibleCount(prev => prev + ITEMS_PER_PAGE);
+  const fetchAuthors = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`/users?page=${page}&perPage=${ITEMS_PER_PAGE}`);
+
+      const newAuthors = Array.isArray(res.data.users) ? res.data.users : [];
+
+      setAuthors(prev => [...prev, ...newAuthors]);
+      if (newAuthors.length < ITEMS_PER_PAGE) {
+        setHasMore(false);
+      }
+
+      setPage(prev => prev + 1);
+    } catch (error) {
+      console.error('Error fetching authors:', error);
+      setHasMore(false);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchAuthors();
+  }, []);
 
   return (
     <section className={css.wrapper}>
       <div className="container">
-      <div className={css.contentBlock}>
-        <h2 className={css.title}>Authors</h2>
+        <div className={css.contentBlock}>
+          <h2 className={css.title}>Authors</h2>
 
-        {visibleAuthors.length === 0 ? (
-          <p className={css.noAuthors}>No authors available</p>
-        ) : (
-          <ul className={css.list}>
-            {visibleAuthors.map(author => (
-              <AuthorsItem key={author.id} {...author} />
-            ))}
-          </ul>
-        )}
-      </div>
+          {authors.length === 0 && !loading ? (
+            <p className={css.noAuthors}>No authors available</p>
+          ) : (
+            <ul className={css.list}>
+              {authors.map(author => (
+                <AuthorsItem
+                  key={author._id}
+                  id={author._id}
+                  name={author.name}
+                  avatar={author.avatarUrl}
+                />
+              ))}
+            </ul>
+          )}
 
-      
-        {mockAuthors.length > visibleCount && (
-          <button className={css.loadMore} onClick={handleLoadMore}>
-            Load More
-          </button>
-        )}
+          {hasMore && (
+            <button
+              className={css.loadMore}
+              onClick={fetchAuthors}
+              disabled={loading}
+            >
+              {loading ? 'Loading...' : 'Load More'}
+            </button>
+          )}
+        </div>
       </div>
     </section>
   );
