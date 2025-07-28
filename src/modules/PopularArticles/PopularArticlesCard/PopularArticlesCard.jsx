@@ -1,14 +1,14 @@
 import css from "./PopularArticlesCard.module.css"
 import { Link } from "react-router-dom";
 
-const PopularArticlesCard = ({ data }) => {
+const PopularArticlesCard = ({ articles }) => {
     return (
         <>
             <div className={css.card_container}>
-                <img className={css.card_image} src={data.image} alt={data.image_desc} />
-                <p className={css.card_author_name}>{data.author}</p>
-                <h3 className={css.card_title}>{data.topic}</h3>
-                <p className={css.card_description}>{data.desc}</p>
+                <img className={css.card_image} src={articles.image} alt={articles.image_desc} />
+                <p className={css.card_author_name}>{articles.author}</p>
+                <h3 className={css.card_title}>{articles.topic}</h3>
+                <p className={css.card_description}>{articles.desc}</p>
                 <div className={css.card_button_container}>
                     <Link className={css.load_more_link} to="/">Learn more</Link>
                     <button className={css.save_button}>

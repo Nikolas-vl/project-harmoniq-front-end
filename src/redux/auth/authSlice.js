@@ -5,6 +5,7 @@ const initialState = {
   user: {
     name: null,
     email: null,
+    id: null,
   },
   token: null,
   isLoggedIn: false,
@@ -27,7 +28,7 @@ const slice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, state => {
-        state.user = { name: null, email: null };
+        state.user = { name: null, email: null, id: null };
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -35,10 +36,13 @@ const slice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        const { token, user } = action.payload;
+        state.token = token;
+        state.user = user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
+
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       });
