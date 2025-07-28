@@ -1,0 +1,36 @@
+
+.userContainer {
+    display: flex;
+    align-items: center;
+     padding: 8px 16px; 
+     gap: 16px;
+    color: #374F42;  
+
+  }
+  .userSpan{
+    height: 39px;         
+    width: 1px;           
+    background-color: #374F42; 
+  }
+
+  
+  .userName {
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #374f42;
+    
+  }
+  
+  
+  .exitBtn {
+    background-color: transparent; 
+  border: none;                  
+  padding: 0;                    
+  display: flex;                 
+  align-items: center;          
+  justify-content: center;       
+  cursor: pointer;               
+  outline: none; 
+  }
+  
