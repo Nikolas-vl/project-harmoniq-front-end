@@ -31,7 +31,7 @@ const InputFileUpload = ({ error, onChange, photoUrl }) => {
         className={s.fileInput}
         onChange={handleFileChange}
       />
-      {error && <span className={s.error}>{error}</span>}
+      <span className={s.error}>{error ? error : '\u00A0'}</span>
     </label>
   );
 };
