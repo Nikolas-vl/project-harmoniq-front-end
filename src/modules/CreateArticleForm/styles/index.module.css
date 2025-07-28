@@ -1,0 +1,137 @@
+.form {
+  display: grid;
+  column-gap: 24px;
+  grid-template-columns: 1fr;
+  @media (width>=768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (width>=1440px) {
+    grid-template-columns: 1fr 391px;
+    grid-template-rows: 105px auto auto;
+  }
+}
+label {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-black);
+  font-size: 18px;
+}
+.titleLabel {
+  grid-column: 1;
+  @media (width>=768px) {
+    grid-column: 2;
+  }
+  @media (width>=1440px) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+.fileLabel {
+  grid-column: 1;
+  @media (width>=768px) {
+    grid-column: 1;
+  }
+  @media (width>=1440px) {
+    grid-column: 2;
+  }
+}
+.textareaLabel {
+  grid-column: 1;
+  @media (width>=768px) {
+    grid-column: 1/-1;
+  }
+  @media (width>=1440px) {
+    grid-column: 1;
+  }
+}
+.camera {
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 16px;
+  width: 361px;
+  height: 233px;
+  &:active {
+    box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+  }
+  @media (width>=768px) {
+    width: 340px;
+    height: 219px;
+  }
+  @media (width>=1440px) {
+    width: 391px;
+    height: 280px;
+    margin-top: 32px;
+  }
+}
+.fileInput {
+  display: none;
+}
+.input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-light-gray);
+  background-color: var(--color-white-bg);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-black);
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  &::placeholder {
+    color: var(--color-gray);
+  }
+  &:active {
+    box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+  }
+}
+.textarea {
+  border: 1px solid var(--color-light-gray);
+  border-radius: 8px;
+  padding: 12px;
+  height: 393px;
+  resize: none;
+  overflow: hidden;
+  &:active {
+    box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+  }
+}
+.errored {
+  border: 2px solid var(--color-red);
+}
+.error {
+  color: var(--color-red);
+  font-size: 14px;
+  height: 16px;
+  margin-bottom: 8px;
+}
+.button {
+  font-weight: var(--fw-bold);
+  font-size: 16px;
+  color: var(--color-white-bg);
+  border-radius: 64px;
+  padding-block: 12px;
+  width: 100%;
+  text-align: center;
+  background-color: var(--color-green);
+  outline: none;
+
+  &:hover {
+    background-color: var(--color-green-darker);
+  }
+  &:focus {
+    box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
+    background-color: var(--color-green);
+  }
+  &:disabled {
+    box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
+    background-color: var(--color-green);
+    opacity: 0.3;
+  }
+  @media (width>=768px) {
+    grid-column: 1/-1;
+  }
+  @media (width>=1440px) {
+    grid-column: 1;
+  }
+}

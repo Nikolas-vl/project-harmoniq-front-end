@@ -1,0 +1,129 @@
+.card_container {
+    border-radius: 32px;
+    padding: 12px;
+    width: 361px;
+    height: 492px;
+    background-color: var(--color-light-green);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+.card_image {
+    display: block;
+    border-radius: 24px;
+    width: 337px;
+    height: 233px;
+}
+
+.card_author_name {
+    font-family: var(--ff-manrope);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color-black);
+}
+
+.card_title {
+    font-family: var(--ff-manrope);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--color-black);
+    width: 264px;
+}
+
+.card_description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--ff-manrope);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--color-black);
+}
+
+.card_button_container {
+    display: flex;
+    gap: 8px;
+}
+
+.load_more_link {
+    display: block;
+    text-align: center;
+    font-family: var(--ff-manrope);
+    font-weight: 700;
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--color-green-darker);
+    border: 1px solid #374f42;
+    border-radius: 64px;
+    padding: 8px;
+    width: 289px;
+    height: 40px;
+}
+
+.save_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid #374f42;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition: var(--transition);
+    color: inherit;
+    color: #374f42;
+}
+
+.saved_button {
+    background-color: #649179;
+}
+
+.save_svg {
+    stroke: currentColor;
+    transition: var(--transition);
+}
+
+@media only screen and (min-width: 768px) {
+    .card_container {
+        width: 340px;
+    }
+    .card_image {
+        width: 316px;
+    }
+    .load_more_link {
+        width: 268px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .card_container {
+        width: 392px;
+    }
+    .card_image {
+        width: 368px;
+    }
+    .load_more_link {
+        width: 320px;
+        transition: var(--transition);
+    }
+    .load_more_link:hover,
+    .load_more_link:focus {
+        background-color: var(--color-green-darker);
+        color: white;
+    }
+    .save_button:hover,
+    .save_button:focus {
+        background-color: var(--color-green-darker);
+        color: white;
+    }
+    .card_container:hover,
+    .card_container:focus {
+        box-shadow: 0 0 5px #404040, 0 0 10px #404040;
+    }
+}

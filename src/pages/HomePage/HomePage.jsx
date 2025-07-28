@@ -1,11 +1,17 @@
-import About from "../../modules/About/About"
+import PopularArticles from '../../modules/PopularArticles/PopularArticles';
+import Creators from '../../modules/Creators/Creators';
+import Hero from "../../modules/Hero/Hero"
+import About from '../../modules/About/About';
+
 const HomePage = () => {
-  return ( 
-  <>
-  <div>HomePage</div>
+  return (
+    <>
+      <Hero />
       <About />
-      </>
-  )
+      <PopularArticles />
+      <Creators />
+    </>
+  );
 };
 
 export default HomePage;
