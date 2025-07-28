@@ -1,4 +1,4 @@
-import css from './AuthorsPage.module.css';
+import css from '../../pages/AuthorsPage/AuthorsPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthorsItem = ({ id, name, avatar }) => {
