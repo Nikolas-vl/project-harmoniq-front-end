@@ -1,1 +1,0 @@
-import{i as r}from"./index-CdisTONt.js";const a=({page:s,perPage:e}={})=>r.get("/users",{params:{page:s,perPage:e}}),o=s=>r.get(`/users/${s}`),n=(s,e)=>r.post(`/users/${s}/save/${e}`);export{o as a,a as g,n as s};
