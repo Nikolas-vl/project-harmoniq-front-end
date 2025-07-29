@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './ModalErrorSave.module.css';
 const ModalErrorSave = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
   useEffect(() => {
     const handleEsc = e => {
       if (e.key === 'Escape') {
@@ -11,6 +11,16 @@ const ModalErrorSave = ({ isOpen, onClose }) => {
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
   }, [onClose]);
+  const navigate = useNavigate();
+  if (!isOpen) return null;
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleRegisterClick = () => {
+    navigate('/register');
+  };
 
   const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
@@ -43,8 +53,12 @@ const ModalErrorSave = ({ isOpen, onClose }) => {
             To save this article, you need to authorize first
           </p>
           <div className={s.btns}>
-            <button className={s.loginBtn}>Login</button>
-            <button className={s.registerBtn}>Register</button>
+            <button onClick={handleLoginClick} className={s.loginBtn}>
+              Login
+            </button>
+            <button onClick={handleRegisterClick} className={s.registerBtn}>
+              Register
+            </button>
           </div>
         </div>
       </div>
