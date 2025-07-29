@@ -1,170 +1,65 @@
-// import { useState } from 'react';
-// import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
-// import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
-// import TestNav from './TestNav';
-// import s from './pagination.module.css';
-// import left from '../../assets/icons/left.svg';
-// import right from '../../assets/icons/right.svg';
+import s from './pagination.module.css';
+import left from '../../assets/icons/left.svg';
+import right from '../../assets/icons/right.svg';
 
 
-// function getPageNumbers(currentPage, totalPages, maxButtons = 5) {
-//   const half = Math.floor(maxButtons / 2);
-//   let start = Math.max(1, currentPage - half);
-//   let end = start + maxButtons - 1;
+function getPageNumbers(currentPage, totalPages, maxButtons = 5) {
+  const half = Math.floor(maxButtons / 2);
+  let start = Math.max(1, currentPage - half);
+  let end = start + maxButtons - 1;
 
-//   if (end > totalPages) {
-//     end = totalPages;
-//     start = Math.max(1, end - maxButtons + 1);
-//   }
+  if (end > totalPages) {
+    end = totalPages;
+    start = Math.max(1, end - maxButtons + 1);
+  }
 
-//   const pages = [];
-//   for (let i = start; i <= end; i++) {
-//     pages.push(i);
-//   }
+  const pages = [];
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
 
-//   return pages;
-// }
+  return pages;
+}
 
-// const TestArticles = () => {
-//   const [page, setPage] = useState(1);
-//   const [perPage, setPerPage] = useState(12);
+const Pagination = ({
+    page,
+    totalPages,
+    onPageChange,
+    isLoading,
+    maxButtons = 5
+}) => {
+    const pages = getPageNumbers(page, totalPages, maxButtons);
 
-//   const { articles, pagination, isLoading } = useGetArticles(page, perPage);
-//   const [articleId, setArticleId] = useState('');
-//   const { article, isLoading: loadingArticle } = useGetArticleById(articleId);
+    return (
+        <div className={s.paginationContainer}>
+            <button
+                className={s.navBtn}
+                onClick={() => onPageChange(p => Math.max(p - 1, 1))}
+                disabled={page === 1 || isLoading}
+            >
+                <img src={left} alt='prev page' width={16} height={16} />
+            </button>
 
-//   const totalPages = pagination?.totalPages || 1;
-//   const pages = getPageNumbers(page, totalPages, 5);
+            {pages.map(p => (
+                <button
+                    key={p}
+                    className={`${s.pageBtn} ${p === page ? s.active : ''}`}
+                    onClick={() => onPageChange(p)}
+                    disabled={p === page || isLoading}
+                >
+                    {p}
+                </button>
+            ))}
 
-//   return (
-//     <div style={{ padding: '1rem' }}>
-//       <TestNav />
-//       <div
-//         style={{
-//           display: 'flex',
-//           justifyContent: 'space-between',
-//           gap: '1rem',
-//           alignItems: 'center',
-//           flexWrap: 'wrap',
-//           marginBottom: '1rem',
-//         }}
-//       >
-//         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-//           <input
-//             placeholder="Article ID"
-//             value={articleId}
-//             onChange={e => setArticleId(e.target.value)}
-//           />
-//           <button disabled={!articleId.trim()}>Get Article By ID</button>
-//         </div>
+            <button
+                className={s.navBtn}
+                onClick={() => onPageChange(p => Math.min(p + 1, totalPages))}
+                disabled={page === totalPages || isLoading}
+            >
+                <img src={right} alt='next page' width={16} height={16} />
+            </button>
+        </div>
+    );
+};
 
-//         {/*test styles*/}
-
-//         <div className={s.paginationContainer}>
-//           <button
-//             className={s.navBtn}
-//             onClick={() => setPage(p => Math.max(p - 1, 1))}
-//             disabled={page === 1 || isLoading}
-//           >
-//             <img src={left} alt='prev page' width={16} height={16}/>
-//           </button>
-
-//           {pages.map(p => (
-//             <button
-//               key={p}
-//               className={`${s.pageBtn} ${p === page ? s.active : ''}`}
-//               onClick={() => setPage(p)}
-//               disabled={p === page || isLoading}
-//             >
-//               {p}
-//             </button>
-//           ))}
-
-//           <button
-//             className={s.navBtn}
-//             onClick={() => setPage(p => Math.min(p + 1, totalPages))}
-//             disabled={page === totalPages || isLoading}
-//           >
-//             <img src={right} alt='next page' width={16} height={16}/>
-//           </button>
-
-//           <label style={{ marginLeft: '1rem' }}>
-//             Per page:{' '}
-//             <select
-//               value={perPage}
-//               onChange={e => {
-//                 setPerPage(Number(e.target.value));
-//                 setPage(1);
-//               }}
-//               disabled={isLoading}
-//             >
-//               {[6, 12, 24, 48].map(n => (
-//                 <option key={n} value={n}>
-//                   {n}
-//                 </option>
-//               ))}
-//             </select>
-//           </label>
-//         </div>
-
-//       </div>
-
-//       <div>
-//         {isLoading ? (
-//           <p>Loading articles...</p>
-//         ) : (
-//           <details>
-//             <summary style={{ fontWeight: 'bold' }}>All Articles</summary>
-//             <ul>
-//               {articles.map(a => (
-//                 <li key={a._id || a.title}>
-//                   <p> {a.title}</p>
-//                   <p>{a._id}</p>
-//                 </li>
-//               ))}
-//             </ul>
-//           </details>
-//         )}
-
-//         <h3>Selected Article</h3>
-//         {loadingArticle ? (
-//           <p>Loading article...</p>
-//         ) : (
-//           article && (
-//             <details style={{ marginTop: '1rem' }}>
-//               <summary style={{ fontWeight: 'bold', cursor: 'pointer' }}>
-//                 {article.title}
-//               </summary>
-//               <div style={{ marginTop: '0.5rem' }}>
-//                 <img
-//                   src={article.img}
-//                   alt={article.title}
-//                   style={{
-//                     maxWidth: '100%',
-//                     height: 'auto',
-//                     marginBottom: '1rem',
-//                   }}
-//                 />
-//                 <p>
-//                   <strong>Description:</strong> {article.desc}
-//                 </p>
-//                 <p>
-//                   <strong>Date:</strong>{' '}
-//                   {new Date(article.date).toLocaleDateString()}
-//                 </p>
-//                 <p>
-//                   <strong>Rate:</strong> {article.rate}
-//                 </p>
-//                 <p style={{ whiteSpace: 'pre-line', marginTop: '1rem' }}>
-//                   {article.article}
-//                 </p>
-//               </div>
-//             </details>
-//           )
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default TestArticles;
+export default Pagination;

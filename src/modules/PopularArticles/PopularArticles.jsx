@@ -1,13 +1,13 @@
-import PopularArticlesCardsList from './PopularArticlesCardsList/PopularArticlesCardsList'
+import PopularArticlesList from './PopularArticlesList/PopularArticlesList';
 import logo from '/src/assets/icons/redirect-logo.svg';
 import css from './PopularArticles.module.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const PopularArticles = () => {
   return (
     <>
       <section className={css.section_container}>
-        <div className='container'>
+        <div className="container">
           <div className={css.section_title_link_container}>
             <h2 className={css.section_title}>Popular Articles</h2>
             <div className={css.section_link_svg_container}>
@@ -17,7 +17,7 @@ const PopularArticles = () => {
               </Link>
             </div>
           </div>
-          <PopularArticlesCardsList />
+          <PopularArticlesList />
         </div>
       </section>
     </>
