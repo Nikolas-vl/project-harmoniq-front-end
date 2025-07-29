@@ -1,17 +1,17 @@
-import { toast } from 'react-hot-toast';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { setAuthHeader, clearAuthHeader } from '../../api/axios';
+import { toast } from 'react-hot-toast';
 
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials, thunkApi) => {
     try {
       const response = await axios.post('/auth/login', credentials);
-      const token = response.data.data.accessToken;
-      const user = response.data.data.user;
-      setAuthHeader(token);
+      const { accessToken, user, userArticles, savedArticles } =
+        response.data.data;
+      setAuthHeader(accessToken);
       toast.success('Login successful!');
-      return { token, user };
+      return { accessToken, user, userArticles, savedArticles };
     } catch (e) {
       toast.error('Login error!');
       return thunkApi.rejectWithValue(e.message);
@@ -60,13 +60,10 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.post('/auth/refresh');
-      const token = response.data.data.accessToken;
-      const user = response.data.data.user;
-      setAuthHeader(token);
-      return {
-        token,
-        user,
-      };
+      const { accessToken, user, userArticles, savedArticles } =
+        response.data.data;
+      setAuthHeader(accessToken);
+      return { accessToken, user, userArticles, savedArticles };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }

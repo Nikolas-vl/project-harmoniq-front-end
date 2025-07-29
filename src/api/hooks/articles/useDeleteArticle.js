@@ -11,7 +11,6 @@ export const useDeleteArticle = () => {
       await deleteArticle(id);
     } catch (err) {
       console.error('Failed to delete article:', err);
-      throw err;
     } finally {
       setIsLoading(false);
     }

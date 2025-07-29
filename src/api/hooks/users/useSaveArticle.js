@@ -10,7 +10,6 @@ export const useSaveArticle = () => {
       await saveArticleToUser(userId, articleId);
     } catch (err) {
       console.error('Failed to save article:', err);
-      throw err;
     } finally {
       setIsLoading(false);
     }

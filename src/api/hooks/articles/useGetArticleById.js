@@ -12,7 +12,7 @@ export const useGetArticleById = id => {
       setIsLoading(true);
       try {
         const res = await getArticleById(id);
-        setArticle(res.data.article);
+        setArticle(res.data.data.article);
       } catch (err) {
         console.error('Failed to fetch article:', err);
       } finally {
