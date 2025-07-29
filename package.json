@@ -14,7 +14,6 @@
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
-    "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
@@ -22,7 +21,9 @@
     "react-paginate": "^8.3.0",
     "react-password-strength-bar-with-style-item": "^0.5.3",
     "react-redux": "^9.2.0",
+    "react-toastify": "^11.0.5",
     "react-router-dom": "^7.7.1",
+    "react-spinners": "^0.17.0",
     "redux-persist": "^6.0.0",
     "uuid": "^11.1.0",
     "yup": "^1.6.1"

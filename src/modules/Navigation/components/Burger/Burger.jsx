@@ -1,4 +1,4 @@
-import styles from '../Navigation.module.css';
+import styles from './Burger.module.css';
 
 const Burger = ({ onClick, isOpen }) => {
   return (

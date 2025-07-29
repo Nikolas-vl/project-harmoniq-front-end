@@ -24,10 +24,11 @@ function getPageNumbers(currentPage, totalPages, maxButtons = 5) {
 const TestArticles = () => {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(12);
+  const [articleId, setArticleId] = useState('');
 
   const { articles, pagination, isLoading } = useGetArticles(page, perPage);
-  const [articleId, setArticleId] = useState('');
   const { article, isLoading: loadingArticle } = useGetArticleById(articleId);
+  console.log('article:', article);
 
   const totalPages = pagination?.totalPages || 1;
   const pages = getPageNumbers(page, totalPages, 5);
