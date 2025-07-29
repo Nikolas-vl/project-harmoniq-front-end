@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 
 import authReducer from './auth/authSlice';
-import globalReducer from './global/globalSlice';
+import globalReducer from './globalSlice';
 
 const authPersistConfig = {
   key: 'auth',

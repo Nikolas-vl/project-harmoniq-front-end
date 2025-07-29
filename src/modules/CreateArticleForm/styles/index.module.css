@@ -1,6 +1,6 @@
 .form {
   display: grid;
-  gap: 24px;
+  column-gap: 24px;
   grid-template-columns: 1fr;
   @media (width>=768px) {
     grid-template-columns: 1fr 1fr;
@@ -13,7 +13,6 @@
 label {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   color: var(--color-black);
   font-size: 18px;
 }
@@ -51,6 +50,9 @@ label {
   border-radius: 16px;
   width: 361px;
   height: 233px;
+  &:active {
+    box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+  }
   @media (width>=768px) {
     width: 340px;
     height: 219px;
@@ -75,7 +77,7 @@ label {
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
-
+  outline: none;
   &::placeholder {
     color: var(--color-gray);
   }
@@ -90,13 +92,18 @@ label {
   height: 393px;
   resize: none;
   overflow: hidden;
+  &:active {
+    box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+  }
 }
 .errored {
-  border: 1px solid var(--color-red);
+  border: 2px solid var(--color-red);
 }
 .error {
   color: var(--color-red);
   font-size: 14px;
+  height: 16px;
+  margin-bottom: 8px;
 }
 .button {
   font-weight: var(--fw-bold);
