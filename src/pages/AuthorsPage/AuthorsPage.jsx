@@ -44,6 +44,8 @@ const AuthorsPage = () => {
         <div className={css.contentBlock}>
           <h2 className={css.title}>Authors</h2>
 
+          
+
         <AuthorsList authors={authors} loading={loading} />
 
 
