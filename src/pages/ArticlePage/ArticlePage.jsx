@@ -2,20 +2,20 @@ import { useParams } from 'react-router-dom';
 
 import styles from './ArticlePage.module.css';
 import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
-import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useSelector } from 'react-redux';
 import { selectUserId } from '../../redux/auth/authSelectors';
+import { useGetPopularArticles } from '../../api/hooks/articles/useGetPopularArticles';
 
 const ArticlePage = () => {
   const { id: articleId } = useParams();
   const { article, isLoading } = useGetArticleById(articleId);
-  const { articles, isLoading: isRecommendLoading } = useGetArticles();
-  console.log('articles:', articles);
+  const { articles: recommendedArticles, isLoading: isRecommendLoading } =
+    useGetPopularArticles(3);
+
   const { saveArticle } = useSaveArticle();
 
   const currentUser = useSelector(selectUserId);
-  const recommendedArticles = articles.slice(0, 3);
 
   if (isLoading) {
     return <p>Loading...</p>;

@@ -10,7 +10,7 @@ export const useGetPopularArticles = (limit = 5) => {
       setIsLoading(true);
       try {
         const response = await getPopularArticles(limit);
-        setArticles(response.data.articles);
+        setArticles(response.data.data.articles);
       } catch (err) {
         console.error('Failed to fetch articles:', err);
       } finally {

@@ -1,37 +1,38 @@
 import { useEffect, useState } from 'react';
-import PopularArticlesCard from '../PopularArticlesCard/PopularArticlesCard';
-import { useGetArticles } from '../../../api/hooks/articles/useGetArticles';
+import PopularArticlesCard from '../PopularArticleCard/PopularArticleCard';
 import css from './PopularArticlesCardsList.module.css';
+import { useGetPopularArticles } from '../../../api/hooks/articles/useGetPopularArticles';
 
 const PopularArticlesCardsList = () => {
-    const [visibleCount, setVisibleCount] = useState(4);
-    const { articles, isLoading } = useGetArticles();
+  const [visibleCount, setVisibleCount] = useState(4);
 
-    useEffect(() => {
-        const handleResize = () => {
-            const screenWidth = window.innerWidth;
-            setVisibleCount(screenWidth >= 1440 ? 3 : 4);
-        };
+  const { articles, isLoading } = useGetPopularArticles(visibleCount);
 
-        handleResize();
-        window.addEventListener('resize', handleResize);
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      setVisibleCount(screenWidth >= 1440 ? 3 : 4);
+    };
 
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
-    if (isLoading) {
-        return <p>✋Loading...✋</p>
-    }
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-    return (
-        <ul className={css.list}>
-            {articles.slice(0, visibleCount).map((item, index) => (
-                <li key={index}>
-                    <PopularArticlesCard articles={item} />
-                </li>
-            ))}
-        </ul>
-    );
+  if (isLoading) {
+    return <p>✋Loading...✋</p>;
+  }
+
+  return (
+    <ul className={css.list}>
+      {articles.slice(0, visibleCount).map((item, index) => (
+        <li key={index}>
+          <PopularArticlesCard article={item} isLoading={isLoading} />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default PopularArticlesCardsList;
