@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import PopularArticlesCard from '../PopularArticleCard/PopularArticleCard';
-import css from './PopularArticlesCardsList.module.css';
+import css from './PopularArticlesList.module.css';
 import { useGetPopularArticles } from '../../../api/hooks/articles/useGetPopularArticles';
 
-const PopularArticlesCardsList = () => {
+const PopularArticlesList = () => {
   const [visibleCount, setVisibleCount] = useState(4);
 
   const { articles, isLoading } = useGetPopularArticles(visibleCount);
@@ -35,4 +35,4 @@ const PopularArticlesCardsList = () => {
   );
 };
 
-export default PopularArticlesCardsList;
+export default PopularArticlesList;
