@@ -7,7 +7,6 @@ const PopularArticlesList = () => {
   const [visibleCount, setVisibleCount] = useState(4);
 
   const { articles, isLoading } = useGetPopularArticles(visibleCount);
-  console.log('articles:', articles);
 
   useEffect(() => {
     const handleResize = () => {
