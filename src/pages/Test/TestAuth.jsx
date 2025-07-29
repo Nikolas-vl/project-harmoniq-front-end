@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, register } from '../../redux/auth/authOperations';
-import { selectUserToken } from '../../redux/auth/authSelectors';
+
 import TestNav from './TestNav';
+import { selectAccessToken } from '../../redux/auth/authSelectors';
 
 const TestAuth = () => {
   const dispatch = useDispatch();
-  const token = useSelector(selectUserToken);
+  const token = useSelector(selectAccessToken);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
