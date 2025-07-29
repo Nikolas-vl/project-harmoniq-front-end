@@ -11,7 +11,7 @@ const PopularArticlesList = () => {
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      setVisibleCount(screenWidth >= 1440 ? 3 : 4);
+      setVisibleCount(screenWidth >= 1440 ? 4 : 4);
     };
 
     handleResize();
