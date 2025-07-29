@@ -1,1 +1,0 @@
-import{i as e}from"./index-DeT1HrCB.js";const a=({page:s,perPage:r}={})=>e.get("/users",{params:{page:s,perPage:r}}),o=s=>e.get(`/users/${s}`),n=s=>e.get("/users/popular",{params:{limit:s}}),p=(s,r)=>e.post(`/users/${s}/save/${r}`);export{o as a,n as b,a as g,p as s};
