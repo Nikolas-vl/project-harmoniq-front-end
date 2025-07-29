@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
-import { getAllUsers } from '../../api/services/usersApi';
-import { AuthorsItem } from '../../modules/AuthorsList/AuthorsItem';
+import { AuthorsItem } from './AuthorsItem';
+import axios from 'axios';
+import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
+
 
 const ITEMS_PER_PAGE = 20;
 
@@ -14,7 +16,7 @@ const AuthorsPage = () => {
   const fetchAuthors = async () => {
     try {
       setLoading(true);
-      const res = await getAllUsers({ page, perPage: ITEMS_PER_PAGE });
+      const res = await axios.get(`/users?page=${page}&perPage=${ITEMS_PER_PAGE}`);
 
       const newAuthors = Array.isArray(res.data.users) ? res.data.users : [];
 
@@ -42,20 +44,8 @@ const AuthorsPage = () => {
         <div className={css.contentBlock}>
           <h2 className={css.title}>Authors</h2>
 
-          {authors.length === 0 && !loading ? (
-            <p className={css.noAuthors}>No authors available</p>
-          ) : (
-            <ul className={css.list}>
-              {authors.map(author => (
-                <AuthorsItem
-                  key={author._id}
-                  id={author._id}
-                  name={author.name}
-                  avatar={author.avatarUrl}
-                />
-              ))}
-            </ul>
-          )}
+        <AuthorsList authors={authors} loading={loading} />
+
 
           {hasMore && (
             <button
