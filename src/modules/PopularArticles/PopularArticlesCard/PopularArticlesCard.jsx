@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { selectUserId } from "../../../redux/auth/authSelectors";
 import toast from 'react-hot-toast';
-import { useGetUserInfo } from '../../../api/hooks/users/useGetUserInfo';
 import { useSaveArticle } from '../../../api/hooks/users/useSaveArticle';
 import { Link } from "react-router-dom";
 
@@ -11,7 +10,6 @@ const PopularArticlesCard = ({ articles }) => {
     const userId = useSelector(selectUserId);
     const [isSaved, setIsSaved] = useState(false);
 
-    const { user, isLoading } = useGetUserInfo(articles.ownerId);
     const { saveArticle } = useSaveArticle();
 
     const handleSave = async () => {
@@ -33,15 +31,12 @@ const PopularArticlesCard = ({ articles }) => {
         }
     };
 
-    if (isLoading) {
-        return <p>✋Loading...✋</p>
-    }
     return (
         <>
             <div className={css.card_container}>
                 <img className={css.card_image} src={articles.img} alt={articles.desc} />
                 <div>
-                    <p className={css.card_author_name}>{user?.name || 'Unknown author'}</p>
+                    <p className={css.card_author_name}>{articles.author}</p>
                     <h3 className={css.card_title}>{articles.title}</h3>
                     <p className={css.card_description}>{articles.article}</p>
                 </div>
