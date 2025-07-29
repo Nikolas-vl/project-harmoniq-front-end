@@ -11,7 +11,7 @@ const PopularArticlesList = () => {
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      setVisibleCount(screenWidth >= 1440 ? 4 : 4);
+      setVisibleCount(screenWidth >= 1440 ? 3 : 4);
     };
 
     handleResize();
@@ -28,7 +28,7 @@ const PopularArticlesList = () => {
     <ul className={css.list}>
       {articles.slice(0, visibleCount).map((item, index) => (
         <li key={index}>
-          <PopularArticlesCard article={item} isLoading={isLoading} />
+          <PopularArticlesCard article={item} isBeingLoaded={isLoading} />
         </li>
       ))}
     </ul>
