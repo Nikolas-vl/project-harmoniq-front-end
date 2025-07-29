@@ -29,6 +29,7 @@ const ArticlesList = ({ articles, isLoading }) => {
               author={article.ownerId}
               img={article.img}
               handleAdd={handleAdd}
+              article_id={article._id}
             />
           </li>
         ))}

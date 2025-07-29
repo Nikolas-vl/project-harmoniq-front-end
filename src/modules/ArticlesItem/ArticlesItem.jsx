@@ -1,6 +1,14 @@
+import { Link } from 'react-router-dom';
 import ButtonAddToBookmarks from '../ButtonAddToBookmarks/ButtonAddToBookmarks';
 import s from './ArticlesItem.module.css';
-const ArticlesItem = ({ author, title, description, img, handleAdd }) => {
+const ArticlesItem = ({
+  article_id,
+  author,
+  title,
+  description,
+  img,
+  handleAdd,
+}) => {
   return (
     <article className={s.articleContainer}>
       <picture>
@@ -26,7 +34,10 @@ const ArticlesItem = ({ author, title, description, img, handleAdd }) => {
         <p className={s.description}>{description}</p>
       </div>
       <div className={s.buttonWrap}>
-        <button className={s.learnMoreBtn}>Learn more</button>
+        <Link to={`/articles/${article_id}`} className={s.learnMoreBtn}>
+          Learn more
+        </Link>
+
         <ButtonAddToBookmarks onAdd={handleAdd} />
       </div>
     </article>
