@@ -4,12 +4,11 @@ import s from './ArticlesList.module.css';
 import ModalErrorSave from '../ModalErrorSave/ModalErrorSave';
 import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 
-const ArticlesList = () => {
+const ArticlesList = ({ articles, isLoading }) => {
   // todo use isAuthorized from back
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { articles, isLoading, refetch } = useGetArticles();
-  if (isLoading) return <p>Loading...</p>;
+
   const handleAdd = () => {
     if (!isAuthorized) {
       setShowModal(true);

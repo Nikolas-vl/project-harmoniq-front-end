@@ -3,13 +3,23 @@ import s from './ArticlesItem.module.css';
 const ArticlesItem = ({ author, title, description, img, handleAdd }) => {
   return (
     <article className={s.articleContainer}>
-      <img
-        src={img}
-        alt="photo here"
-        width={337}
-        height={233}
-        className={s.articleImg}
-      />
+      <picture>
+        <source
+          media="(min-width: 1440px)"
+          srcSet={img}
+          width="368"
+          height="233"
+        />
+
+        <img
+          src={img}
+          alt="photo here"
+          width={337}
+          height={233}
+          className={s.articleImg}
+        />
+      </picture>
+
       <div className={s.textWrap}>
         <h3 className={s.authorInfo}>{author}</h3>
         <h3 className={s.titleInfo}>{title}</h3>
