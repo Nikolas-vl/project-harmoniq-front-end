@@ -1,0 +1,1 @@
+import{i as e}from"./index-DeT1HrCB.js";const c=({page:t,perPage:s,filter:a}={})=>e.get("/articles",{params:{page:t,perPage:s,filter:a}}),i=t=>e.get(`/articles/${t}`),l=t=>e.post("/articles",t),o=(t=3)=>e.get("/articles/popular",{params:{limit:t}});export{i as a,o as b,l as c,c as g};
