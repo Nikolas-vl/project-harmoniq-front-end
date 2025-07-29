@@ -2,7 +2,7 @@ import css from "./PopularArticlesCard.module.css"
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { selectUserId } from "../../../redux/auth/authSelectors";
-import { useGetArticleById } from '../../../api/hooks/articles/useGetArticleById';
+import toast from 'react-hot-toast';
 import { useGetUserInfo } from '../../../api/hooks/users/useGetUserInfo';
 import { useSaveArticle } from '../../../api/hooks/users/useSaveArticle';
 import { Link } from "react-router-dom";
@@ -12,15 +12,24 @@ const PopularArticlesCard = ({ articles }) => {
     const [isSaved, setIsSaved] = useState(false);
 
     const { user, isLoading } = useGetUserInfo(articles.ownerId);
-    const { article } = useGetArticleById();
-    const { saveArticle } = useSaveArticle(userId, article);
+    const { saveArticle } = useSaveArticle();
 
     const handleSave = async () => {
+        if (!userId) {
+            toast.error('You must be logged in to save articles', {
+                duration: 4000
+            });
+            return;
+        }
         try {
-            await saveArticle();
+            await saveArticle(userId, articles._id);
+            toast.success('Article successfully saved', {
+                duration: 4000
+            });
             setIsSaved(true);
         } catch (err) {
             console.error("Failed to save article:", err);
+            toast.error('Something went wrong while saving');
         }
     };
 

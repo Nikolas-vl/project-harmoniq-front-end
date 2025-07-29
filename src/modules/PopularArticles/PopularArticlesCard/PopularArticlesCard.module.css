@@ -81,7 +81,9 @@
 }
 
 .saved_button {
-    background-color: #649179;
+    background-color: var(--color-green);
+    color: #f7fffb;
+    border: none;
 }
 
 .save_svg {
@@ -117,8 +119,7 @@
         background-color: var(--color-green-darker);
         color: white;
     }
-    .save_button:hover,
-    .save_button:focus {
+    .save_button:hover {
         background-color: var(--color-green-darker);
         color: white;
     }
