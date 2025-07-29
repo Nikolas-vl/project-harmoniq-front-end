@@ -1,5 +1,5 @@
 import { AuthorsItem } from './AuthorsItem';
-import css from '../../pages/AuthorsPage/AuthorsPage.module.css'; // використовуємо ті самі стилі
+import css from '../../pages/AuthorsPage/AuthorsPage.module.css';
 
 export const AuthorsList = ({ authors, loading }) => {
   if (authors.length === 0 && !loading) {

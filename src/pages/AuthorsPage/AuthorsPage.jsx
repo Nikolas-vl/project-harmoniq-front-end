@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
-import { AuthorsItem } from './AuthorsItem';
 import axios from 'axios';
 import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
 
