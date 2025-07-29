@@ -13,8 +13,8 @@ export const useGetUserInfo = userId => {
       setIsLoading(true);
       try {
         const res = await getUserInfo(userId);
-        setUser(res.data.user);
-        setUserArticles(res.data.userArticles);
+        setUser(res.data.data.user);
+        setUserArticles(res.data.data.userArticles);
       } catch (err) {
         console.error('Failed to fetch user info:', err);
       } finally {

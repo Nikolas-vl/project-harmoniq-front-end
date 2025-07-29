@@ -9,10 +9,9 @@ export const useCreateArticle = () => {
 
     try {
       const response = await createArticle(data);
-      return response.data;
+      return response.data.data;
     } catch (err) {
       console.error('Failed to create article:', err);
-      throw err;
     } finally {
       setIsLoading(false);
     }

@@ -1,43 +1,28 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useGetArticleById } from '../../api/hooks/useGetArticleById';
-import { useEffect, useState } from 'react';
-import { getRecommendedArticles } from '../../api/services/articlesApi';
+import { useParams } from 'react-router-dom';
+
 import styles from './ArticlePage.module.css';
+import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
+import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
+import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../redux/auth/authSelectors';
 
 const ArticlePage = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const { article, isLoading, error } = useGetArticleById(id);
+  const { id: articleId } = useParams();
+  const { article, isLoading } = useGetArticleById(articleId);
+  const { articles, isLoading: isRecommendLoading } = useGetArticles();
+  console.log('articles:', articles);
+  const { saveArticle } = useSaveArticle();
 
-  const [recommendedArticles, setRecommendedArticles] = useState([]);
-  const [recLoading, setRecLoading] = useState(false);
+  const currentUser = useSelector(selectUserId);
+  const recommendedArticles = articles.slice(0, 3);
 
-  useEffect(() => {
-    if (!id) return;
-
-    const fetchRecommended = async () => {
-      setRecLoading(true);
-      try {
-        const res = await getRecommendedArticles(id);
-        setRecommendedArticles(res);
-      } catch (e) {
-        console.error('Failed to load recommended articles', e);
-      } finally {
-        setRecLoading(false);
-      }
-    };
-
-    fetchRecommended();
-  }, [id]);
-
-  const handleSave = () => {
-    alert('Article saved to bookmarks!');
-  };
-
-  if (isLoading) return <p>Loading article...</p>;
-  if (error) return <p>Something went wrong...</p>;
-  if (!article) return <p>Article not found</p>;
-
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (!article) {
+    return <p>Article not found</p>;
+  }
   const {
     title,
     img: imageUrl,
@@ -45,7 +30,9 @@ const ArticlePage = () => {
     author,
     date: createdAt,
   } = article;
-
+  const handleSave = () => {
+    saveArticle(currentUser, articleId);
+  };
   return (
     <div className={styles.articlePage}>
       <h1 className={styles.title}>{title}</h1>
@@ -69,23 +56,12 @@ const ArticlePage = () => {
 
         <div className={styles.recommendations}>
           <p>You can also be interested in:</p>
-          {recLoading && <p>Loading recommendations...</p>}
-          {!recLoading && recommendedArticles.length === 0 && (
-            <p>No recommendations available</p>
-          )}
+          {isRecommendLoading && <p>Loading recommendations...</p>}
+          {!recommendedArticles && <p>No recommendations available</p>}
           <ul className={styles.recommendationsList}>
             {recommendedArticles.map(
               ({ _id: recId, title: recTitle, author: ownerId }) => (
-                <li
-                  key={recId}
-                  className={styles.recommendationItem}
-                  onClick={() => navigate(`/articles/${recId}`)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') navigate(`/articles/${recId}`);
-                  }}
-                >
+                <li key={recId} className={styles.recommendationItem}>
                   <h4>{recTitle}</h4>
                   <p>by {ownerId}</p>
                 </li>
