@@ -1,6 +1,7 @@
 .main_container {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     flex-direction: column;
     width: 361px;
     height: 299px;
@@ -15,7 +16,7 @@
     font-family: var(--ff-manrope);
     font-weight: 700;
     font-size: 24px;
-    color: #070721;
+    color: var(--color-black);
     margin-bottom: 16px;
 }
 
@@ -24,5 +25,44 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 1.55;
-    color: #070721;
+    color: var(--color-black);
+}
+
+.redirect_link {
+    display: block;
+    text-align: center;
+    font-family: var(--ff-manrope);
+    font-weight: 700;
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--color-green-darker);
+    border: 1px solid #374f42;
+    border-radius: 64px;
+    width: 337px;
+    padding: 8px;
+    transition: var(--transition);
+}
+
+.redirect_link:hover,
+.redirect_link:focus {
+    background-color: var(--color-green-darker);
+    color: white;
+}
+
+@media only screen and (min-width: 768px) {
+    .main_container {
+        width: 514px;
+    }
+    .redirect_link {
+        width: 490px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .main_container {
+        width: 497px;
+    }
+    .redirect_link {
+        width: 473px;
+    }
 }
