@@ -4,6 +4,7 @@ import { getUserInfo } from '../../services/usersApi';
 export const useGetUserInfo = userId => {
   const [user, setUser] = useState(null);
   const [userArticles, setUserArticles] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -14,7 +15,8 @@ export const useGetUserInfo = userId => {
       try {
         const res = await getUserInfo(userId);
         setUser(res.data.data.user);
-        setUserArticles(res.data.data.userArticles);
+        setUserArticles(res.data.data.userArticles || []);
+        setSavedArticles(res.data.data.savedArticles || []);
       } catch (err) {
         console.error('Failed to fetch user info:', err);
       } finally {
@@ -25,5 +27,5 @@ export const useGetUserInfo = userId => {
     fetch();
   }, [userId]);
 
-  return { user, userArticles, isLoading };
+  return { user, userArticles, savedArticles, isLoading };
 };
