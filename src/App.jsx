@@ -5,6 +5,7 @@ import Layout from './modules/Layout/Layout';
 import AppRoutes from './routes/AppRoutes';
 import { refreshUser } from './redux/auth/authOperations';
 
+
 function App() {
   const dispatch = useDispatch();
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Toaster position="top-center" />
+
       <Layout>
         <AppRoutes />
       </Layout>

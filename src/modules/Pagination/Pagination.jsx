@@ -1,69 +1,36 @@
-import s from './pagination.module.css';
-import left from '../../assets/icons/left.svg';
-import right from '../../assets/icons/right.svg';
+import s from './Pagination.module.css';
+import ReactPaginate from 'react-paginate';
 
-
-function getPageNumbers(currentPage, totalPages, maxButtons = 5) {
-  const half = Math.floor(maxButtons / 2);
-  let start = Math.max(1, currentPage - half);
-  let end = start + maxButtons - 1;
-
-  if (end > totalPages) {
-    end = totalPages;
-    start = Math.max(1, end - maxButtons + 1);
-  }
-
-  const pages = [];
-  for (let i = start; i <= end; i++) {
-    pages.push(i);
-  }
-
-  return pages;
-}
-
-const Pagination = ({
-    page,
-    totalPages,
-    onPageChange,
-    isLoading,
-    maxButtons = 5
-}) => {
-    const pages = getPageNumbers(page, totalPages, maxButtons);
-
-    return (
-        <div className={s.paginationContainer}>
-            <button
-                className={s.navBtn}
-                onClick={() => onPageChange(p => Math.max(p - 1, 1))}
-                disabled={page === 1 || isLoading}
-            >
-                <img src={left} alt='prev page' width={16} height={16} />
-            </button>
-
-            {pages.map(p => (
-                <button
-                    key={p}
-                    className={`${s.pageBtn} ${p === page ? s.active : ''}`}
-                    onClick={() => onPageChange(p)}
-                    disabled={p === page || isLoading}
-                >
-                    {p}
-                </button>
-            ))}
-
-            <button
-                className={s.navBtn}
-                onClick={() => onPageChange(p => Math.min(p + 1, totalPages))}
-                disabled={page === totalPages || isLoading}
-            >
-                <img src={right} alt='next page' width={16} height={16} />
-            </button>
-        </div>
-    );
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  return (
+    <div className={s.pagContainer}>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel=">"
+        previousLabel="<"
+        onPageChange={event => {
+          event.preventDefault?.();
+          onPageChange(event.selected + 1);
+        }}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={1}
+        pageCount={totalPages}
+        forcePage={currentPage - 1}
+        containerClassName={s.pagination}
+        pageClassName={s.page_item}
+        pageLinkClassName={s.page_link}
+        previousClassName={s.page_item}
+        previousLinkClassName={s.page_link}
+        nextClassName={s.page_item}
+        nextLinkClassName={s.page_link}
+        breakClassName={s.page_item}
+        breakLinkClassName={s.page_link}
+        activeClassName={s.active}
+        disabledClassName={s.disabled}
+        renderOnZeroPageCount={null}
+      />
+    </div>
+  );
 };
 
 export default Pagination;
-
-
-
-{/* <Pagination page={page} totalPages={totalPages} onPageChange={setPage} isLoading={isLoading} maxButtons={5} /> */}
