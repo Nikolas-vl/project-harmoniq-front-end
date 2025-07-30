@@ -81,11 +81,13 @@
 }
 
 .saved_button {
-    background-color: #649179;
+    background-color: var(--color-green);
+    color: #f7fffb;
+    border: none;
+    cursor: not-allowed;
 }
 
 .save_svg {
-    stroke: currentColor;
     transition: var(--transition);
 }
 
@@ -112,18 +114,20 @@
         width: 320px;
         transition: var(--transition);
     }
-    .load_more_link:hover,
-    .load_more_link:focus {
-        background-color: var(--color-green-darker);
-        color: white;
-    }
-    .save_button:hover,
-    .save_button:focus {
-        background-color: var(--color-green-darker);
-        color: white;
-    }
-    .card_container:hover,
-    .card_container:focus {
-        box-shadow: 0 0 5px #404040, 0 0 10px #404040;
-    }
+}
+
+.load_more_link:hover,
+.load_more_link:focus {
+    background-color: var(--color-green-darker);
+    color: white;
+}
+
+.save_button:hover {
+    background-color: var(--color-green-darker);
+    color: white;
+}
+
+.card_container:hover,
+.card_container:focus {
+    box-shadow: 0 0 5px #404040, 0 0 10px #404040;
 }
