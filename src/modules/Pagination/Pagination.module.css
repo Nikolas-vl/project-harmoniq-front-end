@@ -35,3 +35,7 @@
   color: #aaa;
   pointer-events: none;
 }
+
+.pagContainer {
+  padding-bottom: 48px;
+}
