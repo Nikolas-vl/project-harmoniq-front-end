@@ -1,4 +1,14 @@
-/* .paginationContainer {
+.paginationContainer {
+    position: fixed;
+    /* прикріплюємо до вікна */
+    bottom: 46px;
+    /* відступ від нижнього краю */
+    left: 50%;
+    /* зміщення по горизонталі */
+    transform: translateX(-50%);
+    /* центрування */
+    z-index: 1000;
+    /* щоб не перекривалося */
     display: flex;
     align-items: center;
     gap: 10px;
@@ -56,4 +66,4 @@
 
 .pageBtn:disabled {
     cursor: not-allowed;
-} */
+}

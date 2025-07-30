@@ -63,3 +63,7 @@ const Pagination = ({
 };
 
 export default Pagination;
+
+
+
+{/* <Pagination page={page} totalPages={totalPages} onPageChange={setPage} isLoading={isLoading} maxButtons={5} /> */}
