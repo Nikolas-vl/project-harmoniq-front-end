@@ -8,6 +8,7 @@ const ArticlesItem = ({
   description,
   img,
   handleAdd,
+  isSaved,
 }) => {
   return (
     <article className={s.articleContainer}>
@@ -38,7 +39,10 @@ const ArticlesItem = ({
           Learn more
         </Link>
 
-        <ButtonAddToBookmarks onAdd={handleAdd} />
+        <ButtonAddToBookmarks
+          onAdd={() => handleAdd(article_id)}
+          isSaved={isSaved}
+        />
       </div>
     </article>
   );

@@ -1,7 +1,11 @@
+import clsx from 'clsx';
 import s from './ButtonAddToBookmarks.module.css';
-const ButtonAddToBookmarks = ({ onAdd }) => {
+const ButtonAddToBookmarks = ({ onAdd, isSaved }) => {
   return (
-    <button className={s.saveBtn} onClick={onAdd}>
+    <button
+      className={`${s.saveBtn} ${isSaved ? s.active : ''}`}
+      onClick={onAdd}
+    >
       <svg
         width="24"
         height="24"

@@ -8,4 +8,23 @@
   width: 40px;
   height: 40px;
   background: var(--color-light-green);
+  transition: transform 0.2s ease;
+}
+
+.saveBtn:hover {
+  transform: scale(1.1);
+}
+
+.active {
+  background: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.active svg {
+  fill: var(--color-green);
+  stroke: var(--color-white-bg);
+}
+
+.active svg path {
+  stroke: var(--color-white-bg);
 }
