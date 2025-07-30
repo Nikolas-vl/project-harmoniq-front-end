@@ -26,7 +26,7 @@ const ArticlesList = ({ articles, isLoading }) => {
             <ArticlesItem
               title={article.title}
               description={article.desc}
-              author={article.ownerId}
+              author={article.author}
               img={article.img}
               handleAdd={handleAdd}
               article_id={article._id}
