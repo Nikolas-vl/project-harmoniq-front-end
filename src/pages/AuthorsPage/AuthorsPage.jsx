@@ -1,41 +1,30 @@
 import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
-import axios from 'axios';
 import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
-
-
-const ITEMS_PER_PAGE = 20;
+import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 
 const AuthorsPage = () => {
-  const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(1);
+  const [authors, setAuthors] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
 
-  const fetchAuthors = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`/users?page=${page}&perPage=${ITEMS_PER_PAGE}`);
+  const { users, isLoading } = useGetAllUsers(page);
 
-      const newAuthors = Array.isArray(res.data.users) ? res.data.users : [];
-
-      setAuthors(prev => [...prev, ...newAuthors]);
-      if (newAuthors.length < ITEMS_PER_PAGE) {
-        setHasMore(false);
-      }
-
-      setPage(prev => prev + 1);
-    } catch (error) {
-      console.error('Error fetching authors:', error);
+  // Додаємо нових авторів при кожному оновленні `users`
+  useEffect(() => {
+    if (users && users.length > 0) {
+      setAuthors(prev => [...prev, ...users]);
+      if (users.length < 20) setHasMore(false); // якщо менше ніж 20 — це остання сторінка
+    } else {
       setHasMore(false);
-    } finally {
-      setLoading(false);
+    }
+  }, [users]);
+
+  const handleLoadMore = () => {
+    if (hasMore && !isLoading) {
+      setPage(prev => prev + 1);
     }
   };
-
-  useEffect(() => {
-    fetchAuthors();
-  }, []);
 
   return (
     <section className={css.wrapper}>
@@ -43,15 +32,15 @@ const AuthorsPage = () => {
         <div className={css.contentBlock}>
           <h2 className={css.title}>Authors</h2>
 
-        <AuthorsList authors={authors} loading={loading} />
+          <AuthorsList authors={authors} loading={isLoading} />
 
           {hasMore && (
             <button
               className={css.loadMore}
-              onClick={fetchAuthors}
-              disabled={loading}
+              onClick={handleLoadMore}
+              disabled={isLoading}
             >
-              {loading ? 'Loading...' : 'Load More'}
+              {isLoading ? 'Loading...' : 'Load More'}
             </button>
           )}
         </div>
