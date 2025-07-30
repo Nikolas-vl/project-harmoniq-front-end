@@ -1,23 +1,13 @@
+.headerBg{
+  background-color: #D1E0D8;
+}
+
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px ; 
-  background-color: #D1E0D8; 
+  padding: 14px 0px ; 
   width: 100%;
   box-sizing: border-box;
-}
-
-
-@media (min-width: 768px) {
-  .header {
-    padding: 14px 32px ; 
-  }
-}
-
-@media (min-width: 1440px) {
-   .header {
-    padding: 14px 108px ; 
-  }
 }
