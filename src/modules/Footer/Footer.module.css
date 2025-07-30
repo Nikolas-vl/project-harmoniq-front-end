@@ -53,8 +53,9 @@
         justify-content: space-between;
         gap: 0px;  
     }
-    .redirect_link:hover,
-    .redirect_link:hover {
-        opacity: 0.7;
-    }
+}
+
+.redirect_link:hover,
+.redirect_link:hover {
+    opacity: 0.7;
 }

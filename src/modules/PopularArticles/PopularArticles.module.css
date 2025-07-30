@@ -1,5 +1,5 @@
 .section_container {
-    margin-top: 36px;
+    padding-top: 36px;
     padding-bottom: 36px;
 }
 
@@ -41,8 +41,9 @@
     .redirect_link {
         margin-bottom: 0;
     }
-    .redirect_link:hover,
-    .redirect_link:focus {
-        opacity: 0.7;
-    }
+}
+
+.redirect_link:hover,
+.redirect_link:focus {
+    opacity: 0.7;
 }

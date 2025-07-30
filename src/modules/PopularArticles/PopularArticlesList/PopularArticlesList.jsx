@@ -28,7 +28,7 @@ const PopularArticlesList = () => {
     <ul className={css.list}>
       {articles.slice(0, visibleCount).map((item, index) => (
         <li key={index}>
-          <PopularArticlesCard article={item} isLoading={isLoading} />
+          <PopularArticlesCard article={item} isBeingLoaded={isLoading} />
         </li>
       ))}
     </ul>
