@@ -14,7 +14,7 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
   const { saveArticle, isLoading } = useSaveArticle();
 
   useEffect(() => {
-    setIsSaved(savedArticles.includes(article._id));
+    setIsSaved(savedArticles.some(id => id === article._id));
   }, [article._id, savedArticles]);
 
   const handleSave = async () => {
