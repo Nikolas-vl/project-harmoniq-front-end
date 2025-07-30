@@ -22,6 +22,10 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
       toast.error('You must be logged in to save articles');
       return;
     }
+    if (isSaved) {
+      toast.success('Article successfully saved!')
+      return;
+    }
 
     try {
       await saveArticle(userId, article._id);
