@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <Toaster position="top-center" />
-      <Loader /> {}
+      <Loader />
       <Layout>
         <AppRoutes />
       </Layout>
