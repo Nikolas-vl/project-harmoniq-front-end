@@ -12,10 +12,10 @@ const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(null);
   const [perPage, setPerPage] = useState(null);
-  // const perPage = 12;
   const { articles, isLoading, pagination, queryParams } = useGetArticles(
     page,
-    perPage
+    perPage,
+    filter
   );
   const handlePageChange = newPage => {
     setPage(newPage);
