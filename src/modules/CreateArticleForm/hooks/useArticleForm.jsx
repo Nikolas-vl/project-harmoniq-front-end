@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { validateAndUploadImage } from '../utils/validateImage';
 import { getDescription } from '../utils/getDescription';
 import { useLocalStorageState } from './useLocalStorageState';
 import cameraPlaceholder from '../../../assets/icons/createArticlePage/camera.svg';
@@ -50,32 +49,29 @@ export const useArticleForm = onSubmitSuccess => {
         ),
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
-      const imageUrl = await validateAndUploadImage(values.image);
-      if (!imageUrl) {
+      try {
+        const formData = new FormData();
+
+        formData.append('image', values.image);
+        formData.append('title', values.title);
+        formData.append('desc', getDescription(values.text));
+        formData.append('article', values.text);
+        formData.append('rate', 0);
+        formData.append('ownerId', ownerId);
+        formData.append('date', new Date().toISOString());
+
+        await onSubmitSuccess(formData);
+
+        setDraft({ title: '', text: '', image: null });
+        setPreviewUrl(cameraPlaceholder);
+      } catch (error) {
         setErrors({
-          image: 'Failed to upload image. Please try again.',
+          submit: 'Помилка при створенні статті. Спробуйте пізніше.',
         });
+        console.log(error);
+      } finally {
         setSubmitting(false);
-        return;
       }
-
-      const desc = getDescription(values.text);
-
-      const articleObject = {
-        img: imageUrl,
-        title: values.title,
-        desc,
-        article: values.text,
-        rate: 0,
-        ownerId,
-        date: new Date().toISOString(),
-      };
-
-      await onSubmitSuccess(articleObject);
-
-      setDraft({ title: '', text: '', image: null });
-      setPreviewUrl(cameraPlaceholder);
-      setSubmitting(false);
     },
   });
 
