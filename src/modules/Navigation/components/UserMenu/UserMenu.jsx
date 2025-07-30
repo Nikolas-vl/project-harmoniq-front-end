@@ -1,64 +1,22 @@
-import React, { useState } from 'react'
- import { useDispatch, useSelector} from 'react-redux'; //, useSelector
- import { useNavigate } from 'react-router-dom';
-//  import { selectName } from '../../../redux/auth/authSelectors';
-
-import styles from './UserMenu.module.css'
-import { logout } from '../../../../redux/auth/authOperations';
-import ModalLogout from '../ModalLogout/ModalLogout';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styles from './UserMenu.module.css';
 import { selectUserName } from '../../../../redux/auth/authSelectors';
+import exitImg from '../../../../assets/icons/exit-icon.svg'
 
-const UserMenu = () => {
-   
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-    const userName = useSelector(selectUserName); 
-   
-
-    const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
-    const handleOpenLogoutConfirm = () => {
-      setIsLogoutConfirmOpen(true);
-    };
-
-    const handleCancelLogout = () => {
-      setIsLogoutConfirmOpen(false);
-    };
-
-    const handleConfirmLogout = async () => {
-      try {
-        await dispatch(logout()).unwrap(); 
-      } catch (error) {
-        console.error('Logout failed:', error);
-      } finally {
-       
-        localStorage.clear();
-        setIsLogoutConfirmOpen(false);
-        navigate('/login');
-      }
-    };
+const UserMenu = ({ onLogoutClick }) => {
+  const userName = useSelector(selectUserName);
 
   return (
     <div className={styles.userContainer}>
-    <h2 className={styles.userName}>{userName}</h2>  {/*{userName}*/} 
-  
-    <span className={styles.userSpan}></span> 
-    <button className={styles.exitBtn} onClick={handleOpenLogoutConfirm}> 
-    
-              <svg width="24" height="24">
-                <use href="/src/assets/icons/exit-icon.svg#exit-icon"></use>
-              </svg>
-            
-    </button>
-
-    <ModalLogout
-  isOpen={isLogoutConfirmOpen}
-  onClose={handleCancelLogout}
-  onConfirm={handleConfirmLogout}
-/>
-
+      <h2 className={styles.userName}>{userName}</h2>
+      <span className={styles.userSpan}></span>
+      <button className={styles.exitBtn} onClick={onLogoutClick}>
+      <img src={exitImg} alt="Exit"  width="24" height="28"/> 
+       
+      </button>
     </div>
+  );
+};
 
-  )
-}
-
-export default UserMenu
+export default UserMenu;

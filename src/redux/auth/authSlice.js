@@ -3,49 +3,78 @@ import { login, logout, refreshUser, register } from './authOperations';
 
 const initialState = {
   user: {
-    name: null,
-    email: null,
     id: null,
+    name: null,
+    saved: [],
+    avatarUrl: null,
+    articlesAmount: 0,
   },
-  token: null,
+  userArticles: [],
+  savedArticles: [],
+  accessToken: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
 
-const slice = createSlice({
+const cleanUser = user => {
+  if (!user) return null;
+  return {
+    id: user._id,
+    name: user.name,
+    saved: user.saved,
+    avatarUrl: user.avatarUrl,
+    articlesAmount: user.articlesAmount,
+  };
+};
+
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.user = cleanUser(action.payload.user);
+
+        state.userArticles = action.payload.userArticles || [];
+        state.savedArticles = action.payload.savedArticles || [];
+        state.accessToken = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.user = cleanUser(action.payload.user);
+        state.userArticles = action.payload.userArticles || [];
+        state.savedArticles = action.payload.savedArticles || [];
+        state.accessToken = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, state => {
-        state.user = { name: null, email: null, id: null };
-        state.token = null;
+        state.user = {
+          name: null,
+          saved: [],
+          avatarUrl: null,
+          articlesAmount: 0,
+          id: null,
+        };
+        state.userArticles = [];
+        state.savedArticles = [];
+        state.accessToken = null;
         state.isLoggedIn = false;
       })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        const { token, user } = action.payload;
-        state.token = token;
-        state.user = user;
+        state.user = cleanUser(action.payload.user);
+        state.userArticles = action.payload.userArticles || [];
+        state.savedArticles = action.payload.savedArticles || [];
+        state.accessToken = action.payload.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       });
   },
 });
-export default slice.reducer;
+
+export default authSlice.reducer;

@@ -8,7 +8,7 @@ import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
 
 import AuthButtons from './components/AuthButtons';
-import Burger from './components/Burger';
+import Burger from './components/Burger/Burger';
 import MobileMenu from './components/MobileMenu';
 import UserMenu from './components/UserMenu/UserMenu';
 import CreateArticle from './components/CreateArticle/CreateArticleButton';
@@ -66,10 +66,12 @@ function Navigation() {
 
   const handleLogoutClick = () => {
     setIsLogoutModalOpen(true);
+    setIsMenuOpen(false); 
   };
 
   const handleLogoutCancel = () => {
     setIsLogoutModalOpen(false);
+    
   };
   
   const handleLogoutConfirm = async () => {
@@ -149,6 +151,7 @@ function Navigation() {
         onClose={toggleMenu}
         onLogin={handleLoginClick}
         onJoin={handleJoinClick}
+        onLogoutClick={handleLogoutClick}
      />
           <ModalLogout
         isOpen={isLogoutModalOpen} 

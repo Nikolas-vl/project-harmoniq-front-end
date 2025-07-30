@@ -1,5 +1,4 @@
 .articleButton{
-    /* display: flex; */
     justify-content: center;
     align-items: center;
 
@@ -16,7 +15,7 @@
     background: #649179;
 
 }
-.Button:hover{
+.articleButton:hover{
     background-color: #374f42;
-    
+    color: #f7fffb;    
   }
