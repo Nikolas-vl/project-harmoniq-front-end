@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import s from './ButtonAddToBookmarks.module.css';
 const ButtonAddToBookmarks = ({ onAdd, isSaved }) => {
   return (

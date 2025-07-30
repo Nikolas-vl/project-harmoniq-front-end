@@ -12,6 +12,7 @@ const ArticlesItem = ({
 }) => {
   return (
     <article className={s.articleContainer}>
+
       <picture>
         <source
           media="(min-width: 1440px)"

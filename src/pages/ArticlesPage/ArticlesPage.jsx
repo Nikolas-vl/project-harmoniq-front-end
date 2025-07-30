@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import Pagination from '../../modules/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
+import { MainPagination } from '../../modules/mainPagination/mainPagination';
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState(null);
@@ -17,9 +18,9 @@ const ArticlesPage = () => {
     perPage,
     filter
   );
-  const handlePageChange = newPage => {
-    setPage(newPage);
-  };
+  // const handlePageChange = newPage => {
+  //   setPage(newPage);
+  // };
   useEffect(() => {
     const pageFromUrl = Number(searchParams.get('page')) || 1;
     const perPageFromUrl = Number(searchParams.get('perPage')) || 12;
@@ -29,11 +30,12 @@ const ArticlesPage = () => {
     setFilter(filterValue);
   }, []);
   useSyncQueryParams(queryParams);
-  if (isLoading) return <p>Loading...</p>;
+  // if (isLoading) return <p>Loading...</p>;
   if (!pagination) return <p>No data</p>;
   return (
     <div className="container">
       <SectionTitle>Articles</SectionTitle>
+
       <div className={s.header}>
         <p className={s.totalArticles}>{pagination.totalItems} articles</p>
         <select
@@ -51,10 +53,17 @@ const ArticlesPage = () => {
         isLoading={isLoading}
         pagination={pagination}
       />
-      <Pagination
+      {/* <Pagination
         currentPage={page}
         totalPages={pagination.totalPages}
         onPageChange={handlePageChange}
+      /> */}
+      <MainPagination
+        page={page}
+        totalPages={pagination.totalPages}
+        onPageChange={setPage}
+        isLoading={isLoading}
+        maxButtons={5}
       />
     </div>
   );
