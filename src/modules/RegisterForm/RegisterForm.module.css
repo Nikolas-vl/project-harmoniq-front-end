@@ -59,7 +59,6 @@
   margin-top: 4px;
   width: 296px;
   height: 41px;
-  /* margin-bottom: 7px; */
 }
 
 @media (min-width: 768px) {
@@ -147,4 +146,17 @@
 .errorContainer {
   height: 12px;
   position: relative;
+}
+
+.strengthBarWrapper {
+  min-height: 4px;
+  height: 6px;
+  margin-top: 0px;
+  max-width: 320px;
+}
+
+.strengthBarHidden {
+  opacity: 0;
+  height: 0;
+  pointer-events: none;
 }

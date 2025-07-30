@@ -8,6 +8,7 @@ import styles from './RegisterForm.module.css';
 import toast from 'react-hot-toast';
 import eye from '../../assets/icons/eye.svg';
 import eyeCrossed from '../../assets/icons/eye-crossed.svg';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -54,7 +55,7 @@ const RegisterForm = () => {
         };
 
         await dispatch(register(user)).unwrap();
-        navigate('/upload-photo');
+        navigate('/photo');
       } catch (error) {
         toast.error(error.message || 'Registration failed');
       } finally {
@@ -140,6 +141,12 @@ const RegisterForm = () => {
           {touched.password && errors.password && (
             <span className={styles.error}>{errors.password}</span>
           )}
+        </div>
+        <div className={styles.strengthBarWrapper}>
+          <PasswordStrengthBar
+            password={values.password}
+            className={values.password ? '' : styles.strengthBarHidden}
+          />
         </div>
       </label>
 
