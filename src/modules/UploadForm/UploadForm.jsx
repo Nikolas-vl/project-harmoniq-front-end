@@ -47,7 +47,7 @@ const UploadForm = () => {
 
     try {
       await updateProfile(userId, { image: selectedFile });
-      navigate('/home-authorised');
+      navigate('/');
     } catch (err) {
       setError('Upload failed. Please try again.');
       console.error(err);
