@@ -6,22 +6,21 @@ import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 const AuthorsPage = () => {
   const [page, setPage] = useState(1);
   const [authors, setAuthors] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
 
-  const { users, isLoading } = useGetAllUsers(page);
+  const { users, paginationData, isLoading } = useGetAllUsers(page, 20);
 
-  // Додаємо нових авторів при кожному оновленні `users`
   useEffect(() => {
     if (users && users.length > 0) {
       setAuthors(prev => [...prev, ...users]);
-      if (users.length < 20) setHasMore(false); // якщо менше ніж 20 — це остання сторінка
-    } else {
-      setHasMore(false);
     }
   }, [users]);
 
+  const hasMore = paginationData
+    ? paginationData.page < paginationData.totalPages
+    : false;
+
   const handleLoadMore = () => {
-    if (hasMore && !isLoading) {
+    if (!isLoading && hasMore) {
       setPage(prev => prev + 1);
     }
   };
