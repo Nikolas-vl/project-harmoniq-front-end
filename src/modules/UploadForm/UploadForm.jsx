@@ -4,13 +4,18 @@ import styles from './UploadForm.module.css';
 
 import closeIcon from '../../assets/icons/uploadPhoto/close.svg';
 import cameraIcon from '../../assets/icons/uploadPhoto/photo.svg';
-import { validateAndUploadImage } from '../CreateArticleForm/utils/validateImage';
+
+import { useUpdateUserProfile } from '../../api/hooks/users/useUpdateUserProfile';
+import { selectUserId } from '../../redux/auth/authSelectors';
+import { useSelector } from 'react-redux';
 
 const UploadForm = () => {
   const navigate = useNavigate();
+  const userId = useSelector(selectUserId);
+  const { updateProfile, loading } = useUpdateUserProfile();
+
   const [previewUrl, setPreviewUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleFileChange = e => {
@@ -34,30 +39,32 @@ const UploadForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     if (!selectedFile) {
       setError('Please select a photo');
       return;
     }
 
-    setLoading(true);
     try {
-      const imageUrl = await validateAndUploadImage(selectedFile);
-      if (!imageUrl) throw new Error('Upload failed');
-      navigate('/home-authorised');
+      await updateProfile(userId, { image: selectedFile });
+      navigate('/');
     } catch (err) {
       setError('Upload failed. Please try again.');
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <div className={`container ${styles.wrapper}`}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <button className={styles.closeBtn} onClick={() => navigate(-1)}>
+        <button
+          type="button"
+          className={styles.closeBtn}
+          onClick={() => navigate(-1)}
+        >
           <img src={closeIcon} alt="close" className={styles.icon} />
         </button>
+
         <h2 className={styles.mainText}>Upload your photo</h2>
 
         <label htmlFor="photo" className={styles.fileInputWrapper}>
@@ -68,7 +75,7 @@ const UploadForm = () => {
           )}
           <input
             id="photo"
-            name="photo"
+            name="image"
             type="file"
             accept="image/*"
             onChange={handleFileChange}

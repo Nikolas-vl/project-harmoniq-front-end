@@ -1,0 +1,50 @@
+.articleWrapper {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  margin: 16px 0;
+}
+
+.description {
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.recommendations {
+  margin-top: 40px;
+}
+
+.meta {
+  font-size: 14px;
+  color: gray;
+}
+
+.recommendationList {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+}
+
+.recommendationItem {
+  width: 30%;
+}
+
+.saveButton {
+  margin-top: 24px;
+  padding: 12px 24px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

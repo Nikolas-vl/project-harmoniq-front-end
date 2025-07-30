@@ -1,24 +1,23 @@
 import CreatorsCard from '../CreatorsCard/CreatorsCard';
 import css from './CreatorsCardsList.module.css';
-
-const data = {
-    image: '/src/assets/img/Image (25).jpg',
-    image_desc: 'Beautiful women is looking at the camera',
-    author: 'Naomi',
-};
+import { useGetPopularUsers } from '../../../api/hooks/users/useGetPopularUsers';
 
 const CreatorsCardsList = () => {
-    const articles = Array(6).fill(data);
-    
-    return (
-        <ul className={css.list}>
-            {articles.map((item, index) => (
-                <li key={index}>
-                    <CreatorsCard data={item} />
-                </li>
-            ))}
-        </ul>
-    );
+  const { users, isLoading } = useGetPopularUsers(6);
+
+  if (isLoading) {
+    return <p>✋Loading...✋</p>;
+  }
+
+  return (
+    <ul className={css.list}>
+      {users.map((item, index) => (
+        <li key={index}>
+          <CreatorsCard users={item} />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default CreatorsCardsList;

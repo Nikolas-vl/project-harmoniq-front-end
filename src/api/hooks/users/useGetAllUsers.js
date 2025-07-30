@@ -11,8 +11,8 @@ export const useGetAllUsers = (page = 1, perPage = 20) => {
       setIsLoading(true);
       try {
         const res = await getAllUsers({ page, perPage });
-        setUsers(res.data.users);
-        setPaginationData(res.data.paginationData);
+        setUsers(res.data.data.users);
+        setPaginationData(res.data.data.paginationData);
       } catch (err) {
         console.error('Failed to fetch users:', err);
       } finally {
@@ -23,5 +23,5 @@ export const useGetAllUsers = (page = 1, perPage = 20) => {
     fetch();
   }, [page, perPage]);
 
-  return { users, paginationData, isLoading };
+  return { users, paginationData, isLoading, queryParams: { page, perPage } };
 };
