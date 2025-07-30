@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import Layout from './modules/Layout/Layout';
 import AppRoutes from './routes/AppRoutes';
 import { refreshUser } from './redux/auth/authOperations';
+import Loader from './modules/Loader/Loader';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Toaster position="top-center" />
+      <Loader />
       <Layout>
         <AppRoutes />
       </Layout>
