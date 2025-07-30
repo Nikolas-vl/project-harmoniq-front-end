@@ -8,8 +8,8 @@ import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import Pagination from '../../modules/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 const ArticlesPage = () => {
-  const [filter, setFilter] = useState('All');
   const [searchParams] = useSearchParams();
+  const [filter, setFilter] = useState(null);
   const [page, setPage] = useState(null);
   const [perPage, setPerPage] = useState(null);
   const { articles, isLoading, pagination, queryParams } = useGetArticles(
@@ -23,8 +23,10 @@ const ArticlesPage = () => {
   useEffect(() => {
     const pageFromUrl = Number(searchParams.get('page')) || 1;
     const perPageFromUrl = Number(searchParams.get('perPage')) || 12;
+    const filterValue = searchParams.get('filter') || 'all';
     setPage(pageFromUrl);
     setPerPage(perPageFromUrl);
+    setFilter(filterValue);
   }, []);
   useSyncQueryParams(queryParams);
   if (isLoading) return <p>Loading...</p>;
@@ -40,8 +42,8 @@ const ArticlesPage = () => {
           onChange={e => setFilter(e.target.value)}
           className={s.select}
         >
-          <option value="All">All</option>
-          <option value="Popular">Popular</option>
+          <option value="all">All</option>
+          <option value="popular">Popular</option>
         </select>
       </div>
       <ArticlesList
