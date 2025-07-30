@@ -6,6 +6,7 @@ import AppRoutes from './routes/AppRoutes';
 import { refreshUser } from './redux/auth/authOperations';
 import Loader from './modules/Loader/Loader';
 
+
 function App() {
   const dispatch = useDispatch();
 

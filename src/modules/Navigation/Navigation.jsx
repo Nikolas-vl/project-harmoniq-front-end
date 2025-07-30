@@ -1,11 +1,9 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
-import { useSelector,useDispatch} from 'react-redux'; 
-
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
-
 
 import AuthButtons from './components/AuthButtons';
 import Burger from './components/Burger/Burger';
@@ -23,12 +21,12 @@ function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-
   const isAuthenticated = useSelector(selectIsLoggedIn);
 
-
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1440);
-  const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1440);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= 768 && window.innerWidth < 1440
+  );
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -66,14 +64,13 @@ function Navigation() {
 
   const handleLogoutClick = () => {
     setIsLogoutModalOpen(true);
-    setIsMenuOpen(false); 
+    setIsMenuOpen(false);
   };
 
   const handleLogoutCancel = () => {
     setIsLogoutModalOpen(false);
-    
   };
-  
+
   const handleLogoutConfirm = async () => {
     try {
       await dispatch(logout()).unwrap();
@@ -90,56 +87,68 @@ function Navigation() {
     setIsMenuOpen(prev => !prev);
   };
 
-
   return (
     <nav className={styles.nav}>
       {/* Навігація (десктоп) */}
       {isDesktop && (
         <ul className={styles.linkList}>
           <li>
-            <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ''} >Home</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/articles" className={({ isActive }) => isActive ? styles.active : ''} >Articles</NavLink>
+            <NavLink
+              to="/articles"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              Articles
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/authors" className={({ isActive }) => isActive ? styles.active : ''} >Creators</NavLink>
+            <NavLink
+              to="/authors"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              Creators
+            </NavLink>
           </li>
         </ul>
       )}
 
-{isDesktop && ( 
-        isAuthenticated ? ( 
+      {isDesktop &&
+        (isAuthenticated ? (
           <>
-            <CreateArticle /> 
-            <UserMenu onLogoutClick={handleLogoutClick} /> 
+            <CreateArticle />
+            <UserMenu onLogoutClick={handleLogoutClick} />
           </>
-        ) : ( 
+        ) : (
           <AuthButtons
             active={activeAuthButton}
             onLogin={handleLoginClick}
             onJoin={handleJoinClick}
           />
-        )
-      )}
+        ))}
 
-      {isTablet && ( 
-        isAuthenticated ? ( 
+      {isTablet &&
+        (isAuthenticated ? (
           <>
-            <CreateArticle/> 
+            <CreateArticle />
           </>
-        ) : ( 
+        ) : (
           <button
             onClick={handleJoinClick}
-            className={` ${styles.joinButtonTablet}`} 
+            className={` ${styles.joinButtonTablet}`}
           >
             Join now
           </button>
-        )
-      )}
+        ))}
 
       {/* Бургер */}
-      {(isTablet || isMobile) &&  (
+      {(isTablet || isMobile) && (
         <Burger isOpen={isMenuOpen} onClick={toggleMenu} />
       )}
 
@@ -152,16 +161,13 @@ function Navigation() {
         onLogin={handleLoginClick}
         onJoin={handleJoinClick}
         onLogoutClick={handleLogoutClick}
-     />
-          <ModalLogout
-        isOpen={isLogoutModalOpen} 
-         onConfirm={handleLogoutConfirm}
-        onClose={handleLogoutCancel}
-        
       />
-      
+      <ModalLogout
+        isOpen={isLogoutModalOpen}
+        onConfirm={handleLogoutConfirm}
+        onClose={handleLogoutCancel}
+      />
     </nav>
-       
   );
 }
 
