@@ -1,0 +1,28 @@
+.main_container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 361px;
+    height: 299px;
+    padding: 12px;
+    background-color: var(--color-light-green);
+    border-radius: 32px;
+}
+
+.not_found_title {
+    margin-top: 16px;
+    display: block;
+    font-family: var(--ff-manrope);
+    font-weight: 700;
+    font-size: 24px;
+    color: #070721;
+    margin-bottom: 16px;
+}
+
+.not_found_text {
+    font-family: var(--ff-manrope);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #070721;
+}
