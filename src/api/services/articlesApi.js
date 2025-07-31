@@ -5,12 +5,16 @@ export const getArticles = ({ page, perPage, filter } = {}) => {
     params: { page, perPage, filter },
   });
 };
+
 export const getArticleById = id => axiosInstance.get(`/articles/${id}`);
+
 export const deleteArticle = id => axiosInstance.delete(`/articles/${id}`);
+
 export const getPopularArticles = (limit = 3) =>
   axiosInstance.get('/articles/popular', {
     params: { limit },
   });
+
 export const createArticle = data => {
   const formData = new FormData();
 

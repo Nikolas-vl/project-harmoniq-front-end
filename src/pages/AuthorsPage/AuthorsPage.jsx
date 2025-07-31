@@ -1,41 +1,29 @@
 import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
-import axios from 'axios';
 import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
-
-
-const ITEMS_PER_PAGE = 20;
+import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 
 const AuthorsPage = () => {
-  const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [authors, setAuthors] = useState([]);
 
-  const fetchAuthors = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`/users?page=${page}&perPage=${ITEMS_PER_PAGE}`);
-
-      const newAuthors = Array.isArray(res.data.users) ? res.data.users : [];
-
-      setAuthors(prev => [...prev, ...newAuthors]);
-      if (newAuthors.length < ITEMS_PER_PAGE) {
-        setHasMore(false);
-      }
-
-      setPage(prev => prev + 1);
-    } catch (error) {
-      console.error('Error fetching authors:', error);
-      setHasMore(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { users, paginationData, isLoading } = useGetAllUsers(page, 20);
 
   useEffect(() => {
-    fetchAuthors();
-  }, []);
+    if (users && users.length > 0) {
+      setAuthors(prev => [...prev, ...users]);
+    }
+  }, [users]);
+
+  const hasMore = paginationData
+    ? paginationData.page < paginationData.totalPages
+    : false;
+
+  const handleLoadMore = () => {
+    if (!isLoading && hasMore) {
+      setPage(prev => prev + 1);
+    }
+  };
 
   return (
     <section className={css.wrapper}>
@@ -43,15 +31,15 @@ const AuthorsPage = () => {
         <div className={css.contentBlock}>
           <h2 className={css.title}>Authors</h2>
 
-        <AuthorsList authors={authors} loading={loading} />
+          <AuthorsList authors={authors} loading={isLoading} />
 
           {hasMore && (
             <button
               className={css.loadMore}
-              onClick={fetchAuthors}
-              disabled={loading}
+              onClick={handleLoadMore}
+              disabled={isLoading}
             >
-              {loading ? 'Loading...' : 'Load More'}
+              {isLoading ? 'Loading...' : 'Load More'}
             </button>
           )}
         </div>
