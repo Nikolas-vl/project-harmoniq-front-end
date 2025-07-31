@@ -63,7 +63,7 @@ const AuthorProfilePage = () => {
 
 return (
   <div className={styles['author-profile']}>
-    <h1 className={styles['header']}>My profile</h1>
+    {isOwnProfile && <h1 className={styles['header']}>My profile</h1>}
     <div className={styles['author-profile__header']}>
       {displayAvatar ? (
         <img
@@ -86,7 +86,7 @@ return (
       </div>
     </div>
 
-    {isOwnProfile && (
+    {isOwnProfile &&  (
       <div className={styles['author-profile__tabs']}>
         <button
           className={`${styles['author-profile__tab-btn']} ${
@@ -152,7 +152,8 @@ return (
                   ? savedArticles?.slice(0, visibleCount)
                   : visibleArticles
               }
-              isOwnProfile={isOwnProfile && activeTab === 'my'}
+                  isOwnProfile={isOwnProfile && activeTab === 'my'}
+                  activeTab={activeTab}
             />
 
             {visibleArticles.length < (currentArticles?.length || 0) &&

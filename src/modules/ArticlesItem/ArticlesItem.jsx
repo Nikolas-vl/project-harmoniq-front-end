@@ -4,7 +4,7 @@ import s from './ArticlesItem.module.css';
 
 import { deleteArticle } from '../../api/services/articlesApi';
 import { useDispatch } from 'react-redux';
-import { useCallback } from 'react';
+import { toast } from 'react-hot-toast';
 
 const ArticlesItem = ({
   article_id,
@@ -15,17 +15,20 @@ const ArticlesItem = ({
   handleAdd,
   isSaved,
   isOwnProfile,
+  activeTab,
 }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = useCallback(async () => {
+  const handleDelete = async () => {
     try {
       await deleteArticle(article_id);
       dispatch({ type: 'auth/removeUserArticle', payload: article_id });
+      toast.success('Article deleted!');
     } catch (error) {
-      console.error('Failed to delete article:', error);
+      console.error('Failed to delete:', error);
+      toast.error('Failed to delete article');
     }
-  }, [article_id, dispatch]);
+  };
 
   return (
     <article className={s.articleContainer}>
@@ -36,6 +39,7 @@ const ArticlesItem = ({
           width="368"
           height="233"
         />
+
         <img
           src={img}
           alt="photo here"
@@ -56,13 +60,9 @@ const ArticlesItem = ({
           Learn more
         </Link>
 
-        {isOwnProfile ? (
-          <button
-            type="button"
-            className={s.deleteBtn}
-            onClick={handleDelete}
-          >
-            🗑 Delete
+        {isOwnProfile && activeTab === 'my' ? (
+          <button onClick={handleDelete} className={s.deleteBtn}>
+            Delete
           </button>
         ) : (
           <ButtonAddToBookmarks

@@ -3,12 +3,7 @@
     padding-bottom: 46px;
     padding-left: 16px;
     padding-right: 16px;
-    width: 100%;
-    max-width: 1200px;
-    /* або 1000px, залежно від макету */
-    margin: 0 auto;
-    /* центрує контейнер */
-    padding: 0 16px;
+
 }
 
 .header {
