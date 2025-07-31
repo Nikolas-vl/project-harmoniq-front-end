@@ -50,15 +50,15 @@ export const useArticleForm = onSubmitSuccess => {
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        const formData = new FormData();
-
-        formData.append('image', values.image);
-        formData.append('title', values.title);
-        formData.append('desc', getDescription(values.text));
-        formData.append('article', values.text);
-        formData.append('rate', 0);
-        formData.append('ownerId', ownerId);
-        formData.append('date', new Date().toISOString());
+        const formData = {
+          image: values.image,
+          title: values.title,
+          desc: getDescription(values.text),
+          article: values.text,
+          rate: 0,
+          ownerId: ownerId,
+          date: new Date().toISOString(),
+        };
 
         await onSubmitSuccess(formData);
 
