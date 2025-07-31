@@ -23,7 +23,7 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
       return;
     }
     if (isSaved) {
-      toast.success('Article successfully saved!')
+      toast.success('Saved!')
       return;
     }
 
@@ -50,7 +50,7 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
       </div>
 
       <div className={css.card_button_container}>
-        <Link className={css.load_more_link} to={`/article/${article._id}`}>
+        <Link className={css.load_more_link} to={`/articles/${article._id}`}>
           Learn more
         </Link>
         <button
