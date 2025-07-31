@@ -7,15 +7,15 @@
     width: 161px;
     height: 46px;
 
-    font-family: "Manrope", sans-serif;
-    font-weight: 700;
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
     font-size: 16px;
-    color: #f7fffb;
+    color: var( --color-white-bg);
     
-    background: #649179;
+    background: var( --color-green);
 
 }
 .articleButton:hover{
-    background-color: #374f42;
-    color: #f7fffb;    
+    background-color: var(--color-green-darker);
+    color: var( --color-white-bg);    
   }

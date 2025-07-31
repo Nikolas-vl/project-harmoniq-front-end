@@ -25,9 +25,11 @@ export const register = createAsyncThunk(
     try {
       await axios.post('/auth/register', credentials);
       const { email, password } = credentials;
+
       const loginResult = await thunkApi.dispatch(login({ email, password }));
 
       if (loginResult.error) {
+        toast.error('Login after registration failed!');
         return thunkApi.rejectWithValue('Login after registration failed');
       }
 

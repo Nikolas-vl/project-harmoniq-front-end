@@ -4,21 +4,22 @@
     align-items: center;
      padding: 8px 16px; 
      gap: 16px;
-    color: #374F42;  
+    color: var(--color-green-darker);  
+   
 
   }
   .userSpan{
     height: 39px;         
     width: 1px;           
-    background-color: #374F42; 
+    background-color: var(--color-green-darker); 
   }
 
   
   .userName {
-    font-family: "Manrope", sans-serif;
-    font-weight: 700;
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
     font-size: 12px;
-    color: #374f42;
+    color: var(--color-green-darker);
     
   }
   
@@ -33,4 +34,25 @@
   cursor: pointer;               
   outline: none; 
   }
-  
+  .userButton {
+    background-color: transparent;
+  }
+  .userAvatar{
+    display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+gap: 4px;
+
+border-radius: 256px;
+width: 32px;
+height: 32px;
+
+  }
+  .userLetter{
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
+    font-size: 16px;
+    color: var(--color-green-darker);
+    
+  }

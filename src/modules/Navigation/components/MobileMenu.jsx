@@ -47,7 +47,7 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin, onLo
           <ul className={styles.mobileLinkList}>
             <li><NavLink to="/" onClick={onClose}>Home</NavLink></li>
             <li><NavLink to="/articles" onClick={onClose}>Articles</NavLink></li>
-            <li><NavLink to="/creators" onClick={onClose}>Creators</NavLink></li>
+            <li><NavLink to="/authors" onClick={onClose}>Creators</NavLink></li>
 
             {isTablet && (
               isAuthenticated ? 
