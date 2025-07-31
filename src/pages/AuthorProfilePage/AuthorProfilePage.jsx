@@ -45,11 +45,8 @@ const AuthorProfilePage = () => {
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
 
   const allMyArticles = isOwnProfile ? myArticles : userArticles;
-  const currentArticles = activeTab === 'my'
-  ? allMyArticles
-  : isOwnProfile
-    ? savedArticles
-    : [];
+  const currentArticles =
+    activeTab === 'my' ? allMyArticles : isOwnProfile ? savedArticles : [];
 
   const visibleArticles = currentArticles?.slice(0, visibleCount) || [];
 
@@ -61,127 +58,144 @@ const AuthorProfilePage = () => {
     setVisibleCount(ARTICLES_PER_PAGE);
   }, [activeTab, authorId]);
 
-return (
-  <div className={styles['author-profile']}>
-    {isOwnProfile && <h1 className={styles['header']}>My profile</h1>}
-    <div className={styles['author-profile__header']}>
-      {displayAvatar ? (
-        <img
-          className={styles['author-profile__avatar']}
-          src={displayAvatar}
-          alt={displayName}
-          width={100}
-          height={100}
-        />
-      ) : (
-        <div className={styles['author-profile__avatar-placeholder']}>
-          {displayName?.charAt(0).toUpperCase()}
+  return (
+    <div className={styles['author-profile']}>
+      {isOwnProfile && <h1 className={styles['header']}>My profile</h1>}
+      <div className={styles['author-profile__header']}>
+        {displayAvatar ? (
+          <img
+            className={styles['author-profile__avatar']}
+            src={displayAvatar}
+            alt={displayName}
+            width={100}
+            height={100}
+          />
+        ) : (
+          <div className={styles['author-profile__avatar-placeholder']}>
+            {displayName?.charAt(0).toUpperCase()}
+          </div>
+        )}
+        <div className={styles['author-profile__name__articles-amount']}>
+          <h2 className={styles['author-profile__name']}>{displayName}</h2>
+          <p className={styles['author-profile__articles-amount']}>
+            Articles: {displayArticlesAmount}
+          </p>
+        </div>
+      </div>
+
+      {isOwnProfile && (
+        <div className={styles['author-profile__tabs']}>
+          <button
+            className={`${styles['author-profile__tab-btn']} ${
+              activeTab === 'my' ? styles['active'] : ''
+            }`}
+            onClick={() => setActiveTab('my')}
+            disabled={activeTab === 'my'}
+          >
+            My Articles
+          </button>
+          <button
+            className={`${styles['author-profile__tab-btn']} ${
+              activeTab === 'saved' ? styles['active'] : ''
+            }`}
+            onClick={() => setActiveTab('saved')}
+            disabled={activeTab === 'saved'}
+          >
+            Saved Articles
+          </button>
         </div>
       )}
-      <div className={styles['author-profile__name__articles-amount']}>
-        <h2 className={styles['author-profile__name']}>{displayName}</h2>
-        <p className={styles['author-profile__articles-amount']}>
-          Articles: {displayArticlesAmount}
-        </p>
-      </div>
+
+      {isLoading ? (
+        <p className={styles['author-profile__loading']}>Loading articles...</p>
+      ) : (
+        <>
+          {currentArticles?.length === 0 ? (
+            <div className={styles['author-profile__empty']}>
+              <svg
+                width="64"
+                height="64"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={styles['author-profile__empty-icon']}
+              >
+                <path
+                  d="M20 28.4444V30.5556M20 9.44444V22.1111M39 20C39 30.4934 30.4934 39 20 39C9.50659 39 1 30.4934 1 20C1 9.50659 9.50659 1 20 1C30.4934 1 39 9.50659 39 20Z"
+                  stroke="#070721"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+              <p className={styles['author-profile__empty-title']}>
+                Nothing found.
+              </p>
+
+              {isOwnProfile && activeTab === 'saved' ? (
+                <>
+                  <p className={styles['author-profile__empty-subtitle']}>
+                    Save your first article
+                  </p>
+                  <button
+                    className={styles['author-profile__action-btn']}
+                    onClick={() => navigate('/articles')}
+                  >
+                    Go to articles
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p className={styles['author-profile__empty-subtitle']}>
+                    Write your first article
+                  </p>
+                  <button
+                    className={styles['author-profile__action-btn']}
+                    onClick={() => navigate('/create')}
+                  >
+                    Create an article
+                  </button>
+                </>
+              )}
+            </div>
+          ) : (
+            <>
+              <ArticlesList
+                articles={
+                  isOwnProfile && activeTab === 'saved'
+                    ? savedArticles?.slice(0, visibleCount)
+                    : visibleArticles
+                }
+                isOwnProfile={isOwnProfile && activeTab === 'my'}
+                activeTab={activeTab}
+              />
+
+              {visibleArticles.length < (currentArticles?.length || 0) &&
+                activeTab === 'my' && (
+                  <button
+                    className={styles['author-profile__load-more-btn']}
+                    onClick={handleLoadMore}
+                  >
+                    Load More
+                  </button>
+                )}
+
+              {isOwnProfile &&
+                activeTab === 'saved' &&
+                savedArticles?.length > visibleArticles.length && (
+                  <button
+                    className={styles['author-profile__load-more-btn']}
+                    onClick={handleLoadMore}
+                  >
+                    Load More
+                  </button>
+                )}
+            </>
+          )}
+        </>
+      )}
     </div>
-
-    {isOwnProfile &&  (
-      <div className={styles['author-profile__tabs']}>
-        <button
-          className={`${styles['author-profile__tab-btn']} ${
-            activeTab === 'my' ? styles['active'] : ''
-          }`}
-          onClick={() => setActiveTab('my')}
-          disabled={activeTab === 'my'}
-        >
-          My Articles
-        </button>
-        <button
-          className={`${styles['author-profile__tab-btn']} ${
-            activeTab === 'saved' ? styles['active'] : ''
-          }`}
-          onClick={() => setActiveTab('saved')}
-          disabled={activeTab === 'saved'}
-        >
-          Saved Articles
-        </button>
-      </div>
-    )}
-
-    {isLoading ? (
-      <p className={styles['author-profile__loading']}>Loading articles...</p>
-    ) : (
-      <>
-        {currentArticles?.length === 0 ? (
-          <div className={styles['author-profile__empty']}>
-            <p className={styles['author-profile__empty-title']}>
-              Nothing found.
-            </p>
-            {isOwnProfile && activeTab === 'saved' ? (
-              <>
-                <p className={styles['author-profile__empty-subtitle']}>
-                  Save your first article
-                </p>
-                <button
-                  className={styles['author-profile__action-btn']}
-                  onClick={() => navigate('/articles')}
-                >
-                  Go to articles
-                </button>
-              </>
-            ) : (
-              <>
-                <p className={styles['author-profile__empty-subtitle']}>
-                  Write your first article
-                </p>
-                <button
-                  className={styles['author-profile__action-btn']}
-                  onClick={() => navigate('/create')}
-                >
-                  Create an article
-                </button>
-              </>
-            )}
-          </div>
-        ) : (
-          <>
-            <ArticlesList
-              articles={
-                isOwnProfile && activeTab === 'saved'
-                  ? savedArticles?.slice(0, visibleCount)
-                  : visibleArticles
-              }
-                  isOwnProfile={isOwnProfile && activeTab === 'my'}
-                  activeTab={activeTab}
-            />
-
-            {visibleArticles.length < (currentArticles?.length || 0) &&
-              activeTab === 'my' && (
-                <button
-                  className={styles['author-profile__load-more-btn']}
-                  onClick={handleLoadMore}
-                >
-                  Load More
-                </button>
-              )}
-
-            {isOwnProfile &&
-              activeTab === 'saved' &&
-              savedArticles?.length > visibleArticles.length && (
-                <button
-                  className={styles['author-profile__load-more-btn']}
-                  onClick={handleLoadMore}
-                >
-                  Load More
-                </button>
-              )}
-          </>
-        )}
-      </>
-    )}
-  </div>
-);
+  );
 };
 
 export default AuthorProfilePage;
