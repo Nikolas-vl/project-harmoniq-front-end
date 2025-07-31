@@ -2,6 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
+import styles from './AuthorProfilePage.module.css'
+
 import {
   selectUserId,
   selectUserName,
@@ -59,42 +61,46 @@ const AuthorProfilePage = () => {
     setVisibleCount(ARTICLES_PER_PAGE);
   }, [activeTab, authorId]);
 
-  return (
-  <div>
-    <div>
+return (
+  <div className={styles['author-profile']}>
+    <h1 className={styles['header']}>My profile</h1>
+    <div className={styles['author-profile__header']}>
       {displayAvatar ? (
-        <img src={displayAvatar} alt={displayName} width={100} height={100} />
+        <img
+          className={styles['author-profile__avatar']}
+          src={displayAvatar}
+          alt={displayName}
+          width={100}
+          height={100}
+        />
       ) : (
-        <div
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: '50%',
-            backgroundColor: '#cfcfcf',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 40,
-            fontWeight: 'bold',
-            color: '#fff',
-          }}
-        >
+        <div className={styles['author-profile__avatar-placeholder']}>
           {displayName?.charAt(0).toUpperCase()}
         </div>
       )}
-      <h2>{displayName}</h2>
-      <p>Articles: {displayArticlesAmount}</p>
+      <div className={styles['author-profile__name__articles-amount']}>
+        <h2 className={styles['author-profile__name']}>{displayName}</h2>
+        <p className={styles['author-profile__articles-amount']}>
+          Articles: {displayArticlesAmount}
+        </p>
+      </div>
     </div>
 
     {isOwnProfile && (
-      <div>
+      <div className={styles['author-profile__tabs']}>
         <button
+          className={`${styles['author-profile__tab-btn']} ${
+            activeTab === 'my' ? styles['active'] : ''
+          }`}
           onClick={() => setActiveTab('my')}
           disabled={activeTab === 'my'}
         >
           My Articles
         </button>
         <button
+          className={`${styles['author-profile__tab-btn']} ${
+            activeTab === 'saved' ? styles['active'] : ''
+          }`}
           onClick={() => setActiveTab('saved')}
           disabled={activeTab === 'saved'}
         >
@@ -104,53 +110,34 @@ const AuthorProfilePage = () => {
     )}
 
     {isLoading ? (
-      <p>Loading articles...</p>
+      <p className={styles['author-profile__loading']}>Loading articles...</p>
     ) : (
       <>
         {currentArticles?.length === 0 ? (
-          <div
-            style={{
-              padding: '30px 20px',
-              margin: '20px auto',
-              borderRadius: '16px',
-              backgroundColor: '#eaf2ee',
-              textAlign: 'center',
-              maxWidth: 500,
-            }}
-          >
-            <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>
+          <div className={styles['author-profile__empty']}>
+            <p className={styles['author-profile__empty-title']}>
               Nothing found.
             </p>
             {isOwnProfile && activeTab === 'saved' ? (
               <>
-                <p style={{ marginBottom: 16 }}>Save your first article</p>
+                <p className={styles['author-profile__empty-subtitle']}>
+                  Save your first article
+                </p>
                 <button
+                  className={styles['author-profile__action-btn']}
                   onClick={() => navigate('/articles')}
-                  style={{
-                    padding: '10px 20px',
-                    borderRadius: '12px',
-                    border: '1px solid #5d7e6b',
-                    backgroundColor: '#eaf2ee',
-                    color: '#5d7e6b',
-                    cursor: 'pointer',
-                  }}
                 >
                   Go to articles
                 </button>
               </>
             ) : (
               <>
-                <p style={{ marginBottom: 16 }}>Write your first article</p>
+                <p className={styles['author-profile__empty-subtitle']}>
+                  Write your first article
+                </p>
                 <button
+                  className={styles['author-profile__action-btn']}
                   onClick={() => navigate('/create')}
-                  style={{
-                    padding: '10px 20px',
-                    borderRadius: '12px',
-                    border: '1px solid #5d7e6b',
-                    backgroundColor: '#eaf2ee',
-                    color: '#5d7e6b',
-                    cursor: 'pointer',
-                  }}
                 >
                   Create an article
                 </button>
@@ -165,17 +152,28 @@ const AuthorProfilePage = () => {
                   ? savedArticles?.slice(0, visibleCount)
                   : visibleArticles
               }
+              isOwnProfile={isOwnProfile && activeTab === 'my'}
             />
 
             {visibleArticles.length < (currentArticles?.length || 0) &&
               activeTab === 'my' && (
-                <button onClick={handleLoadMore}>Load More</button>
+                <button
+                  className={styles['author-profile__load-more-btn']}
+                  onClick={handleLoadMore}
+                >
+                  Load More
+                </button>
               )}
 
             {isOwnProfile &&
               activeTab === 'saved' &&
               savedArticles?.length > visibleArticles.length && (
-                <button onClick={handleLoadMore}>Load More</button>
+                <button
+                  className={styles['author-profile__load-more-btn']}
+                  onClick={handleLoadMore}
+                >
+                  Load More
+                </button>
               )}
           </>
         )}

@@ -12,7 +12,7 @@ import {
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import toast from 'react-hot-toast';
 
-const ArticlesList = ({ articles }) => {
+const ArticlesList = ({ articles, isOwnProfile }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectSavedArticles);
@@ -58,6 +58,7 @@ const ArticlesList = ({ articles }) => {
               img={article.img}
               handleAdd={handleAdd}
               article_id={article._id}
+              isOwnProfile={isOwnProfile}
               // isSaved={savedArticles.some(
               //   articleInList => articleInList._id === article?._id
               // )}
