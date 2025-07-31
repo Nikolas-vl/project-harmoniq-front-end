@@ -23,20 +23,15 @@ const ArticlePage = () => {
   if (!article) {
     return <p>Article not found</p>;
   }
-  const {
-    title,
-    img: imageUrl,
-    article: fullText,
-    author,
-    date: createdAt,
-  } = article;
+  const { title, image, article: fullText, author, date: createdAt } = article;
+  console.log('article:', article);
   const handleSave = () => {
     saveArticle(currentUser, articleId);
   };
   return (
     <div className={styles.articlePage}>
       <h1 className={styles.title}>{title}</h1>
-      {imageUrl && <img src={imageUrl} alt={title} className={styles.image} />}
+      {image && <img src={image} alt={title} className={styles.image} />}
       <p className={styles.description}>
         {fullText.split('\n').map((line, index) => (
           <span key={index}>

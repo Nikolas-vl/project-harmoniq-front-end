@@ -19,7 +19,8 @@ const ArticleForm = () => {
   } = useArticleForm(async articleObject => {
     try {
       const result = await create(articleObject);
-      const articleId = result.data._id;
+      console.log('result:', result);
+      const articleId = result._id;
       navigate(`/articles/${articleId}`);
     } catch (err) {
       toast.error('An error occurred when creating an article!');
