@@ -24,11 +24,26 @@ button:disabled {
   height: 233px;
 }
 
+.unknown_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  font-family: var(--ff-manrope);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--color-gray);
+  background-color: var(--color-light-gray);
+  width: 337px;
+  height: 233px;
+}
+
 .card_author_name {
   font-family: var(--ff-manrope);
   font-weight: 700;
   font-size: 16px;
   color: var(--color-black);
+  transition: var(--transition);
 }
 
 .card_title {
@@ -105,6 +120,9 @@ button:disabled {
   .card_image {
     width: 316px;
   }
+  .unknown_image {
+    width: 316px;
+  }
   .load_more_link {
     width: 268px;
   }
@@ -117,10 +135,18 @@ button:disabled {
   .card_image {
     width: 368px;
   }
+  .unknown_image {
+    width: 368px;
+  }
   .load_more_link {
     width: 320px;
     transition: var(--transition);
   }
+}
+
+.card_author_name:hover,
+.card_author_name:focus {
+  opacity: 0.7;
 }
 
 .load_more_link:hover,

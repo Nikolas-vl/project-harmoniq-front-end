@@ -56,11 +56,15 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
         onClose={() => setShowErrorModal(false)}
       />
       <div className={css.card_container}>
-        <img className={css.card_image} src={article.img} alt={article.desc} />
+        {article.img ? (
+          <img className={css.card_image} src={article.img} alt={article.desc} />
+        ) : (
+          <div className={css.unknown_image}>Unknown</div>
+        )}
         <div>
-          <p className={css.card_author_name}>
+          <Link to={`/authors/${article.ownerId}`} className={css.card_author_name}>
             {article?.author || 'Unknown author'}
-          </p>
+          </Link>
           <h3 className={css.card_title}>{article.title}</h3>
           <p className={css.card_description}>{article.article}</p>
         </div>
