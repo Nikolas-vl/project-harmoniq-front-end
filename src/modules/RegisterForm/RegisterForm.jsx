@@ -68,132 +68,136 @@ const RegisterForm = () => {
     formik;
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <h2 className={styles.title}>Register</h2>
-      <h3 className={styles.title_}>
+    <section className={styles.section}>
+      <h1 className={styles.title}>Register</h1>
+      <p className={styles.title_}>
         Join our community of mindfulness and wellbeing!
-      </h3>
-
-      <label className={styles.label}>
-        Enter your name
-        <input
-          type="text"
-          name="name"
-          placeholder="Max"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={styles.input}
-        />
-        <div className={styles.errorContainer}>
-          {touched.name && errors.name && (
-            <span className={styles.error}>{errors.name}</span>
-          )}
-        </div>
-      </label>
-
-      <label className={styles.label}>
-        Enter your email address
-        <input
-          type="email"
-          name="email"
-          placeholder="email@gmail.com"
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={styles.input}
-        />
-        <div className={styles.errorContainer}>
-          {touched.email && errors.email && (
-            <span className={styles.error}>{errors.email}</span>
-          )}
-        </div>
-      </label>
-
-      <label className={styles.label}>
-        Create a strong password
-        <div className={styles.passwordWrapper}>
+      </p>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label className={styles.label}>
+          Enter your name
           <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            placeholder="*********"
-            value={values.password}
+            type="text"
+            name="name"
+            placeholder="Max"
+            value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
             className={styles.input}
           />
+          <div className={styles.errorContainer}>
+            {touched.name && errors.name && (
+              <span className={styles.error}>{errors.name}</span>
+            )}
+          </div>
+        </label>
 
-          <button
-            type="button"
-            className={styles.toggleButton}
-            onClick={() => setShowPassword(prev => !prev)}
-            aria-label="Toggle password visibility"
-          >
-            <img
-              src={showPassword ? eyeCrossed : eye}
-              alt={showPassword ? 'Hide password' : 'Show password'}
-              width="24"
-              height="24"
-            />
-          </button>
-        </div>
-        <div className={styles.errorContainer}>
-          {touched.password && errors.password && (
-            <span className={styles.error}>{errors.password}</span>
-          )}
-        </div>
-        <div className={styles.strengthBarWrapper}>
-          <PasswordStrengthBar
-            password={values.password}
-            className={values.password ? '' : styles.strengthBarHidden}
-          />
-        </div>
-      </label>
-
-      <label className={styles.label}>
-        Repeat your password
-        <div className={styles.passwordWrapper}>
+        <label className={styles.label}>
+          Enter your email address
           <input
-            type={showConfirmPassword ? 'text' : 'password'}
-            name="confirmPassword"
-            placeholder="*********"
-            value={values.confirmPassword}
+            type="email"
+            name="email"
+            placeholder="email@gmail.com"
+            value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
             className={styles.input}
           />
-          <button
-            type="button"
-            className={styles.toggleButton}
-            onClick={() => setShowConfirmPassword(prev => !prev)}
-            aria-label="Toggle confirm password visibility"
-          >
-            <img
-              src={showConfirmPassword ? eyeCrossed : eye}
-              alt={showConfirmPassword ? 'Hide password' : 'Show password'}
-              width="24"
-              height="24"
+          <div className={styles.errorContainer}>
+            {touched.email && errors.email && (
+              <span className={styles.error}>{errors.email}</span>
+            )}
+          </div>
+        </label>
+
+        <label className={styles.label}>
+          Create a strong password
+          <div className={styles.passwordWrapper}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="*********"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={styles.input}
             />
-          </button>
-        </div>
-        <div className={styles.errorContainer}>
-          {touched.confirmPassword && errors.confirmPassword && (
-            <span className={styles.error}>{errors.confirmPassword}</span>
-          )}
-        </div>
-      </label>
 
-      <button type="submit" className={styles.button} disabled={isSubmitting}>
-        {isSubmitting ? 'Creating...' : 'Create account'}
-      </button>
+            <button
+              type="button"
+              className={styles.toggleButton}
+              onClick={() => setShowPassword(prev => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              <img
+                src={showPassword ? eyeCrossed : eye}
+                alt={showPassword ? 'Hide password' : 'Show password'}
+                width="24"
+                height="24"
+              />
+            </button>
+          </div>
+          <div className={styles.errorContainer}>
+            {touched.password && errors.password && (
+              <span className={styles.error}>{errors.password}</span>
+            )}
+          </div>
+          <div className={styles.strengthBarWrapper}>
+            {/* <PasswordStrengthBar
+              password={values.password}
+              className={values.password ? '' : styles.strengthBarHidden}
+            /> */}
+            <PasswordStrengthBar
+              password={values.password}
+              className={styles.strengthBar}
+            />
+          </div>
+        </label>
 
+        <label className={styles.label}>
+          Repeat your password
+          <div className={styles.passwordWrapper}>
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              name="confirmPassword"
+              placeholder="*********"
+              value={values.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={styles.input}
+            />
+            <button
+              type="button"
+              className={styles.toggleButton}
+              onClick={() => setShowConfirmPassword(prev => !prev)}
+              aria-label="Toggle confirm password visibility"
+            >
+              <img
+                src={showConfirmPassword ? eyeCrossed : eye}
+                alt={showConfirmPassword ? 'Hide password' : 'Show password'}
+                width="24"
+                height="24"
+              />
+            </button>
+          </div>
+          <div className={styles.errorContainer}>
+            {touched.confirmPassword && errors.confirmPassword && (
+              <span className={styles.error}>{errors.confirmPassword}</span>
+            )}
+          </div>
+        </label>
+
+        <button type="submit" className={styles.button} disabled={isSubmitting}>
+          {isSubmitting ? 'Creating...' : 'Create account'}
+        </button>
+      </form>
       <p className={styles.footerText}>
         Already have an account?{' '}
         <Link to="/login" className={styles.link}>
           Log in
         </Link>
       </p>
-    </form>
+    </section>
   );
 };
 

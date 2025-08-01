@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ArticlesItem from '../ArticlesItem/ArticlesItem';
 import s from './ArticlesList.module.css';
 import ModalErrorSave from '../ModalErrorSave/ModalErrorSave';
-import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSelector } from 'react-redux';
 import {
   selectIsLoggedIn,
@@ -12,7 +11,7 @@ import {
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import toast from 'react-hot-toast';
 
-const ArticlesList = ({ articles }) => {
+const ArticlesList = ({ articles, isOwnProfile, activeTab }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectSavedArticles);
@@ -46,22 +45,42 @@ const ArticlesList = ({ articles }) => {
     }
   };
 
+  const normalizedArticles = articles.map(article => {
+    const articleId = article._id || article.article_id;
+    const author =
+      typeof article.author === 'object' && article.author !== null
+        ? article.author.name
+        : typeof article.author === 'string'
+        ? 'Автор'
+        : 'Невідомо';
+
+    const image = article.img || article.image || '';
+    const description = article.description || article.desc || '';
+
+    return {
+      article_id: articleId,
+      title: article.title,
+      description,
+      author,
+      img: image,
+    };
+  });
+
   return (
     <>
       <ul className={s.list}>
-        {articles.map(article => (
-          <li key={article._id} className={s.listItem}>
+        {normalizedArticles.map(article => (
+          <li key={article.article_id} className={s.listItem}>
             <ArticlesItem
               title={article.title}
-              description={article.desc}
+              description={article.description}
               author={article.author}
               img={article.img}
               handleAdd={handleAdd}
-              article_id={article._id}
-              // isSaved={savedArticles.some(
-              //   articleInList => articleInList._id === article?._id
-              // )}
-              isSaved={savedIds.includes(article._id)}
+              article_id={article.article_id}
+              isOwnProfile={isOwnProfile}
+              activeTab={activeTab}
+              isSaved={savedIds.includes(article.article_id)}
             />
           </li>
         ))}
