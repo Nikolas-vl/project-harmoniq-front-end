@@ -1,5 +1,7 @@
 button:disabled {
   cursor: not-allowed;
+  background-color: transparent;
+  border: 1px solid #374f42;
 }
 
 .card_container {
@@ -80,6 +82,8 @@ button:disabled {
   width: 40px;
   height: 40px;
   transition: var(--transition);
+  border: inherit;
+  border: 1px solid #374f42;
   color: inherit;
   color: #374f42;
 }
@@ -127,6 +131,7 @@ button:disabled {
 
 .save_button:hover {
   background: #374f42;
+  border: none;
   color: white;
 }
 

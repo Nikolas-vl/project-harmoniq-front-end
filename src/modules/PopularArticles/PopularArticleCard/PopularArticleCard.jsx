@@ -75,7 +75,7 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
             className={`${css.save_button} ${isSaved ? css.saved_button : ''}`}
           >
             {isSaving || isDeleting ? (
-              <span style={{ fontSize: '8px', margin: 0 }}>✋</span>
+              <span style={{ fontSize: '16px', margin: 0 }}>✋</span>
             ) : (
               <SaveIcon />
             )}
