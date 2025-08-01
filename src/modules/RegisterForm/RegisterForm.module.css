@@ -1,4 +1,4 @@
-.form {
+.section {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -13,8 +13,16 @@
   margin-bottom: 85px;
 }
 
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
 @media (min-width: 768px) {
-  .form {
+  .section {
     width: 522px;
     margin-top: 47px;
     margin-bottom: 53px;
@@ -22,7 +30,7 @@
 }
 
 @media (min-width: 1200px) {
-  .form {
+  .section {
     width: 392px;
     margin-top: 47px;
     margin-bottom: 53px;
@@ -82,6 +90,7 @@
   font-weight: 700;
   font-size: 16px;
   color: var(--color-white-bg);
+  margin-top: 11px;
 }
 
 @media (min-width: 768px) {
@@ -98,6 +107,7 @@
 
 .button:hover {
   background: var(--color-green-darker);
+  transition: background-color var(--transition);
 }
 
 .button:disabled {
@@ -158,5 +168,23 @@
 .strengthBarHidden {
   opacity: 0;
   height: 0;
+  pointer-events: none;
+}
+
+/* try fix miracles streng_bar */
+.strengthBar {
+  transition: opacity var(--transition);
+  opacity: 1;
+  height: auto;
+}
+
+.strengthBar :global(.react-password-strength-bar) {
+  transition: opacity 0.3s ease;
+}
+
+.strengthBarHidden {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
   pointer-events: none;
 }
