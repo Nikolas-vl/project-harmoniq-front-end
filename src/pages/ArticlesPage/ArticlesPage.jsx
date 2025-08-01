@@ -8,7 +8,7 @@ import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import Pagination from '../../modules/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 const ArticlesPage = () => {
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('all');
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(null);
   const [perPage, setPerPage] = useState(null);

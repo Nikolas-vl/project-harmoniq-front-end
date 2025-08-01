@@ -9,6 +9,8 @@ const ArticlesItem = ({
   img,
   handleAdd,
   isSaved,
+  isLoading,
+  isSaving,
 }) => {
   return (
     <article className={s.articleContainer}>
@@ -42,6 +44,7 @@ const ArticlesItem = ({
         <ButtonAddToBookmarks
           onAdd={() => handleAdd(article_id)}
           isSaved={isSaved}
+          isSaving={isSaving}
         />
       </div>
     </article>
