@@ -7,10 +7,14 @@ import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
 import CreateArticle from './CreateArticle/CreateArticleButton';
 import logoImage from '../../../assets/icons/header-logo.svg'
 
+import { selectUserId } from '../../../redux/auth/authSelectors';
+
 
 const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin, onLogoutClick  }) => {
 
   const isAuthenticated = useSelector(selectIsLoggedIn);
+
+  const userId = useSelector(selectUserId);
 
   return (
     <div className={`${styles.mobileMenuOverlay} ${isOpen ? styles.showMenu : ''}`}>
@@ -48,7 +52,7 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin, onLo
             {isTablet && (
               isAuthenticated ? 
               <>
-              <li><NavLink to="/profile" onClick={onClose}>My Profile</NavLink></li>
+              <li><NavLink to={`/authors/${userId}`} onClick={onClose}>My Profile</NavLink></li>
               <li><UserMenu onLogoutClick={onLogoutClick} /></li>
               </>
               :
@@ -61,7 +65,7 @@ const MobileMenu = ({ isOpen, isTablet, isMobile, onClose, onLogin, onJoin, onLo
             {isMobile && (
                 isAuthenticated ? 
                 <>
-                <li><NavLink to="/authors/:id" onClick={onClose}>My Profile</NavLink></li>
+                <li><NavLink to={`/authors/${userId}`} onClick={onClose}>My Profile</NavLink></li>
                 <li><CreateArticle/></li>
                 <li> <UserMenu onLogoutClick={onLogoutClick} /> </li>
                  </>

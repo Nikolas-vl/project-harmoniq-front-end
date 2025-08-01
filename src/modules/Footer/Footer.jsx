@@ -2,7 +2,11 @@ import css from "./Footer.module.css";
 import logo from '/src/assets/icons/footer-logo.svg';
 import { Link, NavLink } from "react-router-dom";
 
+import { selectUserId } from '../../redux/auth/authSelectors';
+import { useSelector } from 'react-redux';
+
 const Footer = () => {
+  const userId = useSelector(selectUserId);
   return (
     <>
       <footer className={css.other_container}>
@@ -19,7 +23,7 @@ const Footer = () => {
                 <NavLink className={css.redirect_link} to="/articles">Articles</NavLink>
               </li>
               <li className={css.link_list_item}>
-                <NavLink className={css.redirect_link} to="/account">Account</NavLink>
+                <NavLink className={css.redirect_link} to={`/authors/${userId}`}>Account</NavLink>
               </li>
             </ul>
           </div>
