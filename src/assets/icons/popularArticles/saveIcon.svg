@@ -1,6 +1,6 @@
 <svg
-  width="41"
-  height="41"
+  width="40"
+  height="40"
   viewBox="0 0 41 41"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +11,7 @@
     width="39"
     height="39"
     rx="19.5"
-    stroke="#374F42"
+    stroke="currentBorder"
     fill="transparent"
   />
   <path
