@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const PopularArticles = () => {
   return (
     <>
-      <section className={css.section_container}>
+      <section className={css.section_container} id="popular-articles">
         <div className="container">
           <div className={css.section_title_link_container}>
             <h2 className={css.section_title}>Popular Articles</h2>
