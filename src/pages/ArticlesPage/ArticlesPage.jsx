@@ -40,8 +40,8 @@ const ArticlesPage = () => {
           onChange={e => setFilter(e.target.value)}
           className={s.select}
         >
-          <option value="All">All</option>
-          <option value="Popular">Popular</option>
+          <option value="all">All</option>
+          <option value="popular">Popular</option>
         </select>
       </div>
       <ArticlesList
