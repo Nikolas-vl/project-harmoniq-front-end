@@ -1,5 +1,5 @@
 import css from './NothingFoundCard.module.css';
-import logo from '/src/assets/icons/alert.svg';
+import AlertLogo from '../../assets/icons/alert.svg?react';
 import { Link } from 'react-router-dom';
 
 const NothingFoundCard = ({ title, text, linkText, linkPath }) => {
@@ -7,7 +7,7 @@ const NothingFoundCard = ({ title, text, linkText, linkPath }) => {
         <>
             <div className={css.main_container}>
                 <div>
-                    <img src={logo} alt="Exclamation mark in the centre of circle" />
+                    <AlertLogo />
                     <h4 className={css.not_found_title}>{title}</h4>
                     <span className={css.not_found_text}>{text}</span>
                 </div>
