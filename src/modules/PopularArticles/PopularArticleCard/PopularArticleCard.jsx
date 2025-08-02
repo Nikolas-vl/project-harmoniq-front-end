@@ -75,8 +75,8 @@ const handleDelete = async () => {
         onClose={() => setShowErrorModal(false)}
       />
       <div className={css.card_container}>
-        {article.img ? (
-          <img className={css.card_image} src={article.img} alt={article.desc} />
+        {article.image ? (
+          <img className={css.card_image} src={article.image} alt={article.desc} />
         ) : (
           <Camera className={css.unknown_image} />
         )}
