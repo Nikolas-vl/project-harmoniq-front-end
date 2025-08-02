@@ -3,13 +3,16 @@ import { useSelector } from 'react-redux';
 import styles from './UserMenu.module.css';
 import { selectUserAvatarUrl, selectUserName } from '../../../../redux/auth/authSelectors';
 import exitImg from '../../../../assets/icons/exit-icon.svg'
+import { Link } from 'react-router-dom';
 
 const UserMenu = ({ onLogoutClick, onUserClick }) => {
   const userName = useSelector(selectUserName);
   const userAvatar = useSelector(selectUserAvatarUrl);
-
+  const userId = useSelector(state => state.auth.user.id);
+  
   return (
     <div className={styles.userContainer}>
+      <Link to={`/authors/${userId}`} className={styles.userLink}>
    <button className={styles.userButton} onClick={onUserClick}>
         {userAvatar ? (
           <img src={userAvatar} alt="Avatar" className={styles.userAvatar} />
@@ -18,9 +21,10 @@ const UserMenu = ({ onLogoutClick, onUserClick }) => {
             {userName?.charAt(0).toUpperCase()}
           </span>
         )}
-      </button>
-      <h2 className={styles.userName}>{userName}</h2>
-      <span className={styles.userSpan}></span>
+        </button>
+        <h2 className={styles.userName}>{userName}</h2>
+      </Link>
+        <span className={styles.userSpan}></span>
       <button className={styles.exitBtn} onClick={onLogoutClick}>
       <img src={exitImg} alt="Exit"  width="24" height="28"/> 
        

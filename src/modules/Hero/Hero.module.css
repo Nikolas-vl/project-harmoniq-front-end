@@ -53,6 +53,9 @@
   color: var(--color-white-bg);
   text-align: center;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .articlesBtn:hover {
@@ -75,6 +78,9 @@
   font-size: 18px;
   color: var(--color-green-darker);
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .registerBtn:hover {
@@ -97,7 +103,7 @@
   .heroInner {
     display: flex;
     flex-direction: row-reverse;
-      justify-content: center;
+    justify-content: center;
   }
 
   .heroImage {

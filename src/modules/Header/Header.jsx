@@ -5,7 +5,7 @@ import logoImage from '../../assets/icons/header-logo.svg';
 
 const Header = () => {
   return (
-    <div className={styles.headerBg}>
+    < div className={styles.headerBg}>
       <div className={`container`}>
         <header className={styles.header}>
           <Link className={styles.logoImage} to="/">
@@ -13,6 +13,7 @@ const Header = () => {
           </Link>
 
           <Navigation />
+          
         </header>
       </div>
     </div>
