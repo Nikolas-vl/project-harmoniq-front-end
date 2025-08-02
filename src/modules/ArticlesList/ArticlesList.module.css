@@ -2,6 +2,11 @@
   display: grid;
   gap: 24px;
   grid-template-columns: 1fr;
+  width: fit-content;
+}
+
+.item {
+  width: fit-content;
 }
 
 /* Tablet */

@@ -8,18 +8,22 @@ import {
   selectUserSaved,
   selectUserId,
 } from '../../../redux/auth/authSelectors';
+import { useDeleteArticle } from '../../../api/hooks/articles/useDeleteArticle';
 import { useSaveArticle } from '../../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../../api/hooks/users/useDeleteSavedArticle';
 import { Link } from 'react-router-dom';
+import Camera from '../../../assets/icons/createArticlePage/camera.svg?react'
 
-const PopularArticleCard = ({ article, isBeingLoaded }) => {
+const PopularArticleCard = ({ article, isBeingLoaded, isOwnArticle }) => {
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectUserSaved);
   const [isSaved, setIsSaved] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   const { saveArticle, isLoading: isSaving } = useSaveArticle();
   const { deleteArticle, isLoading: isDeleting } = useDeleteSavedArticle();
+  const { remove, isLoading: isDeletingAnArticle } = useDeleteArticle();
 
   const isLoaded = isSaving || isDeleting;
 
@@ -49,7 +53,20 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
     }
   };
 
+const handleDelete = async () => {
+  try {
+    await remove(article._id);
+    setIsDeleted(true);
+    toast.success('Article deleted!');
+  } catch (error) {
+    console.error('Failed to delete:', error);
+    toast.error('Failed to delete article');
+  }
+};
+
   if (isBeingLoaded) return <p>✋Loading...✋</p>;
+  if (isBeingLoaded || isDeleted) return null;
+  if (isDeletingAnArticle) return <p>✋Deleting...✋</p>
 
   return (
     <>
@@ -61,7 +78,7 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
         {article.img ? (
           <img className={css.card_image} src={article.img} alt={article.desc} />
         ) : (
-          <div className={css.unknown_image}>Unknown</div>
+          <Camera className={css.unknown_image} />
         )}
         <div>
           <Link to={`/authors/${article.ownerId}`} className={css.card_author_name}>
@@ -75,7 +92,14 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
           <Link className={css.load_more_link} to={`/articles/${article._id}`}>
             Learn more
           </Link>
-          <ButtonAddToBookmarks onToggle={handleToggleSave} isDisabled={isLoaded} isSaved={isSaved} />
+          <ButtonAddToBookmarks
+            onToggle={handleToggleSave}
+            isDisabled={isLoaded}
+            isSaved={isSaved}
+            isOwnArticle={isOwnArticle}
+            onDelete={handleDelete}
+            isLoadingDelete={isDeletingAnArticle}
+          />
         </div>
       </div>
     </>

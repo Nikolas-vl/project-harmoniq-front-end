@@ -42,8 +42,8 @@ const ArticlesList = ({ articles, isOwnProfile, activeTab }) => {
     <>
       <ul className={s.list}>
         {articles.map(article => (
-          <li key={article.article_id}>
-            <PopularArticleCard article={article} isBeingLoaded={isLoading} />
+          <li key={article.article_id} className={s.item}>
+            <PopularArticleCard article={article} isBeingLoaded={isLoading} isOwnArticle={isOwnProfile} />
           </li>
         ))}
       </ul>
