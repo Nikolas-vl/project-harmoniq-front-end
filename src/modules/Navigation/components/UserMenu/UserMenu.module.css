@@ -28,28 +28,28 @@
   cursor: pointer;
   outline: none;
 }
-.userButton {
-  background-color: var(--color-green);
-  border-radius: 256px;
-  width: 32px;
-  height: 32px;
-}
+
 .userAvatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  gap: 4px;
-
-  border-radius: 256px;
-  width: 32px;
-  height: 32px;
+  background-color: var(--color-green);
+    border-radius: 256px;
+    width: 32px;
+    height: 32px;
 }
 .userLetter {
   font-family: var(--ff-manrope);
   font-weight: var(--fw-bold);
   font-size: 16px;
   color: var(--color-white-bg);
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-green);
+    border-radius: 256px;
+    width: 32px;
+    height: 32px;
 }
 
 .userLink {
@@ -57,4 +57,5 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  
 }

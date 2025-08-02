@@ -12,8 +12,7 @@ const UserMenu = ({ onLogoutClick, onUserClick }) => {
   
   return (
     <div className={styles.userContainer}>
-      <Link to={`/authors/${userId}`} className={styles.userLink}>
-   <button className={styles.userButton} onClick={onUserClick}>
+      <Link to={`/authors/${userId}`} className={styles.userLink} onClick={onUserClick}>
         {userAvatar ? (
           <img src={userAvatar} alt="Avatar" className={styles.userAvatar} />
         ) : (
@@ -21,7 +20,6 @@ const UserMenu = ({ onLogoutClick, onUserClick }) => {
             {userName?.charAt(0).toUpperCase()}
           </span>
         )}
-        </button>
         <h2 className={styles.userName}>{userName}</h2>
       </Link>
         <span className={styles.userSpan}></span>
