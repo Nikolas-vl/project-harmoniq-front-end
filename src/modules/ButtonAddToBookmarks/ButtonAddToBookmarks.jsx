@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import s from './ButtonAddToBookmarks.module.css';
+import saveIcon from '../../assets/icons/save-logo.svg';
 const ButtonAddToBookmarks = ({ onAdd, isSaved, isSaving }) => {
   return (
     <button
@@ -9,6 +10,7 @@ const ButtonAddToBookmarks = ({ onAdd, isSaved, isSaving }) => {
       {isSaving ? (
         <p style={{ fontSize: '8px', margin: 0 }}>Wait...✋</p>
       ) : (
+        // <img className={s.image} src={saveIcon} alt="save" loading="lazy" />
         <svg
           width="24"
           height="24"

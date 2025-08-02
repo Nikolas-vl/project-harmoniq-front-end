@@ -8,11 +8,18 @@
   width: 40px;
   height: 40px;
   background: var(--color-light-green);
-  transition: transform 0.2s ease;
+  transition: var(--transition);
 }
 
 .saveBtn:hover {
   transform: scale(1.1);
+  background-color: var(--color-green-darker);
+
+  color: white;
+}
+
+.saveBtn svg:hover {
+  fill: white;
 }
 
 .active {
@@ -20,7 +27,7 @@
   border-color: var(--color-green);
 }
 
-.active svg {
+.active img {
   fill: var(--color-green);
   stroke: var(--color-white-bg);
 }

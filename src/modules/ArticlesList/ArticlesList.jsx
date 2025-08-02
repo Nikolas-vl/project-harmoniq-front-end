@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ArticlesItem from '../ArticlesItem/ArticlesItem';
 import s from './ArticlesList.module.css';
-import ModalErrorSave from '../ModalErrorSave/ModalErrorSave';
+import ModalErrorSave from '../Modal/ModalErrorSave/ModalErrorSave';
 import { useSelector } from 'react-redux';
 import {
   selectIsLoggedIn,

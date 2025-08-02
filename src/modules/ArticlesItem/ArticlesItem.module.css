@@ -52,6 +52,13 @@
   width: 289px;
   height: 40px;
   background: var(--color-light-green);
+  transition: var(--transition);
+}
+
+.learnMoreBtn:hover,
+.learnMoreBtn:focus {
+  background-color: var(--color-green-darker);
+  color: white;
 }
 
 /* Tablet */

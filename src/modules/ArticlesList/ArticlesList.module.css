@@ -11,6 +11,7 @@
   height: 492px;
   min-width: 320px;
   background: var(--color-light-green);
+  transition: var(--transition);
 }
 
 /* Tablet */
@@ -34,4 +35,9 @@
     width: 392px;
     height: 492px;
   }
+}
+
+.listItem:hover,
+.listItem:focus {
+  box-shadow: 0 0 5px #404040, 0 0 10px #404040;
 }
