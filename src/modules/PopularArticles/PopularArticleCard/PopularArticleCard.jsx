@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import ModalErrorSave from '../../ModalErrorSave/ModalErrorSave';
+import ButtonAddToBookmarks from '../../ButtonAddToBookmarks/ButtonAddToBookmarks';
 import {
   selectUserSaved,
   selectUserId,
@@ -10,7 +11,6 @@ import {
 import { useSaveArticle } from '../../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../../api/hooks/users/useDeleteSavedArticle';
 import { Link } from 'react-router-dom';
-import SaveIcon from '../../../assets/icons/popularArticles/saveIcon.svg?react';
 
 const PopularArticleCard = ({ article, isBeingLoaded }) => {
   const userId = useSelector(selectUserId);
@@ -20,6 +20,8 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
 
   const { saveArticle, isLoading: isSaving } = useSaveArticle();
   const { deleteArticle, isLoading: isDeleting } = useDeleteSavedArticle();
+
+  const isLoaded = isSaving || isDeleting;
 
   useEffect(() => {
     setIsSaved(savedArticles.some(savedId => savedId === article._id));
@@ -73,17 +75,7 @@ const PopularArticleCard = ({ article, isBeingLoaded }) => {
           <Link className={css.load_more_link} to={`/articles/${article._id}`}>
             Learn more
           </Link>
-          <button
-            onClick={handleToggleSave}
-            disabled={isSaving || isDeleting}
-            className={`${css.save_button} ${isSaved ? css.saved_button : ''}`}
-          >
-            {isSaving || isDeleting ? (
-              <span style={{ fontSize: '16px', margin: 0 }}>✋</span>
-            ) : (
-              <SaveIcon />
-            )}
-          </button>
+          <ButtonAddToBookmarks onToggle={handleToggleSave} isDisabled={isLoaded} isSaved={isSaved} />
         </div>
       </div>
     </>
