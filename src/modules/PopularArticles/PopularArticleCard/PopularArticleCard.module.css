@@ -1,9 +1,3 @@
-button:disabled {
-  cursor: not-allowed;
-  background-color: transparent;
-  border: 1px solid #374f42;
-}
-
 .card_container {
   border-radius: 32px;
   padding: 12px;
@@ -24,17 +18,38 @@ button:disabled {
   height: 233px;
 }
 
+.unknown_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  font-family: var(--ff-manrope);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--color-gray);
+  background-color: var(--color-light-gray);
+  width: 337px;
+  height: 233px;
+}
+
 .card_author_name {
   font-family: var(--ff-manrope);
   font-weight: 700;
   font-size: 16px;
   color: var(--color-black);
+  transition: var(--transition);
 }
 
 .card_title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: var(--ff-manrope);
   font-weight: 700;
   font-size: 24px;
+  max-width: 264px;
   color: var(--color-black);
   width: 264px;
 }
@@ -48,6 +63,7 @@ button:disabled {
   font-family: var(--ff-manrope);
   font-weight: 400;
   font-size: 16px;
+  max-width: 337px;
   line-height: 1.55;
   color: var(--color-black);
 }
@@ -72,38 +88,18 @@ button:disabled {
   height: 40px;
 }
 
-.save_button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  transition: var(--transition);
-  border: inherit;
-  border: 1px solid #374f42;
-  color: inherit;
-  color: #374f42;
-}
-
-.saved_button {
-  background-color: var(--color-green);
-  color: #f7fffb;
-  border: none;
-}
-
-.save_svg {
-  transition: var(--transition);
-}
-
 @media only screen and (min-width: 768px) {
   .card_container {
     width: 340px;
   }
   .card_image {
     width: 316px;
+  }
+  .unknown_image {
+    width: 316px;
+  }
+  .card_description {
+    max-width: 316px;
   }
   .load_more_link {
     width: 268px;
@@ -117,21 +113,26 @@ button:disabled {
   .card_image {
     width: 368px;
   }
+  .unknown_image {
+    width: 368px;
+  }
+  .card_description {
+    max-width: 368px;
+  }
   .load_more_link {
     width: 320px;
     transition: var(--transition);
   }
 }
 
+.card_author_name:hover,
+.card_author_name:focus {
+  opacity: 0.7;
+}
+
 .load_more_link:hover,
 .load_more_link:focus {
   background-color: var(--color-green-darker);
-  color: white;
-}
-
-.save_button:hover {
-  background: #374f42;
-  border: none;
   color: white;
 }
 

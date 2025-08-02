@@ -1,30 +1,33 @@
-.saveBtn {
+button:disabled {
+  cursor: not-allowed;
+  background-color: transparent;
+  border: 1px solid #374f42;
+}
+
+.save_button {
   display: flex;
-  justify-content: center;
   align-items: center;
-  border: 1px solid var(--color-green-darker);
-  border-radius: 64px;
-  padding: 8px;
+  justify-content: center;
+  background-color: transparent;
+
+  border-radius: 50%;
   width: 40px;
   height: 40px;
-  background: var(--color-light-green);
-  transition: transform 0.2s ease;
+  transition: var(--transition);
+  border: inherit;
+  border: 1px solid #374f42;
+  color: inherit;
+  color: #374f42;
 }
 
-.saveBtn:hover {
-  transform: scale(1.1);
+.saved_button {
+  background-color: var(--color-green);
+  color: #f7fffb;
+  border: none;
 }
 
-.active {
-  background: var(--color-green);
-  border-color: var(--color-green);
-}
-
-.active svg {
-  fill: var(--color-green);
-  stroke: var(--color-white-bg);
-}
-
-.active svg path {
-  stroke: var(--color-white-bg);
+.save_button:hover {
+  background: #374f42;
+  border: none;
+  color: white;
 }

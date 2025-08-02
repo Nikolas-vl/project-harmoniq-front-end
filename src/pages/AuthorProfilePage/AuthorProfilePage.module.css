@@ -20,6 +20,7 @@
     gap: 16px;
     align-items: center;
     margin-bottom: 24px;
+    width: fit-content;
 }
 
 .author-profile__avatar {
@@ -64,6 +65,7 @@
     font-size: 16px;
     color: #374f42;
     background: transparent;
+    width: fit-content;
     border: none;
     cursor: pointer;
     border-bottom: 2px solid transparent;
