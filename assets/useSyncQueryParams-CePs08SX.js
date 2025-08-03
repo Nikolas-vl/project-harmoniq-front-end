@@ -1,0 +1,1 @@
+import{i,r as o}from"./index--Li--3xp.js";const S=a=>{const[c,n]=i();o.useEffect(()=>{let t=!1;const e=new URLSearchParams(c.toString());Object.entries(a).forEach(([r,s])=>{s==null?e.has(r)&&(e.delete(r),t=!0):e.get(r)!==String(s)&&(e.set(r,String(s)),t=!0)}),t&&n(e)},[a,c,n])};export{S as u};
