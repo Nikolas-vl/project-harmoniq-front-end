@@ -8,7 +8,7 @@ import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import Pagination from '../../modules/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 const ArticlesPage = () => {
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState(null);
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(null);
   const [perPage, setPerPage] = useState(null);
@@ -23,6 +23,7 @@ const ArticlesPage = () => {
   useEffect(() => {
     const pageFromUrl = Number(searchParams.get('page')) || 1;
     const perPageFromUrl = Number(searchParams.get('perPage')) || 12;
+    setFilter('all')
     setPage(pageFromUrl);
     setPerPage(perPageFromUrl);
   }, []);
