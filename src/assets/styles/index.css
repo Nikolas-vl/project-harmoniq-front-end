@@ -2,17 +2,27 @@
 @import './_variables.module.css';
 @import './container.css';
 
+html,
+body,
+#root {
+  height: 100%;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+}
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   font-family: var(--ff-manrope);
   line-height: 1.5;
   background-color: var(--color-white-bg);
   color: var(--color-text);
-  display: flex;
-  flex-direction: column;
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
-

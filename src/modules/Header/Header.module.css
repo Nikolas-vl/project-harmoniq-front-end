@@ -1,13 +1,12 @@
-.headerBg{
-  background-color: #D1E0D8;
+.headerBg {
+  background-color: #d1e0d8;
 }
-
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0px ; 
+  padding: 14px 0px;
   width: 100%;
   box-sizing: border-box;
 }
