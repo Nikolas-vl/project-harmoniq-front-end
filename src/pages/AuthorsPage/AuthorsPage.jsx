@@ -2,12 +2,27 @@ import { useState, useEffect } from 'react';
 import css from './AuthorsPage.module.css';
 import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
 import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
+import { useSyncQueryParams } from '../../utils/useSyncQueryParams';
+import { useSearchParams } from 'react-router-dom';
 
 const AuthorsPage = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(null);
+  const [perPage, setPerPage] = useState(null);
   const [authors, setAuthors] = useState([]);
+  const [searchParams] = useSearchParams();
 
-  const { users, paginationData, isLoading } = useGetAllUsers(page, 20);
+  const { users, paginationData, isLoading, queryParams } = useGetAllUsers(
+    page,
+    perPage
+  );
+
+  useEffect(() => {
+    const pageFromUrl = Number(searchParams.get('page')) || 1;
+    const perPageFromUrl = Number(searchParams.get('perPage')) || 20;
+    setPage(pageFromUrl);
+    setPerPage(perPageFromUrl);
+  }, []);
+  useSyncQueryParams(queryParams);
 
   useEffect(() => {
     if (users && users.length > 0) {
@@ -15,9 +30,7 @@ const AuthorsPage = () => {
     }
   }, [users]);
 
-  const hasMore = paginationData
-    ? paginationData.page < paginationData.totalPages
-    : false;
+  const hasMore = paginationData?.hasNextPage;
 
   const handleLoadMore = () => {
     if (!isLoading && hasMore) {
