@@ -23,7 +23,7 @@ const ArticlesPage = () => {
   useEffect(() => {
     const pageFromUrl = Number(searchParams.get('page')) || 1;
     const perPageFromUrl = Number(searchParams.get('perPage')) || 12;
-    const filterFromUrl = searchParams.get('filter') || 'popular';
+    const filterFromUrl = searchParams.get('filter') || 'all';
     setFilter(filterFromUrl)
     setPage(pageFromUrl);
     setPerPage(perPageFromUrl);
