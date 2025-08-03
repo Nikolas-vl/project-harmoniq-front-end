@@ -1,11 +1,8 @@
 @import '../../assets/styles/_variables.module.css';
 
-
-
 .wrapper {
   margin-top: 24px;
   margin-bottom: 24px;
-  
 }
 
 .title {
@@ -39,7 +36,6 @@
   transition: var(--transition);
 }
 
-
 .authorItem:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -61,6 +57,10 @@
   text-align: center;
   margin-top: auto;
   margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
 }
 
 .loadMore {
@@ -132,4 +132,3 @@
     width: 340px;
   }
 }
-
