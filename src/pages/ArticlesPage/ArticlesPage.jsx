@@ -61,12 +61,14 @@ const ArticlesPage = () => {
       </div>
 
       {shouldShowNothingFound ? (
-        <NothingFoundCard
-          title="Nothing found."
-          text="Be the first, who create an article"
-          linkText="Create an article"
-          linkPath="/create"
-        />
+        <>
+            <NothingFoundCard
+              title="Nothing found."
+              text="Be the first, who creates an article"
+              linkText="Create an article"
+              linkPath="/create"
+            />
+        </>
       ) : (
         <>
           <ArticlesList

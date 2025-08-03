@@ -11,6 +11,7 @@
     border-radius: 50%;
     width: 148px;
     height: 148px;
+    object-fit: cover;
     transition: var(--transition);
 }
 

@@ -1,20 +1,20 @@
-import css from './PopularArticleCard.module.css';
+import css from './ArticleCard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
-import ModalErrorSave from '../../ModalErrorSave/ModalErrorSave';
-import ButtonAddToBookmarks from '../../ButtonAddToBookmarks/ButtonAddToBookmarks';
+import ModalErrorSave from '../ModalErrorSave/ModalErrorSave';
+import ButtonAddToBookmarks from '../ButtonAddToBookmarks/ButtonAddToBookmarks';
 import {
   selectUserSaved,
   selectUserId,
-} from '../../../redux/auth/authSelectors';
-import { useDeleteArticle } from '../../../api/hooks/articles/useDeleteArticle';
-import { useSaveArticle } from '../../../api/hooks/users/useSaveArticle';
-import { useDeleteSavedArticle } from '../../../api/hooks/users/useDeleteSavedArticle';
+} from '../../redux/auth/authSelectors';
+import { useDeleteArticle } from '../../api/hooks/articles/useDeleteArticle';
+import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
+import { useDeleteSavedArticle } from '../../api/hooks/users/useDeleteSavedArticle';
 import { Link } from 'react-router-dom';
-import Camera from '../../../assets/icons/createArticlePage/camera.svg?react'
+import Camera from '../../assets/icons/createArticlePage/camera.svg?react'
 
-const PopularArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
+const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectUserSaved);
   const [isSaved, setIsSaved] = useState(false);
@@ -107,4 +107,4 @@ const PopularArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) =>
   );
 };
 
-export default PopularArticleCard;
+export default ArticleCard;

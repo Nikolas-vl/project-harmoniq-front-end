@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import PopularArticlesCard from '../PopularArticleCard/PopularArticleCard';
+import ArticlesCard from '../../ArticleCard/ArticleCard';
 import css from './PopularArticlesList.module.css';
 import { useGetPopularArticles } from '../../../api/hooks/articles/useGetPopularArticles';
 import NothingFoundCard from '../../NothingFoundCard/NothingFoundCard';
@@ -40,7 +40,7 @@ const PopularArticlesList = () => {
     <ul className={css.list}>
       {articles.slice(0, visibleCount).map((item, index) => (
         <li key={index}>
-          <PopularArticlesCard article={item} isBeingLoaded={isLoading} />
+          <ArticlesCard article={item} isBeingLoaded={isLoading} />
         </li>
       ))}
     </ul>

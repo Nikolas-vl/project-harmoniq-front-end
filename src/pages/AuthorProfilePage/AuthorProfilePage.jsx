@@ -109,22 +109,24 @@ const AuthorProfilePage = () => {
       ) : (
         <>
           {currentArticles?.length === 0 ? (
-            <NothingFoundCard
-              title="Nothing found."
-              text={
-                isOwnProfile && activeTab === 'saved'
-                  ? 'Save your first article'
-                  : 'Write your first article'
-              }
-              linkText={
-                isOwnProfile && activeTab === 'saved'
-                  ? 'Go to articles'
-                  : 'Create an article'
-              }
-              linkPath={
-                isOwnProfile && activeTab === 'saved' ? '/articles' : '/create'
-              }
-            />
+            <>
+                <NothingFoundCard
+                  title="Nothing found."
+                  text={
+                    isOwnProfile && activeTab === 'saved'
+                      ? 'Save your first article'
+                      : 'Write your first article'
+                  }
+                  linkText={
+                    isOwnProfile && activeTab === 'saved'
+                      ? 'Go to articles'
+                      : 'Create an article'
+                  }
+                  linkPath={
+                    isOwnProfile && activeTab === 'saved' ? '/articles' : '/create'
+                  }
+                />
+            </>
           ) : (
             <>
               <ArticlesList
