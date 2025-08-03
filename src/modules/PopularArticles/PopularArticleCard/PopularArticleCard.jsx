@@ -53,16 +53,17 @@ const PopularArticleCard = ({ article, isBeingLoaded, isOwnArticle }) => {
     }
   };
 
-const handleDelete = async () => {
-  try {
-    await remove(article._id);
-    setIsDeleted(true);
-    toast.success('Article deleted!');
-  } catch (error) {
-    console.error('Failed to delete:', error);
-    toast.error('Failed to delete article');
-  }
-};
+  const handleDelete = async () => {
+    try {
+      await remove(article._id);
+      setIsDeleted(true);
+      toast.success('Article deleted!');
+    
+    } catch (error) {
+      console.error('Failed to delete:', error);
+      toast.error('Failed to delete article');
+    }
+  };
 
   if (isBeingLoaded) return <p>✋Loading...✋</p>;
   if (isBeingLoaded || isDeleted) return null;
