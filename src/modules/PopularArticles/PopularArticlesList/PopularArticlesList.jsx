@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PopularArticlesCard from '../PopularArticleCard/PopularArticleCard';
 import css from './PopularArticlesList.module.css';
 import { useGetPopularArticles } from '../../../api/hooks/articles/useGetPopularArticles';
+import NothingFoundCard from '../../NothingFoundCard/NothingFoundCard';
 
 const PopularArticlesList = () => {
   const [visibleCount, setVisibleCount] = useState(4);
@@ -19,6 +20,17 @@ const PopularArticlesList = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  
+  if (!isLoading && articles.length === 0) {
+    return (
+      <NothingFoundCard
+        title="Nothing found."
+        text="No popular articles available right now."
+        linkText="Go to articles"
+        linkPath="/articles"
+      />
+    );
+  }
 
   if (isLoading) {
     return <p>✋Loading...✋</p>;

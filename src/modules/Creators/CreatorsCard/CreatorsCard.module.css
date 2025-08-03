@@ -24,6 +24,18 @@
     transition: var(--transition);
 }
 
+.unknown_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--color-gray);
+    background-color: var(--color-light-gray);
+    width: 148px;
+    height: 148px;
+    transition: var(--transition);
+}
+
 @media only screen and (min-width: 768px) {
     .card_container {
         width: 184px;
@@ -36,6 +48,10 @@
 
     .card_container:hover .card_image,
     .card_container:focus .card_image {
+        box-shadow: 0 0 5px #404040, 0 0 10px #404040;
+    }
+    .card_container:hover .unknown_image,
+    .card_container:focus .unknown_image {
         box-shadow: 0 0 5px #404040, 0 0 10px #404040;
     }
     .card_container:hover .author_name,

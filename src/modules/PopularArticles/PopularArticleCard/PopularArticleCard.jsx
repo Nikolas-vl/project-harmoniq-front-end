@@ -14,7 +14,7 @@ import { useDeleteSavedArticle } from '../../../api/hooks/users/useDeleteSavedAr
 import { Link } from 'react-router-dom';
 import Camera from '../../../assets/icons/createArticlePage/camera.svg?react'
 
-const PopularArticleCard = ({ article, isBeingLoaded, isOwnArticle }) => {
+const PopularArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectUserSaved);
   const [isSaved, setIsSaved] = useState(false);
