@@ -1,6 +1,8 @@
 import css from '../../pages/AuthorsPage/AuthorsPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
+const MAX_LENGTH = 18;
+
 export const AuthorsItem = ({ id, name, avatar }) => {
   const navigate = useNavigate();
 
@@ -8,10 +10,13 @@ export const AuthorsItem = ({ id, name, avatar }) => {
     navigate(`/authors/${id}`);
   };
 
+  const trimmedName =
+    name.length > MAX_LENGTH ? name.slice(0, MAX_LENGTH) + '...' : name;
+
   return (
     <li className={css.authorItem} onClick={handleClick}>
       <img src={avatar} alt={name} className={css.avatar} />
-      <p className={css.name}>{name}</p>
+      <p className={css.name}>{trimmedName}</p>
     </li>
   );
 };
