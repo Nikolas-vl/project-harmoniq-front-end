@@ -15,8 +15,8 @@
 }
 
 .image {
-  max-height: 624px;
   width: 100%;
+  max-height: 624px;
   height: auto;
   border-radius: 16px;
   object-fit: cover;
@@ -52,7 +52,7 @@
 
 .metaRecommendationsContainer {
   background: #d1e0d8;
-  padding: 32px 32px 40px 32px;
+  padding: 32px;
   border-radius: 32px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   flex-grow: 1;
@@ -67,8 +67,8 @@
 }
 
 .authorLink {
-  text-decoration: none;
   color: #070721;
+  text-decoration: none;
   transition: text-decoration 0.2s ease;
 }
 
@@ -88,6 +88,7 @@
 .recommendationsList {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -105,6 +106,7 @@
   align-items: center;
 
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .recommendationItem:hover {
@@ -149,7 +151,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
   gap: 8px;
 
   width: 40px;
@@ -157,9 +158,11 @@
   min-width: 32px;
   min-height: 32px;
   padding: 8px;
+
   border: 1px solid #374f42;
   border-radius: 64px;
   background-color: transparent;
+
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-sizing: border-box;
@@ -181,13 +184,14 @@
   border-radius: 8px;
   padding: 12px;
   width: 100%;
-  transition: background-color 0.3s ease;
   box-sizing: border-box;
+
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .saveButton:hover {
   background-color: #4e7a62;
-  cursor: pointer;
 }
 
 .saveButton:focus {
@@ -195,7 +199,7 @@
   outline-offset: 2px;
 }
 
-/* Планшети */
+/* Планшеты */
 @media (max-width: 1024px) {
   .page {
     padding: 24px 16px;
@@ -205,10 +209,6 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-  }
-
-  .contentBlock {
-    width: 100%;
   }
 
   .sidebar {
@@ -244,7 +244,7 @@
   }
 }
 
-/* Мобільні */
+/* Мобильные */
 @media (max-width: 767px) {
   .title {
     font-size: 28px;
