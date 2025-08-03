@@ -21,7 +21,7 @@ const ArticlePage = () => {
   const { id: articleId } = useParams();
   const { article, isLoading } = useGetArticleById(articleId);
   const { articles: popularArticles = [], isLoading: isRecommendLoading } =
-    useGetPopularArticles(9);
+    useGetPopularArticles(8);
 
   const currentUser = useSelector(selectUserId);
   const { saveArticle } = useSaveArticle();
@@ -52,7 +52,6 @@ const ArticlePage = () => {
     saveArticle(currentUser, articleId);
   };
 
-  // Анимация аккордеона при переключении
   const handlePrev = () => {
     if (!hasPrev || animating) return;
     animateToggle(() => setRecPageIndex(recPageIndex - 1));
@@ -72,14 +71,9 @@ const ArticlePage = () => {
 
     const el = containerRef.current;
     const originalHeight = el.scrollHeight;
-
-    // Свернем: задаем высоту для плавности
     el.style.height = originalHeight + 'px';
-
-    // Форсим перерисовку
     void el.offsetHeight;
 
-    // Сворачиваем высоту до 0 и скрываем opacity
     el.style.transition = 'height 300ms ease, opacity 300ms ease';
     el.style.height = '0px';
     el.style.opacity = '0';
@@ -87,7 +81,6 @@ const ArticlePage = () => {
     setTimeout(() => {
       callback();
 
-      // После обновления контента — разворачиваем
       requestAnimationFrame(() => {
         const newHeight = el.scrollHeight;
         el.style.height = newHeight + 'px';
@@ -132,12 +125,18 @@ const ArticlePage = () => {
               <div className={styles.meta}>
                 <p>
                   <strong>Author:</strong>{' '}
-                  <Link
-                    to={`/authors/${article.authorId}`}
-                    className={styles.authorLink}
-                  >
-                    {article.author}
-                  </Link>
+                  {article.ownerId ? (
+                    <Link
+                      to={`/authors/${article.ownerId}`}
+                      className={styles.authorLink}
+                    >
+                      {article.author}
+                    </Link>
+                  ) : (
+                    <span className={styles.authorLink}>
+                      {article.author || 'Unknown author'}
+                    </span>
+                  )}
                 </p>
                 <p>
                   <strong>Publication date:</strong>{' '}
@@ -160,16 +159,22 @@ const ArticlePage = () => {
                     >
                       <ul className={styles.recommendationsList}>
                         {currentRecommendations.map(
-                          ({ _id, title, author, authorId }) => (
+                          ({ _id, title, author, ownerId }) => (
                             <li key={_id} className={styles.recommendationItem}>
                               <div className={styles.recText}>
                                 <p className={styles.recTitle}>{title}</p>
-                                <Link
-                                  to={`/authors/${authorId}`}
-                                  className={styles.recAuthor}
-                                >
-                                  {author}
-                                </Link>
+                                {ownerId ? (
+                                  <Link
+                                    to={`/authors/${ownerId}`}
+                                    className={styles.recAuthor}
+                                  >
+                                    {author}
+                                  </Link>
+                                ) : (
+                                  <span className={styles.recAuthor}>
+                                    {author || 'Unknown'}
+                                  </span>
+                                )}
                               </div>
                               <Link
                                 to={`/articles/${_id}`}
@@ -208,7 +213,6 @@ const ArticlePage = () => {
                           !hasPrev || animating ? styles.disabled : ''
                         }`}
                       >
-                        {/* Левая стрелка */}
                         <svg
                           width="24"
                           height="24"
@@ -234,7 +238,6 @@ const ArticlePage = () => {
                           !hasNext || animating ? styles.disabled : ''
                         }`}
                       >
-                        {/* Правая стрелка */}
                         <svg
                           width="24"
                           height="24"
