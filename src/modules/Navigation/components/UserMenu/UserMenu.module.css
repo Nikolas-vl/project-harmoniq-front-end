@@ -1,7 +1,7 @@
 .userContainer {
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 0;
   gap: 16px;
   color: var(--color-green-darker);
 }

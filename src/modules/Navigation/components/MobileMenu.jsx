@@ -8,6 +8,7 @@ import CreateArticle from './CreateArticle/CreateArticleButton';
 
 import { selectUserId } from '../../../redux/auth/authSelectors';
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 const MobileMenu = ({
   isOpen,
@@ -31,25 +32,34 @@ const MobileMenu = ({
 
     onClose();
   };
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
+      setIsVisible(true);
       document.body.classList.add('no-scroll');
     } else {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 300);
+
       document.body.classList.remove('no-scroll');
+      return () => clearTimeout(timer);
     }
-    return () => {
-      document.body.classList.remove('no-scroll');
-    };
   }, [isOpen]);
+
+  if (!isVisible) return null;
 
   return (
     <div
-      className={`${styles.mobileMenuOverlay} ${isOpen ? styles.showMenu : ''}`}
+      className={`${styles.mobileMenuOverlay} ${
+        isOpen ? styles.showMenu : styles.hideMenu
+      }`}
       onClick={handleBackdropClick}
     >
-      <div className={styles.mobileMenuContent}>
+      <div className={`${styles.mobileMenuContent} ${isOpen ? styles.showMenu : styles.hideMenu}`}>
         {/* Навігація */}
+        
         <nav className={styles.mobileMenuNavigation}>
           <ul className={styles.mobileLinkList}>
             <li>
