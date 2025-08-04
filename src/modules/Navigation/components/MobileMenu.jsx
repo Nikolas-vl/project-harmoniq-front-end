@@ -1,11 +1,10 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from '../Navigation.module.css';
 
 import UserMenu from './UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
 import CreateArticle from './CreateArticle/CreateArticleButton';
-import logoImage from '../../../assets/icons/header-logo.svg';
 
 import { selectUserId } from '../../../redux/auth/authSelectors';
 import { useEffect } from 'react';
