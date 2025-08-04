@@ -5,65 +5,82 @@ import styles from './ArticlePage.module.css';
 import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
 import { useGetPopularArticles } from '../../api/hooks/articles/useGetPopularArticles';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
+import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import { selectUserId } from '../../redux/auth/authSelectors';
 import Loader from '../../modules/Loader/Loader';
+import ButtonToggleToBookmarks from '../../modules/ButtonToggleToBookmarks/ButtonToggleToBookmarks';
+import toast from 'react-hot-toast';
+
 const renderArticleContent = text =>
   text
     .split('\n')
     .filter(line => line.trim() !== '')
     .map((line, index) => <p key={index}>{line}</p>);
+
+const RECS_PER_PAGE = 3;
+const MIN_SWIPE_DISTANCE = 50;
+
 const ArticlePage = () => {
   const { id: articleId } = useParams();
-  const { article, isLoading } = useGetArticleById(articleId);
-  const { articles: popularArticles = [], isLoading: isRecommendLoading } =
-    useGetPopularArticles(8);
   const currentUser = useSelector(selectUserId);
+
+  // Получаем статью и популярные статьи
+  const { article, isLoading: isArticleLoading } = useGetArticleById(articleId);
+  const { articles: popularArticles = [], isLoading: isPopularLoading } =
+    useGetPopularArticles(8);
+
+  // Получаем инфо по пользователю, в т.ч. сохранённые статьи
+  const { savedArticles = [] } = useGetUserInfo(currentUser);
+
   const { saveArticle } = useSaveArticle();
+
+  const [isSaved, setIsSaved] = useState(false);
   const [recPageIndex, setRecPageIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
+
   const containerRef = useRef(null);
   const touchStartX = useRef(null);
-  const minSwipeDistance = 50;
 
+  // Сброс страницы рекомендаций при смене статьи
   useEffect(() => {
     setRecPageIndex(0);
   }, [articleId]);
 
-  const RECS_PER_PAGE = 3;
+  // Обновляем статус сохранения при изменении savedArticles или articleId
+  useEffect(() => {
+    setIsSaved(savedArticles.some(a => a._id === articleId));
+  }, [savedArticles, articleId]);
+
+  // Определяем авторство статьи
+  const isOwnArticle = article?.ownerId === currentUser;
+
+  // Пагинация рекомендаций
   const maxPageIndex = Math.max(
     0,
     Math.ceil(popularArticles.length / RECS_PER_PAGE) - 1
   );
-
   const start = recPageIndex * RECS_PER_PAGE;
   const currentRecommendations = popularArticles.slice(
     start,
     start + RECS_PER_PAGE
   );
-
   const hasPrev = recPageIndex > 0;
   const hasNext = recPageIndex < maxPageIndex;
 
-  const handleSave = () => {
-    if (!currentUser) {
-      alert('Please log in to save articles.');
-      return;
-    }
-    saveArticle(currentUser, articleId);
-  };
-
+  // Анимация переключения рекомендаций
   const animateToggle = useCallback(callback => {
     if (!containerRef.current) {
       callback();
       return;
     }
+
     setAnimating(true);
 
     const el = containerRef.current;
     const originalHeight = el.scrollHeight;
-    el.style.height = originalHeight + 'px';
+    el.style.height = `${originalHeight}px`;
 
-    void el.offsetHeight;
+    void el.offsetHeight; // trigger reflow
 
     el.style.transition = 'height 300ms ease, opacity 300ms ease';
     el.style.height = '0px';
@@ -74,7 +91,7 @@ const ArticlePage = () => {
 
       requestAnimationFrame(() => {
         const newHeight = el.scrollHeight;
-        el.style.height = newHeight + 'px';
+        el.style.height = `${newHeight}px`;
         el.style.opacity = '1';
       });
 
@@ -96,43 +113,81 @@ const ArticlePage = () => {
     animateToggle(() => setRecPageIndex(prev => prev + 1));
   }, [hasNext, animating, animateToggle]);
 
-  // Свайпы
+  // Обработка свайпов для переключения рекомендаций
   const onTouchStart = e => {
     touchStartX.current = e.changedTouches[0].screenX;
   };
 
   const onTouchEnd = e => {
     if (touchStartX.current === null) return;
+
     const touchEndX = e.changedTouches[0].screenX;
     const distance = touchStartX.current - touchEndX;
 
-    if (Math.abs(distance) < minSwipeDistance) return;
+    if (Math.abs(distance) < MIN_SWIPE_DISTANCE) return;
 
     if (distance > 0) {
       handleNext();
     } else {
       handlePrev();
     }
+
     touchStartX.current = null;
   };
 
-  if (isLoading) return <Loader fullScreen />;
+  // Обработка сохранения статьи
+  const handleSave = async () => {
+    if (!currentUser) {
+      toast.error('Please log in to save articles.');
+      return;
+    }
+    if (isSaved) {
+      toast('This article is already saved.');
+      return;
+    }
+
+    try {
+      await saveArticle(currentUser, articleId);
+      setIsSaved(true);
+      toast.success('Article saved!');
+    } catch (error) {
+      console.error('Failed to save article', error);
+      toast.error('Failed to save article.');
+    }
+  };
+
+  if (isArticleLoading) return <Loader fullScreen />;
   if (!article) return <p>Article not found</p>;
+
+  // Форматируем дату публикации
+  let publicationDate = 'Unknown date';
+  if (article.date) {
+    const dateObj = new Date(article.date);
+    if (!isNaN(dateObj)) {
+      publicationDate = dateObj.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    }
+  }
 
   return (
     <div className={styles.articlePage}>
       <div className={styles.page}>
         <h1 className={styles.title}>{article.title}</h1>
 
-        {article.image && (
+        {article.image ? (
           <img
             src={article.image}
-            alt={article.title}
+            alt={article.title || 'Article image'}
             className={styles.image}
             width="1225"
             height="624"
             loading="lazy"
           />
+        ) : (
+          <div className={styles.noImagePlaceholder}>No image available</div>
         )}
 
         <div className={styles.articleWrapper}>
@@ -161,14 +216,13 @@ const ArticlePage = () => {
                   )}
                 </p>
                 <p>
-                  <strong>Publication date:</strong>{' '}
-                  {new Date(article.date).toLocaleDateString()}
+                  <strong>Publication date:</strong> {publicationDate}
                 </p>
               </div>
 
               <div className={styles.recommendations}>
                 <h3>You might also be interested in</h3>
-                {isRecommendLoading ? (
+                {isPopularLoading ? (
                   <p>Loading...</p>
                 ) : currentRecommendations.length === 0 ? (
                   <p>No recommendations available</p>
@@ -284,14 +338,14 @@ const ArticlePage = () => {
               </div>
             </div>
 
-            <button
-              type="button"
-              className={styles.saveButton}
-              onClick={handleSave}
-              aria-label="Save article"
-            >
-              Save
-            </button>
+            <ButtonToggleToBookmarks
+              isOwnArticle={isOwnArticle}
+              isSaved={isSaved}
+              isDisabled={false}
+              onToggle={handleSave}
+              onDelete={null} // убрал пустую функцию
+              isLoadingDelete={false}
+            />
           </aside>
         </div>
       </div>

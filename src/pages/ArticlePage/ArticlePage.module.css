@@ -176,29 +176,6 @@
   outline: none;
 }
 
-.saveButton {
-  background: #649179;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-}
-
-.saveButton:hover {
-  background-color: #4e7a62;
-}
-
-.saveButton:focus {
-  outline: 2px solid #00b894;
-  outline-offset: 2px;
-}
-
 /* Анимация контента  */
 .accordionContent {
   overflow: hidden;
@@ -310,12 +287,6 @@
     width: 32px;
     height: 32px;
     padding: 4px;
-  }
-
-  .saveButton {
-    border-radius: 64px;
-    padding: 16px;
-    font-size: 16px;
   }
 
   .sidebar {
