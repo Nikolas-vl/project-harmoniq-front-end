@@ -1,7 +1,7 @@
 .page {
   background: #f7fffb;
   min-height: 100vh;
-  padding: 48px 24px;
+  padding: 48px 0px;
   font-family: 'Manrope', sans-serif;
   max-width: 1225px;
   margin: 0 auto;
@@ -54,7 +54,6 @@
   background: #d1e0d8;
   padding: 32px;
   border-radius: 32px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -100,18 +99,15 @@
   padding: 16px;
   width: 329px;
   height: 109px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
 .recommendationItem:hover {
   background-color: #e0f2f1;
-  transform: translateX(4px);
 }
 
 .recText {
@@ -153,55 +149,44 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-
   width: 40px;
   height: 40px;
   min-width: 32px;
   min-height: 32px;
   padding: 8px;
-
   border: 1px solid #374f42;
   border-radius: 64px;
   background-color: transparent;
-
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
   box-sizing: border-box;
 }
 
 .arrowButton:hover,
 .arrowButton:focus {
   background-color: rgba(55, 79, 66, 0.05);
-  transform: scale(1.05);
   outline: none;
 }
 
-/* Анимация контента  */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  filter: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
 .accordionContent {
   overflow: hidden;
-  transition: height 300ms ease, opacity 300ms ease;
-  will-change: height, opacity;
 }
 
-/* Кнопки переключения  */
 .paginationButtons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: none;
 }
 
-.recommendations:hover .paginationButtons,
-.recommendations:focus-within .paginationButtons {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-/* Планшеты */
 @media (max-width: 1024px) {
   .page {
     padding: 24px 16px;
@@ -246,7 +231,6 @@
   }
 }
 
-/* Мобилка */
 @media (max-width: 767px) {
   .title {
     font-size: 28px;
@@ -294,3 +278,4 @@
     height: auto;
   }
 }
+
