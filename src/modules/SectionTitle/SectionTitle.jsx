@@ -5,7 +5,6 @@ const SectionTitle = ({ children }) => {
         fontWeight: 700,
         fontSize: '40px',
         color: '#000',
-        paddingTop: '48px',
       }}
     >
       {children}

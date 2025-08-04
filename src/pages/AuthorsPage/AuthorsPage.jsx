@@ -1,42 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import css from './AuthorsPage.module.css';
 import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
 import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 import { useSyncQueryParams } from '../../utils/useSyncQueryParams';
 import { useSearchParams } from 'react-router-dom';
+import { MainPagination } from '../../modules/mainPagination/mainPagination';
 
 const AuthorsPage = () => {
-  const [page, setPage] = useState(null);
-  const [perPage, setPerPage] = useState(null);
-  const [authors, setAuthors] = useState([]);
   const [searchParams] = useSearchParams();
+
+  const initialPage = Number(searchParams.get('page')) || 1;
+  const initialPerPage = Number(searchParams.get('perPage')) || 20;
+
+  const [page, setPage] = useState(initialPage);
+  const [perPage] = useState(initialPerPage);
 
   const { users, paginationData, isLoading, queryParams } = useGetAllUsers(
     page,
     perPage
   );
 
-  useEffect(() => {
-    const pageFromUrl = Number(searchParams.get('page')) || 1;
-    const perPageFromUrl = Number(searchParams.get('perPage')) || 20;
-    setPage(pageFromUrl);
-    setPerPage(perPageFromUrl);
-  }, []);
   useSyncQueryParams(queryParams);
-
-  useEffect(() => {
-    if (users && users.length > 0) {
-      setAuthors(prev => [...prev, ...users]);
-    }
-  }, [users]);
-
-  const hasMore = paginationData?.hasNextPage;
-
-  const handleLoadMore = () => {
-    if (!isLoading && hasMore) {
-      setPage(prev => prev + 1);
-    }
-  };
 
   return (
     <section className={css.wrapper}>
@@ -44,16 +28,15 @@ const AuthorsPage = () => {
         <div className={css.contentBlock}>
           <h2 className={css.title}>Authors</h2>
 
-          <AuthorsList authors={authors} loading={isLoading} />
+          <AuthorsList authors={users} loading={isLoading} />
 
-          {hasMore && (
-            <button
-              className={css.loadMore}
-              onClick={handleLoadMore}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Loading...' : 'Load More'}
-            </button>
+          {users && users.length > 0 && (
+            <MainPagination
+              page={page}
+              totalPages={paginationData?.totalPages}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
           )}
         </div>
       </div>

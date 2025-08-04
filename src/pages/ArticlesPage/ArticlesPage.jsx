@@ -3,18 +3,21 @@ import { useSyncQueryParams } from '../../utils/useSyncQueryParams';
 import ArticlesList from '../../modules/ArticlesList/ArticlesList';
 import '../../assets/styles/container.css';
 import SectionTitle from '../../modules/SectionTitle/SectionTitle';
-import { useEffect, useState } from 'react';
 import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
-import Pagination from '../../modules/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
-
 import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
+import { MainPagination } from '../../modules/mainPagination/mainPagination';
+import { useState } from 'react';
 
 const ArticlesPage = () => {
-  const [filter, setFilter] = useState(null);
   const [searchParams] = useSearchParams();
-  const [page, setPage] = useState(null);
-  const [perPage, setPerPage] = useState(null);
+
+  const initialPage = Number(searchParams.get('page')) || 1;
+  const initialPerPage = Number(searchParams.get('perPage')) || 12;
+
+  const [page, setPage] = useState(initialPage);
+  const [perPage] = useState(initialPerPage);
+  const [filter, setFilter] = useState(null);
 
   const { articles, isLoading, pagination, queryParams } = useGetArticles(
     page,
@@ -22,32 +25,20 @@ const ArticlesPage = () => {
     filter
   );
 
-  const handlePageChange = newPage => {
-    setPage(newPage);
-  };
-
-  useEffect(() => {
-    const pageFromUrl = Number(searchParams.get('page')) || 1;
-    const perPageFromUrl = Number(searchParams.get('perPage')) || 12;
-    const filterFromUrl = searchParams.get('filter') || 'all';
-
-    setFilter(filterFromUrl);
-    setPage(pageFromUrl);
-    setPerPage(perPageFromUrl);
-  }, []);
-
   useSyncQueryParams(queryParams);
 
   if (isLoading) return <p>Loading...</p>;
 
-  const shouldShowNothingFound = !pagination || articles.length === 0;
+  const isNothingFound = !pagination || articles.length === 0;
 
   return (
-    <div className="container">
+    <section className={`container ${s.section}`}>
       <SectionTitle>Articles</SectionTitle>
 
       <div className={s.header}>
-        <p className={s.totalArticles}>{pagination?.totalItems || 0} articles</p>
+        <p className={s.totalArticles}>
+          {pagination?.totalItems || 0} articles
+        </p>
 
         <select
           value={filter}
@@ -60,14 +51,14 @@ const ArticlesPage = () => {
         </select>
       </div>
 
-      {shouldShowNothingFound ? (
+      {isNothingFound ? (
         <>
-            <NothingFoundCard
-              title="Nothing found."
-              text="Be the first, who creates an article"
-              linkText="Create an article"
-              linkPath="/create"
-            />
+          <NothingFoundCard
+            title="Nothing found."
+            text="Be the first, who creates an article"
+            linkText="Create an article"
+            linkPath="/create"
+          />
         </>
       ) : (
         <>
@@ -76,14 +67,17 @@ const ArticlesPage = () => {
             isLoading={isLoading}
             pagination={pagination}
           />
-          <Pagination
-            currentPage={page}
-            totalPages={pagination.totalPages}
-            onPageChange={handlePageChange}
-          />
+          {articles && articles.length > 0 && (
+            <MainPagination
+              page={page}
+              totalPages={pagination.totalPages}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          )}
         </>
       )}
-    </div>
+    </section>
   );
 };
 

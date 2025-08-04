@@ -1,4 +1,3 @@
-
 .nav {
   display: flex;
   align-items: center;
@@ -9,7 +8,7 @@
   display: flex;
   list-style: none;
 
-  gap: 32px; 
+  gap: 32px;
 }
 
 .linkList a {
@@ -17,34 +16,32 @@
   font-weight: var(--fw-bold);
   font-size: 12px;
   color: var(--color-green-darker);
-  text-decoration: none; 
-  position: relative; 
+  text-decoration: none;
+  position: relative;
 }
 
 .linkList a.active::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
-  bottom: -5px; 
+  bottom: -5px;
   width: 100%;
-  height: 2px; 
-  background-color: var(--color-green-darker); 
-  transform: scaleX(1); 
-  transition: transform var(--transition); 
+  height: 2px;
+  background-color: var(--color-green-darker);
+  transform: scaleX(1);
+  transition: transform var(--transition);
 }
 
 .authButtons {
   display: flex;
   gap: 16px;
-
 }
 
-.authButton{
+.authButton {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .authButton,
 .mobileLoginBtn,
@@ -58,28 +55,25 @@
   font-weight: var(--fw-bold);
   font-size: 12px;
   color: var(--color-green-darker);
-  
-  
 }
 
 .authButton.activeAuth {
   background-color: var(--color-green);
-  color: var( --color-white-bg);
+  color: var(--color-white-bg);
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
-.authButton.inactiveAuth
- {
+.authButton.inactiveAuth {
   background-color: transparent;
   color: var(--color-green-darker);
 }
-.authButton:hover,.mobileJoinBtn:hover{
+.authButton:hover,
+.mobileJoinBtn:hover {
   background-color: var(--color-green-darker);
   font-family: var(--ff-manrope);
-font-weight: var(--fw-bold);
-font-size: 16px;
-color: var( --color-white-bg);
+  font-weight: var(--fw-bold);
+  transform: scale(1.1);
 
-  
+  color: var(--color-white-bg);
 }
 
 .mobileMenuOverlay {
@@ -88,13 +82,14 @@ color: var( --color-white-bg);
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 1000; 
-  display: flex; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
   justify-content: center;
   visibility: hidden;
   opacity: 0;
-  transition: visibility var(--transition)-in-out, opacity var(--transition)-in-out;
+  transition: visibility var(--transition)-in-out,
+    opacity var(--transition)-in-out;
 }
 
 .mobileMenuOverlay.showMenu {
@@ -132,14 +127,13 @@ color: var( --color-white-bg);
 
 .mobileMenuHeaderContent {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   position: relative;
 }
 
 .mobileMenuNavigation {
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -162,9 +156,8 @@ color: var( --color-white-bg);
   font-size: 12px;
   color: var(--color-green-darker);
 
-  transition: color var(--transition); 
+  transition: color var(--transition);
 }
-
 
 .mobileLoginBtn,
 .mobileJoinBtn {
@@ -181,13 +174,12 @@ color: var( --color-white-bg);
 }
 .mobileJoinBtn {
   font-family: var(--ff-manrope);
-font-weight: var(--fw-bold);
-font-size: 16px;
-color: var( --color-white-bg);
-
+  font-weight: var(--fw-bold);
+  font-size: 16px;
+  color: var(--color-white-bg);
 }
 .mobileLoginBtn:hover,
-.mobileJoinBtn :hover{
+.mobileJoinBtn :hover {
   background-color: var(--color-green-darker);
 }
 
@@ -195,82 +187,78 @@ color: var( --color-white-bg);
   background-color: transparent;
   color: var(--color-green-darker);
 }
-.mobileLoginBtn:hover{
+.mobileLoginBtn:hover {
   font-weight: var(--fw-bold);
-font-size: 16px;
-color: var( --color-white-bg);
+  transform: scale(1.1);
+  color: var(--color-white-bg);
 }
 
 .no-scroll {
   overflow: hidden;
 }
 
-
 /* Media Queries */
 
 @media (min-width: 768px) and (max-width: 1439px) {
-
-.joinButtonTablet {
-  border-radius: 64px;
-  padding: 12px 16px;
-  width: 100px;
-  height: 46px;
-  background: var(--color-green);
-  font-family: var(--ff-manrope);
-  font-weight: var(--fw-bold);
-  font-size: 16px;
-  color: var( --color-white-bg);
-}
-.joinButtonTablet:hover{
-  background: var(--color-green-darker);
-}
-
+  .joinButtonTablet {
+    border-radius: 64px;
+    padding: 12px 16px;
+    width: 100px;
+    height: 46px;
+    background: var(--color-green);
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
+    font-size: 16px;
+    color: var(--color-white-bg);
+  }
+  .joinButtonTablet:hover {
+    background: var(--color-green-darker);
+  }
 
   .mobileMenuContent {
     width: 100%;
     max-width: 768px;
     height: 100%;
-
   }
 
   .mobileMenuHeader {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 0;
     margin-bottom: 0;
   }
 
   .mobileMenuHeaderContent {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: relative; 
+    position: relative;
   }
   /* Кнопка Join now в хедері меню */
-.joinButtonInModalHeader {
-  border-radius: 64px;
-  padding: 12px 16px;
-  width: 100px;
-  height: 46px;
-  margin-right: 16px;
-  flex-shrink: 0;
-  background: var(--color-green);
-  font-family: var(--ff-manrope);
-  font-weight: var(--fw-bold);
-  font-size: 16px;
-  color: var( --color-white-bg);
-}
-.joinButtonInModalHeader:hover {
-  background-color: var(--color-green-darker);
-}
+  .joinButtonInModalHeader {
+    border-radius: 64px;
+    padding: 12px 16px;
+    width: 100px;
+    height: 46px;
+    margin-right: 16px;
+    flex-shrink: 0;
+    background: var(--color-green);
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
+    font-size: 16px;
+    color: var(--color-white-bg);
+  }
+  .joinButtonInModalHeader:hover {
+    background-color: var(--color-green-darker);
+  }
 
   .closeButton {
     position: static;
     transform: none;
-    margin-left: 35px; 
-    flex-shrink: 0; 
+    margin-left: 35px;
+    flex-shrink: 0;
   }
 
   .mobileLinkList {
@@ -283,13 +271,9 @@ color: var( --color-white-bg);
   .mobileLoginBtn {
     margin-top: 20px;
   }
-
-  
 }
 
 @media (max-width: 767px) {
- 
-
   .nav {
     justify-content: flex-end;
   }
@@ -298,39 +282,33 @@ color: var( --color-white-bg);
     width: 100%;
     height: 100%;
     padding: 20px;
-  
   }
 
   .mobileMenuHeader {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 14px 16px;
- 
   }
 
   .mobileMenuHeaderContent {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: relative; 
+    position: relative;
   }
 
-.mobileMenuCloseContent{
-  display: flex; 
-  justify-content: flex-end;
-}
+  .mobileMenuCloseContent {
+    display: flex;
+    justify-content: flex-end;
+  }
   .closeButton {
-
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
-    margin-left: 0; 
+    margin-left: 0;
   }
-
-
 }
-

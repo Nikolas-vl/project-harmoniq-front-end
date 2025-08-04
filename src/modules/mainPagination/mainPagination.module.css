@@ -1,69 +1,82 @@
 .paginationContainer {
-    position: fixed;
-    /* прикріплюємо до вікна */
-    bottom: 46px;
-    /* відступ від нижнього краю */
-    left: 50%;
-    /* зміщення по горизонталі */
-    transform: translateX(-50%);
-    /* центрування */
-    z-index: 1000;
-    /* щоб не перекривалося */
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  position: sticky;
+  bottom: 46px;
+  padding: 10px 12px;
+  border-radius: 32px;
+  background-color: transparent;
+  backdrop-filter: blur(40px);
+  box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+  margin-inline: auto;
+  margin-block: 20px;
+  align-items: flex-end;
 }
 
 .navBtn {
-    border-radius: 64px;
-    padding: 8px;
-    width: 40px;
-    height: 40px;
-    background-color: #649179;
-    color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
+  border-radius: 64px;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: #649179;
+  color: white;
+  border: 1px solid var(--color-white-bg);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navBtn:disabled {
-    border: 1px solid #000;
-    border-radius: 64px;
-    padding: 4px 8px;
-    box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
-    opacity: 0.3;
-    cursor: not-allowed;
+  border: 1px solid var(--color-white-bg);
+  border-radius: 64px;
+  padding: 4px 8px;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px var(--color-white-bg);
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: black;
 }
 
 .pageBtn {
-    border-radius: 72px;
-    padding: 16px;
-    width: 40px;
-    height: 40px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 155%;
-    text-align: center;
-    color: black;
-    border: none;
-    background-color: inherit;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  border-radius: 72px;
+  padding: 16px;
+  width: 40px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 155%;
+  color: black;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    border: 1px solid black;
+    border-radius: 50%;
+  }
 }
 
 .active {
+  background-color: #649179;
+  color: white;
+  border-radius: 72px;
+  padding: 16px;
+  width: 45px;
+  height: 45px;
+  font-weight: 700;
+  font-size: 22px;
+  border: 1px solid var(--color-white-bg);
+
+  &:disabled {
     background-color: #649179;
-    color: white;
-    border-radius: 72px;
-    padding: 16px;
-    width: 40px;
-    height: 40px;
-    font-weight: 700;
-    font-size: 16px;
+    border: 1px solid var(--color-white-bg);
+  }
 }
 
 .pageBtn:disabled {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
