@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/authOperations';
 import styles from './RegisterForm.module.css';
 import toast from 'react-hot-toast';
-import eye from '../../assets/icons/eye.svg';
-import eyeCrossed from '../../assets/icons/eye-crossed.svg';
+import eyeCrossed from '../../assets/icons/eye.svg';
+import eye from '../../assets/icons/eye-crossed.svg';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 const validationSchema = Yup.object({
