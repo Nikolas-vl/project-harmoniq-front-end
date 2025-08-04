@@ -1,11 +1,11 @@
-import CreatorsCard from '../CreatorsCard/CreatorsCard';
-import css from './CreatorsCardsList.module.css';
+import AuthorCard from '../AuthorCard/AuthorCard';
+import css from './AuthorsList.module.css';
 import { useGetPopularUsers } from '../../../api/hooks/users/useGetPopularUsers';
 import Camera from '../../../assets/icons/createArticlePage/camera.svg?react';
 import { Link } from 'react-router-dom';
-import cardCss from '../CreatorsCard/CreatorsCard.module.css';
+import cardCss from '../AuthorCard/AuthorCard.module.css';
 
-const CreatorsCardsList = () => {
+const AuthorsList = () => {
   const { users, isLoading } = useGetPopularUsers(6);
 
   if (isLoading) {
@@ -25,11 +25,11 @@ const CreatorsCardsList = () => {
     <ul className={css.list}>
       {users.map((item, index) => (
         <li key={index}>
-          <CreatorsCard users={item} />
+          <AuthorCard users={item} />
         </li>
       ))}
     </ul>
   );
 };
 
-export default CreatorsCardsList;
+export default AuthorsList;

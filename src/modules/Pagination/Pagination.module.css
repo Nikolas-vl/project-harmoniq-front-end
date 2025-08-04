@@ -1,41 +1,83 @@
-.pagination {
+.paginationContainer {
+  position: sticky;
+  bottom: 46px;
+  padding: 10px 12px;
+  border-radius: 32px;
+  background-color: transparent;
+  backdrop-filter: blur(40px);
+  box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1);
+  z-index: 10;
   display: flex;
-  gap: 8px;
-  list-style: none;
-  justify-content: center;
-  margin-top: 20px;
-  padding: 0;
+  gap: 10px;
+  width: fit-content;
+  margin-inline: auto;
+  margin-block: 20px;
+  align-items: flex-end;
 }
 
-.pagination li {
+.navBtn {
+  border-radius: 64px;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: #649179;
+  color: white;
+  border: 1px solid var(--color-white-bg);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.page_link {
-  display: block;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #333;
-  transition: background-color 0.2s;
+.navBtn:disabled {
+  border: 1px solid var(--color-white-bg);
+  border-radius: 64px;
+  padding: 4px 8px;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px var(--color-white-bg);
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: black;
 }
 
-.page_link:hover {
-  background-color: #f0f0f0;
+.pageBtn {
+  border-radius: 72px;
+  padding: 16px;
+  width: 40px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 155%;
+  color: black;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    border: 1px solid black;
+    border-radius: 50%;
+  }
 }
 
-.active .page_link {
-  background-color: #000;
-  color: #fff;
-  border-color: #000;
+.active {
+  background-color: #649179;
+  color: white;
+  border-radius: 72px;
+  padding: 16px;
+  width: 45px;
+  height: 45px;
+  font-weight: 700;
+  font-size: 22px;
+  border: 1px solid var(--color-white-bg);
+
+  &:disabled {
+    background-color: #649179;
+    border: 1px solid var(--color-white-bg);
+  }
 }
 
-.disabled .page_link {
-  color: #aaa;
-  pointer-events: none;
-}
-
-.pagContainer {
-  padding-bottom: 48px;
+.pageBtn:disabled {
+  cursor: not-allowed;
 }

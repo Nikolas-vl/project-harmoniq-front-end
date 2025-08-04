@@ -19,7 +19,6 @@ const ArticleForm = () => {
   } = useArticleForm(async articleObject => {
     try {
       const result = await create(articleObject);
-      console.log('result:', result);
       const articleId = result._id;
       navigate(`/articles/${articleId}`);
     } catch (err) {
