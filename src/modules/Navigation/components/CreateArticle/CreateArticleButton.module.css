@@ -10,12 +10,11 @@
     font-family: var(--ff-manrope);
     font-weight: var(--fw-bold);
     font-size: 16px;
-    color: var( --color-white-bg);
-    
-    background: var( --color-green);
+    color: var(--color-white-bg) !important;
+    background-color: var(--color-green);
 
 }
 .articleButton:hover{
     background-color: var(--color-green-darker);
-    color: var( --color-white-bg);    
+    color: var(--color-white-bg);    
   }

@@ -84,13 +84,14 @@ color: var( --color-white-bg);
 
 .mobileMenuOverlay {
   position: fixed;
-  top: 0;
+  top: 74px;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); 
   z-index: 1000; 
   display: flex; 
+  justify-content: center;
   visibility: hidden;
   opacity: 0;
   transition: visibility var(--transition)-in-out, opacity var(--transition)-in-out;
@@ -111,8 +112,6 @@ color: var( --color-white-bg);
   flex-direction: column;
   padding: 14px 32px;
   box-sizing: border-box;
-  position: absolute;
-  right: 0;
   transform: translateX(100%);
   transition: transform var(--transition)-out;
 }
@@ -137,24 +136,6 @@ color: var( --color-white-bg);
   align-items: center;
   width: 100%;
   position: relative;
-}
-
-
-
-
-.closeButton {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: var(--color-green-darker);
-  position: static; 
-  flex-shrink: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  padding: 0;
 }
 
 .mobileMenuNavigation {
@@ -218,6 +199,10 @@ color: var( --color-white-bg);
   font-weight: var(--fw-bold);
 font-size: 16px;
 color: var( --color-white-bg);
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 

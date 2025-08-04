@@ -5,15 +5,19 @@ import logoImage from '../../assets/icons/header-logo.svg';
 
 const Header = () => {
   return (
-    <header className={styles.headerBg}>
-      <div className={`container ${styles.header}`}>
-        <Link className={styles.logoImage} to="/">
-          <img src={logoImage} alt="Logo harmohiq" />
-        </Link>
+    < div className={styles.headerBg}>
+      <div className={`container`}>
+        <header className={styles.header}>
+          <Link className={styles.logoImage} to="/">
+            <img src={logoImage} alt="Logo harmohiq" />
+          </Link>
 
-        <Navigation />
+          <Navigation />
+          
+        </header>
+
       </div>
-    </header>
+    </div>
   );
 };
 
