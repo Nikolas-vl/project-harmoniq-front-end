@@ -7,7 +7,7 @@ import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSearchParams } from 'react-router-dom';
 import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
 import { useState } from 'react';
-import { MainPagination } from '../../modules/mainPagination/mainPagination';
+import { Pagination } from '../../modules/Pagination/Pagination';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
@@ -68,7 +68,7 @@ const ArticlesPage = () => {
             pagination={pagination}
           />
           {articles && articles.length > 0 && (
-            <MainPagination
+            <Pagination
               page={page}
               totalPages={pagination.totalPages}
               onPageChange={setPage}

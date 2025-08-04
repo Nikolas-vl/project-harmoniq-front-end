@@ -4,7 +4,7 @@ import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
 import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 import { useSyncQueryParams } from '../../utils/useSyncQueryParams';
 import { useSearchParams } from 'react-router-dom';
-import { MainPagination } from '../../modules/mainPagination/mainPagination';
+import { Pagination } from '../../modules/Pagination/Pagination';
 
 const AuthorsPage = () => {
   const [searchParams] = useSearchParams();
@@ -31,7 +31,7 @@ const AuthorsPage = () => {
           <AuthorsList authors={users} loading={isLoading} />
 
           {users && users.length > 0 && (
-            <MainPagination
+            <Pagination
               page={page}
               totalPages={paginationData?.totalPages}
               onPageChange={setPage}
