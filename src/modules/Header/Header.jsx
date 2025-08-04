@@ -17,7 +17,7 @@ const Header = () => {
         </header>
 
       </div>
-    </header>
+    </div>
   );
 };
 
