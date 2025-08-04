@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
 import AuthButtons from './components/AuthButtons';
@@ -16,6 +15,7 @@ import ModalLogout from './components/ModalLogout/ModalLogout';
 function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useSelector(state => state.auth.user.id);
 
   const [activeAuthButton, setActiveAuthButton] = useState('join');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -86,7 +86,7 @@ function Navigation() {
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev);
   };
-
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   return (
     <nav className={styles.nav}>
       {/* Навігація (десктоп) */}
@@ -111,11 +111,22 @@ function Navigation() {
           <li>
             <NavLink
               to="/authors"
+              end
               className={({ isActive }) => (isActive ? styles.active : '')}
             >
               Creators
             </NavLink>
           </li>
+          {isLoggedIn && (
+            <li>
+              <NavLink
+                to={`/authors/${userId}`}
+                className={({ isActive }) => (isActive ? styles.active : '')}
+              >
+                My profile
+              </NavLink>
+            </li>
+          )}
         </ul>
       )}
 
