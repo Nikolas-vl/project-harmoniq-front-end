@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import toast from 'react-hot-toast';
 
 import styles from './UploadForm.module.css';
 
@@ -17,7 +20,6 @@ import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 const UploadForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const isNewUser = location.state?.isNew === true;
 
   const userId = useSelector(selectUserId);
@@ -26,171 +28,198 @@ const UploadForm = () => {
 
   const [previewUrl, setPreviewUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [error, setError] = useState('');
-
-  const [name, setName] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
-
   useEffect(() => {
-    if (user) {
-      if (user.avatarUrl) {
-        setPreviewUrl(user.avatarUrl);
-      }
-      if (user.name) {
-        setName(user.name);
-      }
-    }
+    if (user?.avatarUrl) setPreviewUrl(user.avatarUrl);
   }, [user]);
 
-  const handleFileChange = e => {
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(2, 'At least 2 characters')
+      .max(32)
+      .trim(),
+    oldPassword: Yup.string()
+      .min(6, 'At least 6 characters'),
+    newPassword: Yup.string()
+      .min(6, 'At least 6 characters')
+      .when('oldPassword', {
+        is: val => val && val.length > 0,
+        then: schema => schema.required('New password required'),
+      }),
+  });
+
+  const handleFileChange = (e, setFieldError) => {
     const file = e.target.files[0];
     if (!file) return;
 
     if (file.size > 2 * 1024 * 1024) {
-      setError('The file is too large. Maximum 2MB.');
+      setFieldError('image', 'The file is too large. Max 2MB.');
       return;
     }
 
     if (!['image/jpeg', 'image/png'].includes(file.type)) {
-      setError('Only JPG and PNG images are allowed.');
+      setFieldError('image', 'Only JPG and PNG images allowed.');
       return;
     }
 
-    setError('');
     setSelectedFile(file);
     setPreviewUrl(URL.createObjectURL(file));
-  };
-
-  const isNameChanged = name.trim() !== user?.name;
-  const isPasswordChanged = oldPassword.trim() !== '' && newPassword.trim() !== '';
-  const hasChanges = isNameChanged || isPasswordChanged || selectedFile;
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-
-    const updateData = {}; 
-
-    if (!selectedFile && !previewUrl) {
-      setError('Please select a photo');
-      return;
-    }
-    
-    if (selectedFile) {
-      updateData.image = selectedFile;
-    };
-
-    if (!isNewUser) {
-      if (isNameChanged) {
-        updateData.name = name.trim();
-      }
-      if (isPasswordChanged) {
-        updateData.oldPassword = oldPassword;
-        updateData.newPassword = newPassword;
-      }
-    }
-
-    if (Object.keys(updateData).length === 0) {
-      setError('Please make changes before saving.');
-      return;
-    }
-
-
-
-    try {
-      await updateProfile(userId, updateData);
-      navigate('/authors/:id');
-    } catch (err) {
-      setError('Upload failed. Please try again.');
-      console.error(err);
-    }
+    setFieldError('image', '');
   };
 
   const handleClose = () => {
-    selectedFile(null);
+    setSelectedFile(null);
     setPreviewUrl(user?.avatarUrl || null);
-    setName(user?.name || '');
-    setOldPassword('');
-    setNewPassword('');
-    setError('');
-    navigate('/');
+    navigate(-1);
   };
 
   return (
     <div className={`container ${styles.wrapper}`}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <button
-          type="button"
-          className={styles.closeBtn}
-          onClick={handleClose}
-        >
-          <img src={closeIcon} alt="close" className={styles.icon} />
-        </button>
+      <Formik
+        enableReinitialize
+        initialValues={{
+          name: user?.name || '',
+          oldPassword: '',
+          newPassword: '',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          const isNameChanged = values.name.trim() !== user?.name;
+          const isPasswordChanged = values.oldPassword && values.newPassword;
+          const hasChanges = isNameChanged || isPasswordChanged || selectedFile;
 
-        <h2 className={styles.mainText}>{isNewUser ? "Upload your photo" : "Update your profile" }</h2>
+          if (isNewUser && !selectedFile) {
+            toast.error('Please select a photo');
+            return;
+          }
 
-        <label htmlFor="photo" className={styles.fileInputWrapper}>
-          {previewUrl ? (
-            <div className={styles.previewWrapper}>
-              <img src={previewUrl} alt="Preview" className={styles.preview} />
-              {userId && (
-                <img src={editor} alt="Change photo" className={styles.editIcon} />
+          if (!hasChanges) {
+            toast.error('No changes made.');
+            return;
+          }
+
+          const updateData = {};
+          if (selectedFile) updateData.image = selectedFile;
+          if (isNameChanged) updateData.name = values.name.trim();
+          if (isPasswordChanged) {
+            updateData.oldPassword = values.oldPassword;
+            updateData.newPassword = values.newPassword;
+          }
+
+          try {
+            await updateProfile(userId, updateData);
+            toast.success('Profile updated');
+            navigate(`/authors/${userId}`);
+          } catch (err) {
+            toast.error('Upload failed');
+            console.error(err);
+          } finally {
+            setSubmitting(false);
+          }
+        }}
+      >
+        {({ setFieldError, isSubmitting }) => (
+          <Form className={styles.form}>
+            <button type="button" className={styles.closeBtn} onClick={handleClose}>
+              <img src={closeIcon} alt="close" className={styles.icon} />
+            </button>
+
+            <h2 className={styles.mainText}>
+              {isNewUser ? 'Upload your photo' : 'Update your profile'}
+            </h2>
+
+            <label htmlFor="photo" className={styles.fileInputWrapper}>
+              {previewUrl ? (
+                <div className={styles.previewWrapper}>
+                  <img src={previewUrl} alt="Preview" className={styles.preview} />
+                  {userId && (
+                    <img src={editor} alt="Change photo" className={styles.editIcon} />
+                  )}
+                </div>
+              ) : (
+                <img src={cameraIcon} alt="camera" className={styles.icon} />
               )}
-            </div>
-            
-          ) : (
-            <img src={cameraIcon} alt="camera" className={styles.icon} />
-          )}
-          <input
-            id="photo"
-            name="image"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className={styles.fileInput}
-          />
-        </label>
-        {!isNewUser && (
-          <>
-        <label className={styles.labelChangeInfo  }>
-          New name:
-          <input type='text' value={name} onChange={e => setName(e.target.value)} className={styles.inputChangeInfo} />
-        </label>
-        <label className={styles.labelChangeInfo  }>
-              Old password:
-              <div className={styles.inputWrapper}>
-                <input type={showOldPassword ? 'text' : 'password'} value={oldPassword} onChange={e => setOldPassword(e.target.value)} placeholder='Enter old password' className={styles.inputChangeInfo} />
-                <span onClick={() => setShowOldPassword(prev => !prev)} className={styles.seePass}>
-                  <img src={showOldPassword ? eye : eyeCrossed} alt={showOldPassword ? "Show password" : "Hide password"} width={24} height={24}/>
-                </span>
-              </div>
-          
-        </label>
-        <label className={styles.labelChangeInfo  }>
-          New password:
-          <div className={styles.inputWrapper}>
-                <input type={showNewPassword ? 'text' : 'password'} value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder='Enter new password' className={styles.inputChangeInfo} />
-                <span onClick={() => setShowNewPassword(prev => !prev)} className={styles.seePass}>
-                  <img src={showNewPassword ? eye : eyeCrossed} alt={showNewPassword ? "Show password" : "Hide password"} width={24} height={24}/>
-                </span>
-              </div>
+              <input
+                id="photo"
+                name="image"
+                type="file"
+                accept="image/*"
+                onChange={e => handleFileChange(e, setFieldError)}
+                className={styles.fileInput}
+              />
             </label>
-           </>
-          )}
+            <ErrorMessage name="image" component="div" className={styles.error} />
 
-        {error && <div className={styles.error}>{error}</div>}
+            {!isNewUser && (
+              <>
+                <label className={styles.labelChangeInfo}>
+                  New name:
+                  <Field type="text" name="name" className={styles.inputChangeInfo} />
+                  <ErrorMessage name="name" component="div" className={styles.error} />
+                </label>
 
-        <button
-          type="submit"
-          className={styles.saveBtn}
-          disabled={!hasChanges || loading}
-        >
-          {loading ? 'Uploading...' : 'Save'}
-        </button>
-      </form>
+                <label className={styles.labelChangeInfo}>
+                  Old password:
+                  <div className={styles.inputWrapper}>
+                    <Field
+                      type={showOldPassword ? 'text' : 'password'}
+                      name="oldPassword"
+                      placeholder="Enter old password"
+                      className={styles.inputChangeInfo}
+                    />
+                    <span
+                      onClick={() => setShowOldPassword(prev => !prev)}
+                      className={styles.seePass}
+                    >
+                      <img
+                        src={showOldPassword ? eye : eyeCrossed}
+                        alt={showOldPassword ? 'Show password' : 'Hide password'}
+                        width={24}
+                        height={24}
+                      />
+                    </span>
+                  </div>
+                  <ErrorMessage name="oldPassword" component="div" className={styles.error} />
+                </label>
+
+                <label className={styles.labelChangeInfo}>
+                  New password:
+                  <div className={styles.inputWrapper}>
+                    <Field
+                      type={showNewPassword ? 'text' : 'password'}
+                      name="newPassword"
+                      placeholder="Enter new password"
+                      className={styles.inputChangeInfo}
+                    />
+                    <span
+                      onClick={() => setShowNewPassword(prev => !prev)}
+                      className={styles.seePass}
+                    >
+                      <img
+                        src={showNewPassword ? eye : eyeCrossed}
+                        alt={showNewPassword ? 'Show password' : 'Hide password'}
+                        width={24}
+                        height={24}
+                      />
+                    </span>
+                  </div>
+                  <ErrorMessage name="newPassword" component="div" className={styles.error} />
+                </label>
+              </>
+            )}
+
+            <button
+              type="submit"
+              className={styles.saveBtn}
+              disabled={isSubmitting || loading}
+            >
+              {loading ? 'Uploading...' : 'Save'}
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

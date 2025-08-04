@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 const UserMenu = ({ onLogoutClick, onUserClick }) => {
   const userName = useSelector(selectUserName);
   const userAvatar = useSelector(selectUserAvatarUrl);
-  const userId = useSelector(state => state.auth.user.id);
+  // const userId = useSelector(state => state.auth.user.id);
   
   return (
     <div className={styles.userContainer}>
-      <Link to={`/authors/${userId}`} className={styles.userLink} onClick={onUserClick}>
+      <Link to={`/photo`} className={styles.userLink} onClick={onUserClick}>
         {userAvatar ? (
           <img src={userAvatar} alt="Avatar" className={styles.userAvatar} />
         ) : (
