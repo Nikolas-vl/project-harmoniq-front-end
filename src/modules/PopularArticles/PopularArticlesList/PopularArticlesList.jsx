@@ -5,7 +5,10 @@ import NothingFoundCard from '../../NothingFoundCard/NothingFoundCard';
 import { useGetArticles } from '../../../api/hooks/articles/useGetArticles';
 
 const PopularArticlesList = () => {
-  const { articles, isLoading } = useGetArticles({ limit: 4 });
+  const { articles, isLoading } = useGetArticles({
+    filter: 'popular',
+    limit: 4,
+  });
 
   if (!isLoading && articles.length === 0) {
     return (

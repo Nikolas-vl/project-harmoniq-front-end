@@ -15,7 +15,7 @@ const TestUsers = () => {
     users,
     isLoading: loadingUsers,
     paginationData,
-  } = useGetAllUsers(page, perPage);
+  } = useGetAllUsers({ page, perPage });
 
   const [userId, setUserId] = useState('');
   const [articleId, setArticleId] = useState('');

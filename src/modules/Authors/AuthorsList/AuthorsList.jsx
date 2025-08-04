@@ -6,7 +6,7 @@ import cardCss from '../AuthorCard/AuthorCard.module.css';
 import { useGetAllUsers } from '../../../api/hooks/users/useGetAllUsers';
 
 const AuthorsList = () => {
-  const { users, isLoading } = useGetAllUsers({ limit: 6 });
+  const { users, isLoading } = useGetAllUsers({ filter: 'popular', limit: 6 });
 
   if (isLoading) {
     return <p>✋Loading...✋</p>;
