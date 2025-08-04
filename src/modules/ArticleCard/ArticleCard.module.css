@@ -13,9 +13,10 @@
 
 .card_image {
   display: block;
-  border-radius: 24px;
   width: 337px;
   height: 233px;
+  object-fit: cover;
+  border-radius: 24px;
 }
 
 .unknown_image {

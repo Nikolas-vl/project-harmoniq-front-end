@@ -11,6 +11,7 @@
     border-radius: 50%;
     width: 148px;
     height: 148px;
+    object-fit: cover;
     transition: var(--transition);
 }
 
@@ -21,6 +22,18 @@
     text-align: center;
     max-width: 172px;
     color: var(--color-black);
+    transition: var(--transition);
+}
+
+.unknown_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--color-gray);
+    background-color: var(--color-light-gray);
+    width: 148px;
+    height: 148px;
     transition: var(--transition);
 }
 
@@ -36,6 +49,10 @@
 
     .card_container:hover .card_image,
     .card_container:focus .card_image {
+        box-shadow: 0 0 5px #404040, 0 0 10px #404040;
+    }
+    .card_container:hover .unknown_image,
+    .card_container:focus .unknown_image {
         box-shadow: 0 0 5px #404040, 0 0 10px #404040;
     }
     .card_container:hover .author_name,
