@@ -5,13 +5,13 @@ import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useSelector } from 'react-redux';
 import { selectUserId } from '../../redux/auth/authSelectors';
-import { useGetPopularArticles } from '../../api/hooks/articles/useGetPopularArticles';
+import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 
 const ArticlePage = () => {
   const { id: articleId } = useParams();
   const { article, isLoading } = useGetArticleById(articleId);
   const { articles: recommendedArticles, isLoading: isRecommendLoading } =
-    useGetPopularArticles(3);
+    useGetArticles({ filter: 'popular', limit: 3 });
 
   const { saveArticle } = useSaveArticle();
 

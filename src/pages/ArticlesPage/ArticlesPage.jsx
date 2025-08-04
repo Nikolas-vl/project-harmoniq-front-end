@@ -19,11 +19,11 @@ const ArticlesPage = () => {
   const [perPage] = useState(initialPerPage);
   const [filter, setFilter] = useState(null);
 
-  const { articles, isLoading, pagination, queryParams } = useGetArticles(
+  const { articles, isLoading, pagination, queryParams } = useGetArticles({
     page,
     perPage,
-    filter
-  );
+    filter,
+  });
 
   useSyncQueryParams(queryParams);
 

@@ -26,7 +26,7 @@ const TestArticles = () => {
   const [perPage, setPerPage] = useState(12);
   const [articleId, setArticleId] = useState('');
 
-  const { articles, pagination, isLoading } = useGetArticles(page, perPage);
+  const { articles, pagination, isLoading } = useGetArticles({ page, perPage });
   const { article, isLoading: loadingArticle } = useGetArticleById(articleId);
   console.log('article:', article);
 

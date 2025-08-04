@@ -1,7 +1,14 @@
 import axiosInstance from '../axios';
 
-export const getAllUsers = ({ page, perPage } = {}) => {
-  return axiosInstance.get('/users', { params: { page, perPage } });
+export const getAllUsers = ({ page, perPage, filter = 'all', limit } = {}) => {
+  return axiosInstance.get('/users', {
+    params: {
+      page,
+      perPage,
+      filter,
+      ...(limit !== undefined ? { limit } : {}),
+    },
+  });
 };
 
 export const getUserInfo = userId => axiosInstance.get(`/users/${userId}`);

@@ -1,12 +1,12 @@
 import AuthorCard from '../AuthorCard/AuthorCard';
 import css from './AuthorsList.module.css';
-import { useGetPopularUsers } from '../../../api/hooks/users/useGetPopularUsers';
 import Camera from '../../../assets/icons/createArticlePage/camera.svg?react';
 import { Link } from 'react-router-dom';
 import cardCss from '../AuthorCard/AuthorCard.module.css';
+import { useGetAllUsers } from '../../../api/hooks/users/useGetAllUsers';
 
 const AuthorsList = () => {
-  const { users, isLoading } = useGetPopularUsers(6);
+  const { users, isLoading } = useGetAllUsers({ limit: 6 });
 
   if (isLoading) {
     return <p>✋Loading...✋</p>;
