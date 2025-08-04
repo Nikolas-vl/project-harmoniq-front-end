@@ -1,0 +1,20 @@
+.author-profile__tabs {
+  display: flex;
+  gap: 38px;
+  margin-bottom: 24px;
+}
+.author-profile__tab-btn {
+  font-weight: 700;
+  font-size: 16px;
+  color: #374f42;
+  background: transparent;
+  width: fit-content;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.author-profile__tab-btn.active:disabled {
+  border: none;
+  border-bottom: 2px solid #374f42;
+}

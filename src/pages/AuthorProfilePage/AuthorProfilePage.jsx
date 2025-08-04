@@ -1,11 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-
 import styles from './AuthorProfilePage.module.css';
-
 import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
-
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import ArticlesList from '../../modules/ArticlesList/ArticlesList';
 import {
@@ -16,31 +13,33 @@ import {
   selectUserId,
   selectUserName,
 } from '../../redux/auth/authSelectors';
+import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
+import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
 
-const ARTICLES_PER_PAGE = 3;
-const TABS = {
-  all: 'myArticles',
-  saved: 'mySavedArticles',
-};
 const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
-  const LoggedUserId = useSelector(selectUserId);
-  const isOwnProfile = LoggedUserId === authorId;
-
-  const [activeTab, setActiveTab] = useState(TABS.all);
-  const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
-  const { user, userArticles, isLoading } = useGetUserInfo(authorId);
-
+  const currentUserId = useSelector(selectUserId);
   const currentUserName = useSelector(selectUserName);
   const currentUserAvatar = useSelector(selectUserAvatarUrl);
   const currentUserArticles = useSelector(selectUserArticles);
   const currentUserSavedArticles = useSelector(selectSavedArticles);
   const userAmounthArticles = useSelector(selectUserArticlesAmount);
 
+  const isOwnProfile = currentUserId === authorId;
+
+  const [activeTab, setActiveTab] = useState(TABS.all);
+  const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
+  const { user, userArticles, isLoading } = useGetUserInfo(authorId);
+
   const displayName = isOwnProfile
     ? currentUserName
     : user?.name || 'Unknown Author';
+
   const displayAvatar = isOwnProfile ? currentUserAvatar : user?.avatarUrl;
+
+  const displayArticlesAmount = !isOwnProfile
+    ? user?.articlesAmount
+    : userAmounthArticles;
 
   const currentArticles =
     activeTab === TABS.all
@@ -51,6 +50,9 @@ const AuthorProfilePage = () => {
 
   const visibleArticles = currentArticles?.slice(0, visibleCount) || [];
 
+  const handleChangeTabs = tab => {
+    setActiveTab(tab);
+  };
   const handleLoadMore = () => {
     setVisibleCount(prev => prev + ARTICLES_PER_PAGE);
   };
@@ -79,33 +81,13 @@ const AuthorProfilePage = () => {
         <div className={styles['author-profile__name__articles-amount']}>
           <h2 className={styles['author-profile__name']}>{displayName}</h2>
           <p className={styles['author-profile__articles-amount']}>
-            Articles:{' '}
-            {!isOwnProfile ? user?.articlesAmount : userAmounthArticles}
+            Articles: {displayArticlesAmount}
           </p>
         </div>
       </div>
 
       {isOwnProfile && (
-        <div className={styles['author-profile__tabs']}>
-          <button
-            className={`${styles['author-profile__tab-btn']} ${
-              activeTab === TABS.all ? styles['active'] : ''
-            }`}
-            onClick={() => setActiveTab(TABS.all)}
-            disabled={activeTab === TABS.all}
-          >
-            My Articles
-          </button>
-          <button
-            className={`${styles['author-profile__tab-btn']} ${
-              activeTab === TABS.saved ? styles['active'] : ''
-            }`}
-            onClick={() => setActiveTab(TABS.saved)}
-            disabled={activeTab === TABS.saved}
-          >
-            Saved Articles
-          </button>
-        </div>
+        <ProfileTabs setActiveTab={handleChangeTabs} activeTab={activeTab} />
       )}
 
       {isLoading ? (
