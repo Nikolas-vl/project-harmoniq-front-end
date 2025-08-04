@@ -1,11 +1,8 @@
 @import '../../assets/styles/_variables.module.css';
 
-
-
 .wrapper {
   margin-top: 24px;
   margin-bottom: 24px;
-  
 }
 
 .title {
@@ -30,7 +27,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 12px 12px 12px;
+  padding: 12px;
   width: 286px;
   height: 335px;
   border-radius: 32px;
@@ -38,7 +35,6 @@
   cursor: pointer;
   transition: var(--transition);
 }
-
 
 .authorItem:hover {
   transform: scale(1.02);
@@ -48,9 +44,22 @@
 .avatar {
   width: 262px;
   height: 262px;
-  border-radius: 256px;
+  border-radius: 50%;
   margin-bottom: 16px;
   object-fit: cover;
+}
+
+.unknown_avatar {
+  width: 262px;
+  height: 262px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray);
+  background-color: var(--color-light-gray);
 }
 
 .name {
@@ -61,6 +70,22 @@
   text-align: center;
   margin-top: auto;
   margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+
+.name_m {
+  font-family: var(--ff-manrope);
+  font-weight: var(--fw-bold);
+  font-size: 24px;
+  color: var(--color-black);
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  max-width: 260px;
 }
 
 .loadMore {
@@ -108,6 +133,11 @@
     height: 262px;
     margin-bottom: 24px;
   }
+  .unknown_avatar {
+    width: 262px;
+    height: 262px;
+    margin-bottom: 24px;
+  }
   .loadMore {
     width: 340px;
   }
@@ -128,8 +158,12 @@
     height: 148px;
     margin-bottom: 12px;
   }
+  .unknown_avatar {
+    width: 148px;
+    height: 148px;
+    margin-bottom: 12px;
+  }
   .loadMore {
     width: 340px;
   }
 }
-

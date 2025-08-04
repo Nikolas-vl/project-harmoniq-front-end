@@ -15,8 +15,9 @@ const Header = () => {
           <Navigation />
           
         </header>
+
       </div>
-    </div>
+    </header>
   );
 };
 

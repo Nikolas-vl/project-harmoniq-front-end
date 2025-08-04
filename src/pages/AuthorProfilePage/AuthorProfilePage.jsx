@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +13,8 @@ import {
   selectSavedArticles,
 } from '../../redux/auth/authSelectors';
 
+import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
+
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import ArticlesList from '../../modules/ArticlesList/ArticlesList';
 
@@ -22,8 +24,6 @@ const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
   const loggedUserId = useSelector(selectUserId);
   const isOwnProfile = loggedUserId === authorId;
-
-  const navigate = useNavigate();
 
   const name = useSelector(selectUserName);
   const avatarUrl = useSelector(selectUserAvatarUrl);
@@ -59,7 +59,7 @@ const AuthorProfilePage = () => {
   }, [activeTab, authorId]);
 
   return (
-    <div className={styles['author-profile']}>
+    <div className={`container ${styles['author-profile']}`}>
       {isOwnProfile && <h1 className={styles['header']}>My profile</h1>}
       <div className={styles['author-profile__header']}>
         {displayAvatar ? (
@@ -86,18 +86,16 @@ const AuthorProfilePage = () => {
       {isOwnProfile && (
         <div className={styles['author-profile__tabs']}>
           <button
-            className={`${styles['author-profile__tab-btn']} ${
-              activeTab === 'my' ? styles['active'] : ''
-            }`}
+            className={`${styles['author-profile__tab-btn']} ${activeTab === 'my' ? styles['active'] : ''
+              }`}
             onClick={() => setActiveTab('my')}
             disabled={activeTab === 'my'}
           >
             My Articles
           </button>
           <button
-            className={`${styles['author-profile__tab-btn']} ${
-              activeTab === 'saved' ? styles['active'] : ''
-            }`}
+            className={`${styles['author-profile__tab-btn']} ${activeTab === 'saved' ? styles['active'] : ''
+              }`}
             onClick={() => setActiveTab('saved')}
             disabled={activeTab === 'saved'}
           >
@@ -111,53 +109,24 @@ const AuthorProfilePage = () => {
       ) : (
         <>
           {currentArticles?.length === 0 ? (
-            <div className={styles['author-profile__empty']}>
-              <svg
-                width="64"
-                height="64"
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={styles['author-profile__empty-icon']}
-              >
-                <path
-                  d="M20 28.4444V30.5556M20 9.44444V22.1111M39 20C39 30.4934 30.4934 39 20 39C9.50659 39 1 30.4934 1 20C1 9.50659 9.50659 1 20 1C30.4934 1 39 9.50659 39 20Z"
-                  stroke="#070721"
-                  strokeWidth="2"
-                  strokeLinecap="round"
+            <>
+                <NothingFoundCard
+                  title="Nothing found."
+                  text={
+                    isOwnProfile && activeTab === 'saved'
+                      ? 'Save your first article'
+                      : 'Write your first article'
+                  }
+                  linkText={
+                    isOwnProfile && activeTab === 'saved'
+                      ? 'Go to articles'
+                      : 'Create an article'
+                  }
+                  linkPath={
+                    isOwnProfile && activeTab === 'saved' ? '/articles' : '/create'
+                  }
                 />
-              </svg>
-
-              <p className={styles['author-profile__empty-title']}>
-                Nothing found.
-              </p>
-
-              {isOwnProfile && activeTab === 'saved' ? (
-                <>
-                  <p className={styles['author-profile__empty-subtitle']}>
-                    Save your first article
-                  </p>
-                  <button
-                    className={styles['author-profile__action-btn']}
-                    onClick={() => navigate('/articles')}
-                  >
-                    Go to articles
-                  </button>
-                </>
-              ) : (
-                <>
-                  <p className={styles['author-profile__empty-subtitle']}>
-                    Write your first article
-                  </p>
-                  <button
-                    className={styles['author-profile__action-btn']}
-                    onClick={() => navigate('/create')}
-                  >
-                    Create an article
-                  </button>
-                </>
-              )}
-            </div>
+            </>
           ) : (
             <>
               <ArticlesList

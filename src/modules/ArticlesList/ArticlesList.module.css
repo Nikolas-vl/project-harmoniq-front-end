@@ -2,25 +2,17 @@
   display: grid;
   gap: 24px;
   grid-template-columns: 1fr;
+  width: fit-content;
 }
 
-.listItem {
-  border-radius: 32px;
-  padding: 12px;
-  width: 361px;
-  height: 492px;
-  min-width: 320px;
-  background: var(--color-light-green);
+.item {
+  width: fit-content;
 }
 
 /* Tablet */
 @media only screen and (min-width: 768px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .listItem {
-    width: 340px;
-    height: 492px;
   }
 }
 
@@ -29,9 +21,5 @@
 @media only screen and (min-width: 1440px) {
   .list {
     grid-template-columns: repeat(3, 1fr);
-  }
-  .listItem {
-    width: 392px;
-    height: 492px;
   }
 }

@@ -1,9 +1,16 @@
 import { AuthorsItem } from './AuthorsItem';
 import css from '../../pages/AuthorsPage/AuthorsPage.module.css';
+import { Link } from 'react-router-dom';
+import Camera from '../../assets/icons/createArticlePage/camera.svg?react';
 
 export const AuthorsList = ({ authors, loading }) => {
   if (authors.length === 0 && !loading) {
-    return <p className={css.noAuthors}>No authors available</p>;
+    return (
+      <Link to="/" className={css.authorItem}>
+        <Camera className={css.unknown_avatar} />
+        <span className={css.name_m}>No authors available</span>
+      </Link>
+    );
   }
 
   return (

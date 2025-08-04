@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { setAuthHeader, clearAuthHeader } from '../../api/axios';
 import { toast } from 'react-hot-toast';
+import { selectAccessToken } from './authSelectors';
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -61,6 +62,11 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const oldToken = selectAccessToken(state);
+      if (oldToken) {
+        setAuthHeader(oldToken);
+      }
       const response = await axios.post('/auth/refresh');
       const { accessToken, user, userArticles, savedArticles } =
         response.data.data;

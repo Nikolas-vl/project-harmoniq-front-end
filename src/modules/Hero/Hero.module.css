@@ -42,6 +42,9 @@
 }
 
 .articlesBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 64px;
   padding: 16px;
   width: 361px;
@@ -51,7 +54,7 @@
   font-weight: var(--fw-bold);
   font-size: 18px;
   color: var(--color-white-bg);
-  text-align: center;
+
   border: none;
   display: flex;
   align-items: center;
@@ -68,6 +71,9 @@
 }
 
 .registerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--color-green-darker);
   border-radius: 64px;
   padding: 16px;
@@ -77,10 +83,13 @@
   font-weight: var(--fw-bold);
   font-size: 18px;
   color: var(--color-green-darker);
+
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+
+
 }
 
 .registerBtn:hover {
