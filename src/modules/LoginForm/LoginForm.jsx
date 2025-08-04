@@ -56,10 +56,11 @@ const LoginForm = () => {
         {({ isSubmitting }) => (
           <Form noValidate className={s.loginFormFields}>
             <div className={s.fieldWrapper}>
-              <label className={s.labelLoginForm}>
+              <label htmlFor="email" className={s.labelLoginForm}>
                 Enter your email address
               </label>
               <Field
+                id="email"
                 name="email"
                 type="email"
                 className={s.inputLoginForm}
@@ -72,7 +73,9 @@ const LoginForm = () => {
               />
             </div>
             <div className={s.fieldWrapper}>
-              <label className={s.labelLoginForm}>Enter a password</label>
+              <label htmlFor="password" className={s.labelLoginForm}>
+                Enter a password
+              </label>
               <div className={s.inputWrapper}>
                 <span
                   onClick={() => setShowPassword(prev => !prev)}
@@ -86,6 +89,7 @@ const LoginForm = () => {
                   />
                 </span>
                 <Field
+                  id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   className={s.inputLoginForm}
