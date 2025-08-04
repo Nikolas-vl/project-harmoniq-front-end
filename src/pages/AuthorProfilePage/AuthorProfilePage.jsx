@@ -12,7 +12,9 @@ import {
   selectSavedArticles,
   selectUserArticles,
   selectUserArticlesAmount,
+  selectUserAvatarUrl,
   selectUserId,
+  selectUserName,
 } from '../../redux/auth/authSelectors';
 
 const ARTICLES_PER_PAGE = 3;
@@ -29,12 +31,17 @@ const AuthorProfilePage = () => {
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
   const { user, userArticles, isLoading } = useGetUserInfo(authorId);
 
-  const displayName = user?.name || 'Unknown Author';
-  const displayAvatar = user?.avatarUrl;
-
+  const currentUserName = useSelector(selectUserName);
+  const currentUserAvatar = useSelector(selectUserAvatarUrl);
   const currentUserArticles = useSelector(selectUserArticles);
   const currentUserSavedArticles = useSelector(selectSavedArticles);
   const userAmounthArticles = useSelector(selectUserArticlesAmount);
+
+  const displayName = isOwnProfile
+    ? currentUserName
+    : user?.name || 'Unknown Author';
+  const displayAvatar = isOwnProfile ? currentUserAvatar : user?.avatarUrl;
+
   const currentArticles =
     activeTab === TABS.all
       ? isOwnProfile
