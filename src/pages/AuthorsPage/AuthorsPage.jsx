@@ -4,7 +4,7 @@ import { AuthorsList } from '../../modules/AuthorsList/AuthorsList';
 import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 import { useSyncQueryParams } from '../../utils/useSyncQueryParams';
 import { useSearchParams } from 'react-router-dom';
-import { MainPagination } from '../../modules/mainPagination/mainPagination';
+import { MainPagination } from '../../modules/mainPagination/MainPagination';
 
 const AuthorsPage = () => {
   const [searchParams] = useSearchParams();
