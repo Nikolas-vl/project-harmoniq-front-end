@@ -1,6 +1,6 @@
 import css from './ArticleCard.module.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import ModalErrorSave from '../ModalErrorSave/ModalErrorSave';
 import ButtonAddToBookmarks from '../ButtonAddToBookmarks/ButtonAddToBookmarks';
@@ -8,6 +8,7 @@ import {
   selectUserSaved,
   selectUserId,
 } from '../../redux/auth/authSelectors';
+import { refreshUser } from '../../redux/auth/authOperations';
 import { useDeleteArticle } from '../../api/hooks/articles/useDeleteArticle';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../api/hooks/users/useDeleteSavedArticle';
@@ -15,6 +16,7 @@ import { Link } from 'react-router-dom';
 import Camera from '../../assets/icons/createArticlePage/camera.svg?react'
 
 const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
+  const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectUserSaved);
   const [isSaved, setIsSaved] = useState(false);
@@ -42,10 +44,12 @@ const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
         await deleteArticle(userId, article._id);
         setIsSaved(false);
         toast.success('Removed from saved!');
+        dispatch(refreshUser());
       } else {
         await saveArticle(userId, article._id);
         setIsSaved(true);
         toast.success('Saved!');
+        dispatch(refreshUser());
       }
     } catch (err) {
       toast.error('Something went wrong');
@@ -58,7 +62,7 @@ const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
       await remove(article._id);
       setIsDeleted(true);
       toast.success('Article deleted!');
-    
+      dispatch(refreshUser());
     } catch (error) {
       console.error('Failed to delete:', error);
       toast.error('Failed to delete article');
