@@ -5,7 +5,6 @@ import UserMenu from './UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
 import CreateArticle from './CreateArticle/CreateArticleButton';
-import logoImage from '../../../assets/icons/header-logo.svg';
 
 import { selectUserId } from '../../../redux/auth/authSelectors';
 import { useEffect } from 'react';
@@ -58,8 +57,9 @@ const MobileMenu = ({
       }`}
       onClick={handleBackdropClick}
     >
-      <div className={styles.mobileMenuContent}>
+      <div className={`${styles.mobileMenuContent} ${isOpen ? styles.showMenu : styles.hideMenu}`}>
         {/* Навігація */}
+        
         <nav className={styles.mobileMenuNavigation}>
           <ul className={styles.mobileLinkList}>
             <li>

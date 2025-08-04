@@ -1,4 +1,3 @@
-
 .nav {
   display: flex;
   align-items: center;
@@ -9,7 +8,7 @@
   display: flex;
   list-style: none;
 
-  gap: 32px; 
+  gap: 32px;
 }
 
 .linkList a {
@@ -17,87 +16,76 @@
   font-weight: var(--fw-bold);
   font-size: 12px;
   color: var(--color-green-darker);
-  text-decoration: none; 
-  position: relative; 
+  text-decoration: none;
+  position: relative;
+  transition: transform var(--transition);
+  display: inline-block;
 }
 
 .linkList a:hover {
-  font-size: 14px;
+  transform: scale(1.2);
   transition: transform var(--transition);
 }
 
 .linkList a.active::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
-  bottom: -5px; 
+  bottom: -5px;
   width: 100%;
-  height: 2px; 
-  background-color: var(--color-green-darker); 
-  transform: scaleX(1); 
-  transition: transform var(--transition); 
+  height: 2px;
+  background-color: var(--color-green-darker);
+  transform: scaleX(1);
+  transition: transform var(--transition);
 }
 
 .authButtons {
   display: flex;
   gap: 16px;
-
 }
 
-.authButton{
+.authButtonLogin
+ {
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  
-}
-
-.authButton,
-.mobileLoginBtn,
-.mobileJoinBtn {
-  border-radius: 64px;
-  padding: 12px 16px;
-  width: 100px;
-  height: 46px;
-
   font-family: var(--ff-manrope);
   font-weight: var(--fw-bold);
   font-size: 12px;
   color: var(--color-green-darker);
+  transition: transform var(--transition);
 }
 
-.authButtonLogin{
-width: 35px;
-padding: 0;
+.authButtonLogin:hover {
+  transform: scale(1.2);
+    transition: transform var(--transition);
 }
 
-.authButtonLogin:hover{
+.authButtonJoin, 
+.mobileJoinBtn 
+{
+  border-radius: 64px;
+  padding: 12px 16px;
+  height: 46px;
+  background: var(--color-green);
   color: var(--color-white-bg);
+  font-size: 16px;
+  font-weight: var(--fw-bold);
 }
 
-.authButtonJoin {
-border-radius: 64px !important;
-  padding: 12px 16px !important;
-  width: 100px !important;
-  height: 46px !important;
-  background: var(--color-green) !important;
-  color: var(--color-white-bg) !important;
-  font-size: 16px !important;
+.authButtonJoin:hover,
+.mobileJoinBtn:hover {
+  background-color: var(--color-green-darker);
 }
 
-.authButtonJoin:hover {
-  background-color: var(--color-green-darker) !important;
-    font-family: var(--ff-manrope) !important;
-    font-weight: var(--fw-bold) !important;
-    color: var(--color-white-bg) !important;
-}
-
-.authButtonJoin:focus{
-  background-color: var(--color-green) !important;
-  color: var(--color-white-bg);
+.authButtonJoin:focus,
+.mobileJoinBtn:focus {
+  background-color: var(--color-green);
   box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
-.authButton.inactiveAuth
- {
+
+.authButton.inactiveAuth {
   background-color: transparent;
   color: var(--color-green-darker);
 }
@@ -107,25 +95,27 @@ border-radius: 64px !important;
   top: 74px;
   left: 0;
   width: 100%;
+  height: 100%;
   height: calc(100vh - 74px);
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 1000; 
-  display: flex; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
   justify-content: center;
   visibility: hidden;
   opacity: 0;
+  transition: visibility var(--transition)-in-out, opacity var(--transition)-in-out;
   transform: translateY(calc(-100% - 74px));
-    opacity: 0;
-    transition: transform 300ms ease, opacity 300ms ease, visibility 0s linear 300ms;
-    
+  opacity: 0;
+  transition: transform 300ms ease, opacity 300ms ease, visibility 0s linear 300ms;
+
 }
 
-.mobileMenuOverlay.showMenu {
+ .mobileMenuOverlay.showMenu {
   visibility: visible;
   transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-    transition-delay: 0s;
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 
 .mobileMenuOverlay.hideMenu {
@@ -134,47 +124,37 @@ border-radius: 64px !important;
   pointer-events: none;
   visibility: hidden;
   transition-delay: 0s;
-}
+} 
 
 .mobileMenuContent {
   background-color: var(--color-light-green);
-  width: 100%;
-  height: 100%;
-  max-width: 768px;
-
-  display: flex;
   flex-direction: column;
   padding: 14px 32px;
   box-sizing: border-box;
+  transform: translateX(100%);
   transform: translateY(calc(-100% - 74px));
   transition: transform var(--transition)-out;
- 
+  z-index: 999;
+  max-height: fit-content;
 }
 
-.mobileMenuOverlay.showMenu .mobileMenuContent {
-  transform: translateX(0);
-}
+ .mobileMenuContent.showMenu {
+   visibility: visible;
+   transform: translateY(0);
+   opacity: 1;
+   pointer-events: auto;
+   transition-delay: 0s;
+ }
 
-.mobileMenuHeader {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 14px 32px;
-  border-bottom: 1px dotted #ccc;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.mobileMenuHeaderContent {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  width: 100%;
-  position: relative;
-}
+ .mobileMenuContent.hideMenu {
+   transform: translateY(-100%);
+   opacity: 0;
+   pointer-events: none;
+   visibility: hidden;
+   transition-delay: 0s;
+ }
 
 .mobileMenuNavigation {
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -197,121 +177,96 @@ border-radius: 64px !important;
   font-size: 12px;
   color: var(--color-green-darker);
 
-  transition: color var(--transition); 
+  transition: color var(--transition);
 }
 
-
-.mobileLoginBtn,
-.mobileJoinBtn {
-  border-radius: 64px;
-  padding: 12px 16px;
-  width: 100px;
-  height: 46px;
-  background: var(--color-green);
-  font-family: var(--ff-manrope);
-  font-weight: var(--fw-bold);
-  font-size: 12px;
-  color: var(--color-green-darker);
-  box-sizing: border-box;
-}
-.mobileJoinBtn {
-  font-family: var(--ff-manrope);
-font-weight: var(--fw-bold);
-font-size: 16px;
-color: var( --color-white-bg);
-
-}
-.mobileLoginBtn:hover,
-.mobileJoinBtn :hover{
-  background-color: var(--color-green-darker);
+.mobileLoginBtn{
+  padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
+    font-size: 12px;
+    background-color: transparent;
+      color: var(--color-green-darker);
+    transition: transform var(--transition);
+    margin: 0;
 }
 
-.mobileLoginBtn {
-  background-color: transparent;
-  color: var(--color-green-darker);
+.mobileLoginBtn:hover {
+  transform: scale(1.2);
+    transition: transform var(--transition);
 }
-.mobileLoginBtn:hover{
-  font-weight: var(--fw-bold);
-font-size: 16px;
-color: var( --color-white-bg);
-}
+
 
 .no-scroll {
   overflow: hidden;
 }
 
-.mobileLoginBtn {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 35px;
-  height: 20px;
-}
 
 /* Media Queries */
 
 @media (min-width: 768px) and (max-width: 1439px) {
-
-.joinButtonTablet {
-  border-radius: 64px;
-  padding: 12px 16px;
-  width: 100px;
-  height: 46px;
-  background: var(--color-green);
-  font-family: var(--ff-manrope);
-  font-weight: var(--fw-bold);
-  font-size: 16px;
-  color: var( --color-white-bg);
-}
-.joinButtonTablet:hover{
-  background: var(--color-green-darker);
-}
-
+  .joinButtonTablet {
+    border-radius: 64px;
+    padding: 12px 16px;
+    width: 100px;
+    height: 46px;
+    background: var(--color-green);
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
+    font-size: 16px;
+    color: var(--color-white-bg);
+  }
+  .joinButtonTablet:hover {
+    background: var(--color-green-darker);
+  }
 
   .mobileMenuContent {
     width: 100%;
     max-width: 768px;
     height: 100%;
-
   }
 
   .mobileMenuHeader {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 0;
     margin-bottom: 0;
   }
 
   .mobileMenuHeaderContent {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: relative; 
+    position: relative;
   }
   /* Кнопка Join now в хедері меню */
-.joinButtonInModalHeader {
-  border-radius: 64px;
-  padding: 12px 16px;
-  width: 100px;
-  height: 46px;
-  margin-right: 16px;
-  flex-shrink: 0;
-  background: var(--color-green);
-  font-family: var(--ff-manrope);
-  font-weight: var(--fw-bold);
-  font-size: 16px;
-  color: var( --color-white-bg);
-}
-.joinButtonInModalHeader:hover {
-  background-color: var(--color-green-darker);
-}
+  .joinButtonInModalHeader {
+    border-radius: 64px;
+    padding: 12px 16px;
+    width: 100px;
+    height: 46px;
+    margin-right: 16px;
+    flex-shrink: 0;
+    background: var(--color-green);
+    font-family: var(--ff-manrope);
+    font-weight: var(--fw-bold);
+    font-size: 16px;
+    color: var(--color-white-bg);
+  }
+  .joinButtonInModalHeader:hover {
+    background-color: var(--color-green-darker);
+  }
 
   .closeButton {
     position: static;
     transform: none;
-    margin-left: 35px; 
-    flex-shrink: 0; 
+    margin-left: 35px;
+    flex-shrink: 0;
   }
 
   .mobileLinkList {
@@ -321,16 +276,9 @@ color: var( --color-white-bg);
     padding-top: 20px;
   }
 
-  .mobileLoginBtn {
-    margin-top: 20px;
-  }
-
-  
 }
 
 @media (max-width: 767px) {
- 
-
   .nav {
     justify-content: flex-end;
   }
@@ -339,39 +287,33 @@ color: var( --color-white-bg);
     width: 100%;
     height: 100%;
     padding: 20px;
-  
   }
 
   .mobileMenuHeader {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 14px 16px;
- 
   }
 
   .mobileMenuHeaderContent {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: relative; 
+    position: relative;
   }
 
-.mobileMenuCloseContent{
-  display: flex; 
-  justify-content: flex-end;
-}
+  .mobileMenuCloseContent {
+    display: flex;
+    justify-content: flex-end;
+  }
   .closeButton {
-
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
-    margin-left: 0; 
+    margin-left: 0;
   }
-
-
 }
-
