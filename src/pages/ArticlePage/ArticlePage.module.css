@@ -105,12 +105,13 @@
   justify-content: space-between;
   align-items: center;
 
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   cursor: pointer;
 }
 
 .recommendationItem:hover {
   background-color: #e0f2f1;
+  transform: translateX(4px);
 }
 
 .recText {
@@ -185,7 +186,6 @@
   padding: 12px;
   width: 100%;
   box-sizing: border-box;
-
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
@@ -197,6 +197,31 @@
 .saveButton:focus {
   outline: 2px solid #00b894;
   outline-offset: 2px;
+}
+
+/* Анимация контента  */
+.accordionContent {
+  overflow: hidden;
+  transition: height 300ms ease, opacity 300ms ease;
+  will-change: height, opacity;
+}
+
+/* Кнопки переключения  */
+.paginationButtons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.recommendations:hover .paginationButtons,
+.recommendations:focus-within .paginationButtons {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
 }
 
 /* Планшеты */
@@ -244,7 +269,7 @@
   }
 }
 
-/* Мобильные */
+/* Мобилка */
 @media (max-width: 767px) {
   .title {
     font-size: 28px;

@@ -1,48 +1,48 @@
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
-
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './ArticlePage.module.css';
-
 import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
 import { useGetPopularArticles } from '../../api/hooks/articles/useGetPopularArticles';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { selectUserId } from '../../redux/auth/authSelectors';
-
 import Loader from '../../modules/Loader/Loader';
-
 const renderArticleContent = text =>
   text
     .split('\n')
     .filter(line => line.trim() !== '')
     .map((line, index) => <p key={index}>{line}</p>);
-
 const ArticlePage = () => {
   const { id: articleId } = useParams();
   const { article, isLoading } = useGetArticleById(articleId);
   const { articles: popularArticles = [], isLoading: isRecommendLoading } =
     useGetPopularArticles(8);
-
   const currentUser = useSelector(selectUserId);
   const { saveArticle } = useSaveArticle();
-
   const [recPageIndex, setRecPageIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
   const containerRef = useRef(null);
+  const touchStartX = useRef(null);
+  const minSwipeDistance = 50;
 
   useEffect(() => {
     setRecPageIndex(0);
   }, [articleId]);
 
   const RECS_PER_PAGE = 3;
+  const maxPageIndex = Math.max(
+    0,
+    Math.ceil(popularArticles.length / RECS_PER_PAGE) - 1
+  );
 
   const start = recPageIndex * RECS_PER_PAGE;
-  const end = start + RECS_PER_PAGE;
-  const currentRecommendations = popularArticles.slice(start, end);
+  const currentRecommendations = popularArticles.slice(
+    start,
+    start + RECS_PER_PAGE
+  );
 
   const hasPrev = recPageIndex > 0;
-  const hasNext = end < popularArticles.length;
+  const hasNext = recPageIndex < maxPageIndex;
 
   const handleSave = () => {
     if (!currentUser) {
@@ -52,17 +52,7 @@ const ArticlePage = () => {
     saveArticle(currentUser, articleId);
   };
 
-  const handlePrev = () => {
-    if (!hasPrev || animating) return;
-    animateToggle(() => setRecPageIndex(recPageIndex - 1));
-  };
-
-  const handleNext = () => {
-    if (!hasNext || animating) return;
-    animateToggle(() => setRecPageIndex(recPageIndex + 1));
-  };
-
-  const animateToggle = callback => {
+  const animateToggle = useCallback(callback => {
     if (!containerRef.current) {
       callback();
       return;
@@ -72,6 +62,7 @@ const ArticlePage = () => {
     const el = containerRef.current;
     const originalHeight = el.scrollHeight;
     el.style.height = originalHeight + 'px';
+
     void el.offsetHeight;
 
     el.style.transition = 'height 300ms ease, opacity 300ms ease';
@@ -93,6 +84,36 @@ const ArticlePage = () => {
         setAnimating(false);
       }, 300);
     }, 300);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (!hasPrev || animating) return;
+    animateToggle(() => setRecPageIndex(prev => prev - 1));
+  }, [hasPrev, animating, animateToggle]);
+
+  const handleNext = useCallback(() => {
+    if (!hasNext || animating) return;
+    animateToggle(() => setRecPageIndex(prev => prev + 1));
+  }, [hasNext, animating, animateToggle]);
+
+  // Свайпы
+  const onTouchStart = e => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+
+  const onTouchEnd = e => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].screenX;
+    const distance = touchStartX.current - touchEndX;
+
+    if (Math.abs(distance) < minSwipeDistance) return;
+
+    if (distance > 0) {
+      handleNext();
+    } else {
+      handlePrev();
+    }
+    touchStartX.current = null;
   };
 
   if (isLoading) return <Loader fullScreen />;
@@ -110,6 +131,7 @@ const ArticlePage = () => {
             className={styles.image}
             width="1225"
             height="624"
+            loading="lazy"
           />
         )}
 
@@ -156,6 +178,8 @@ const ArticlePage = () => {
                       ref={containerRef}
                       className={styles.accordionContent}
                       aria-live="polite"
+                      onTouchStart={onTouchStart}
+                      onTouchEnd={onTouchEnd}
                     >
                       <ul className={styles.recommendationsList}>
                         {currentRecommendations.map(
