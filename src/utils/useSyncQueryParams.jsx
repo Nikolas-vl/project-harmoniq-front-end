@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const useSyncQueryParams = queryParams => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    const currentParams = new URLSearchParams(window.location.search);
+
     let needUpdate = false;
-    const newSearchParams = new URLSearchParams(searchParams.toString());
+    const newSearchParams = new URLSearchParams(currentParams.toString());
 
     Object.entries(queryParams).forEach(([key, value]) => {
       if (value === undefined || value === null) {
@@ -23,5 +25,5 @@ export const useSyncQueryParams = queryParams => {
     if (needUpdate) {
       setSearchParams(newSearchParams);
     }
-  }, [queryParams, searchParams, setSearchParams]);
+  }, [queryParams, setSearchParams]);
 };

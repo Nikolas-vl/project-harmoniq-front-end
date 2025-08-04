@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/authOperations';
 import styles from './RegisterForm.module.css';
 import toast from 'react-hot-toast';
-import eye from '../../assets/icons/eye.svg';
-import eyeCrossed from '../../assets/icons/eye-crossed.svg';
+import eyeCrossed from '../../assets/icons/eye.svg';
+import eye from '../../assets/icons/eye-crossed.svg';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 const validationSchema = Yup.object({
@@ -74,9 +74,10 @@ const RegisterForm = () => {
         Join our community of mindfulness and wellbeing!
       </p>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
+        <label htmlFor="name" className={styles.label}>
           Enter your name
           <input
+            id="name"
             type="text"
             name="name"
             placeholder="Max"
@@ -92,9 +93,10 @@ const RegisterForm = () => {
           </div>
         </label>
 
-        <label className={styles.label}>
+        <label htmlFor="email" className={styles.label}>
           Enter your email address
           <input
+            id="email"
             type="email"
             name="email"
             placeholder="email@gmail.com"
@@ -110,10 +112,11 @@ const RegisterForm = () => {
           </div>
         </label>
 
-        <label className={styles.label}>
+        <label htmlFor="password" className={styles.label}>
           Create a strong password
           <div className={styles.passwordWrapper}>
             <input
+              id="password"
               type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="*********"
@@ -143,10 +146,6 @@ const RegisterForm = () => {
             )}
           </div>
           <div className={styles.strengthBarWrapper}>
-            {/* <PasswordStrengthBar
-              password={values.password}
-              className={values.password ? '' : styles.strengthBarHidden}
-            /> */}
             <PasswordStrengthBar
               password={values.password}
               className={styles.strengthBar}
@@ -154,10 +153,11 @@ const RegisterForm = () => {
           </div>
         </label>
 
-        <label className={styles.label}>
+        <label htmlFor="confirmPassword" className={styles.label}>
           Repeat your password
           <div className={styles.passwordWrapper}>
             <input
+              id="confirmPassword"
               type={showConfirmPassword ? 'text' : 'password'}
               name="confirmPassword"
               placeholder="*********"

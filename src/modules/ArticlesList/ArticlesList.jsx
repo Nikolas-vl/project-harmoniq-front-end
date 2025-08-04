@@ -7,7 +7,7 @@ const ArticlesList = ({ articles, isOwnProfile }) => {
       <ul className={s.list}>
         {articles.map(article => (
           <li key={article._id} className={s.item}>
-            <ArticleCard article={article} isBeingLoaded={''} isOwnArticle={isOwnProfile} />
+            <ArticleCard article={article} isOwnArticle={isOwnProfile} />
           </li>
         ))}
       </ul>
