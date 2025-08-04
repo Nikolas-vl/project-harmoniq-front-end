@@ -6,7 +6,7 @@ import SectionTitle from '../../modules/SectionTitle/SectionTitle';
 import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSearchParams } from 'react-router-dom';
 import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
-import { MainPagination } from '../../modules/mainPagination/mainPagination';
+import { MainPagination } from '../../modules/MainPagination/MainPagination';
 import { useState } from 'react';
 
 const ArticlesPage = () => {
