@@ -1,55 +1,58 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-
-import styles from './AuthorProfilePage.module.css'
-
-import {
-  selectUserId,
-  selectUserName,
-  selectUserAvatarUrl,
-  selectUserArticlesAmount,
-  selectUserArticles,
-  selectSavedArticles,
-} from '../../redux/auth/authSelectors';
-
+import styles from './AuthorProfilePage.module.css';
 import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
-
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import ArticlesList from '../../modules/ArticlesList/ArticlesList';
-
-const ARTICLES_PER_PAGE = 12;
+import {
+  selectSavedArticles,
+  selectUserArticles,
+  selectUserArticlesAmount,
+  selectUserAvatarUrl,
+  selectUserId,
+  selectUserName,
+} from '../../redux/auth/authSelectors';
+import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
+import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
 
 const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
-  const loggedUserId = useSelector(selectUserId);
-  const isOwnProfile = loggedUserId === authorId;
+  const currentUserId = useSelector(selectUserId);
+  const currentUserName = useSelector(selectUserName);
+  const currentUserAvatar = useSelector(selectUserAvatarUrl);
+  const currentUserArticles = useSelector(selectUserArticles);
+  const currentUserSavedArticles = useSelector(selectSavedArticles);
+  const userAmounthArticles = useSelector(selectUserArticlesAmount);
 
-  const name = useSelector(selectUserName);
-  const avatarUrl = useSelector(selectUserAvatarUrl);
-  const articlesAmount = useSelector(selectUserArticlesAmount);
-  const myArticles = useSelector(selectUserArticles);
-  const savedArticles = useSelector(selectSavedArticles);
+  const isOwnProfile = currentUserId === authorId;
 
-  const { user, userArticles, isLoading } = useGetUserInfo(
-    !isOwnProfile ? authorId : null
-  );
-
-  const displayName = isOwnProfile ? name : user?.name;
-  const displayAvatar = isOwnProfile ? avatarUrl : user?.avatarUrl;
-  const displayArticlesAmount = isOwnProfile
-    ? articlesAmount
-    : user?.articlesAmount;
-
-  const [activeTab, setActiveTab] = useState('my');
+  const [activeTab, setActiveTab] = useState(TABS.all);
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
+  const { user, userArticles, isLoading } = useGetUserInfo(authorId);
 
-  const allMyArticles = isOwnProfile ? myArticles : userArticles;
+  const displayName = isOwnProfile
+    ? currentUserName
+    : user?.name || 'Unknown Author';
+
+  const displayAvatar = isOwnProfile ? currentUserAvatar : user?.avatarUrl;
+
+  const displayArticlesAmount = !isOwnProfile
+    ? user?.articlesAmount
+    : userAmounthArticles;
+
   const currentArticles =
-    activeTab === 'my' ? allMyArticles : isOwnProfile ? savedArticles : [];
+    activeTab === TABS.all
+      ? isOwnProfile
+        ? currentUserArticles
+        : userArticles
+      : currentUserSavedArticles;
 
   const visibleArticles = currentArticles?.slice(0, visibleCount) || [];
 
+  const handleChangeTabs = tab => {
+    setActiveTab(tab);
+  };
   const handleLoadMore = () => {
     setVisibleCount(prev => prev + ARTICLES_PER_PAGE);
   };
@@ -84,81 +87,47 @@ const AuthorProfilePage = () => {
       </div>
 
       {isOwnProfile && (
-        <div className={styles['author-profile__tabs']}>
-          <button
-            className={`${styles['author-profile__tab-btn']} ${activeTab === 'my' ? styles['active'] : ''
-              }`}
-            onClick={() => setActiveTab('my')}
-            disabled={activeTab === 'my'}
-          >
-            My Articles
-          </button>
-          <button
-            className={`${styles['author-profile__tab-btn']} ${activeTab === 'saved' ? styles['active'] : ''
-              }`}
-            onClick={() => setActiveTab('saved')}
-            disabled={activeTab === 'saved'}
-          >
-            Saved Articles
-          </button>
-        </div>
+        <ProfileTabs setActiveTab={handleChangeTabs} activeTab={activeTab} />
       )}
 
       {isLoading ? (
         <p className={styles['author-profile__loading']}>Loading articles...</p>
       ) : (
         <>
-          {currentArticles?.length === 0 ? (
-            <>
-                <NothingFoundCard
-                  title="Nothing found."
-                  text={
-                    isOwnProfile && activeTab === 'saved'
-                      ? 'Save your first article'
-                      : 'Write your first article'
-                  }
-                  linkText={
-                    isOwnProfile && activeTab === 'saved'
-                      ? 'Go to articles'
-                      : 'Create an article'
-                  }
-                  linkPath={
-                    isOwnProfile && activeTab === 'saved' ? '/articles' : '/create'
-                  }
-                />
-            </>
+          {visibleArticles?.length === 0 ? (
+            <NothingFoundCard
+              title="Nothing found."
+              text={
+                isOwnProfile && activeTab === TABS.saved
+                  ? 'Save your first article'
+                  : 'Write your first article'
+              }
+              linkText={
+                isOwnProfile && activeTab === TABS.saved
+                  ? 'Go to articles'
+                  : 'Create an article'
+              }
+              linkPath={
+                isOwnProfile && activeTab === TABS.saved
+                  ? '/articles'
+                  : '/create'
+              }
+            />
           ) : (
             <>
               <ArticlesList
-                articles={
-                  isOwnProfile && activeTab === 'saved'
-                    ? savedArticles?.slice(0, visibleCount)
-                    : visibleArticles
-                }
-                isOwnProfile={isOwnProfile && activeTab === 'my'}
-                activeTab={activeTab}
+                articles={visibleArticles}
+                isOwnProfile={isOwnProfile && activeTab === TABS.all}
               />
 
-              {visibleArticles.length < (currentArticles?.length || 0) &&
-                activeTab === 'my' && (
-                  <button
-                    className={styles['author-profile__load-more-btn']}
-                    onClick={handleLoadMore}
-                  >
-                    Load More
-                  </button>
-                )}
-
-              {isOwnProfile &&
-                activeTab === 'saved' &&
-                savedArticles?.length > visibleArticles.length && (
-                  <button
-                    className={styles['author-profile__load-more-btn']}
-                    onClick={handleLoadMore}
-                  >
-                    Load More
-                  </button>
-                )}
+              {visibleArticles.length < (currentArticles?.length || 0) && (
+                <button
+                  className={styles['author-profile__load-more-btn']}
+                  onClick={handleLoadMore}
+                >
+                  Load More
+                </button>
+              )}
             </>
           )}
         </>

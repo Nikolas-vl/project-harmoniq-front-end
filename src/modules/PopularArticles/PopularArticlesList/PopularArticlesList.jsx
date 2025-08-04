@@ -20,7 +20,7 @@ const PopularArticlesList = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   if (!isLoading && articles.length === 0) {
     return (
       <NothingFoundCard
@@ -40,7 +40,7 @@ const PopularArticlesList = () => {
     <ul className={css.list}>
       {articles.slice(0, visibleCount).map((item, index) => (
         <li key={index}>
-          <ArticlesCard article={item} isBeingLoaded={isLoading} />
+          <ArticlesCard article={item} />
         </li>
       ))}
     </ul>
