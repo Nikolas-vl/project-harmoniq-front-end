@@ -3,25 +3,22 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import ModalErrorSave from '../ModalErrorSave/ModalErrorSave';
-import ButtonAddToBookmarks from '../ButtonAddToBookmarks/ButtonAddToBookmarks';
-import {
-  selectUserSaved,
-  selectUserId,
-} from '../../redux/auth/authSelectors';
+import ButtonToggleToBookmarks from '../ButtonToggleToBookmarks/ButtonToggleToBookmarks';
+import { selectUserSaved, selectUserId } from '../../redux/auth/authSelectors';
 import { refreshUser } from '../../redux/auth/authOperations';
 import { useDeleteArticle } from '../../api/hooks/articles/useDeleteArticle';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../api/hooks/users/useDeleteSavedArticle';
 import { Link } from 'react-router-dom';
-import Camera from '../../assets/icons/createArticlePage/camera.svg?react'
+import Camera from '../../assets/icons/createArticlePage/camera.svg?react';
 
-const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
+const ArticleCard = ({ article, isOwnArticle = false }) => {
+  const [isSaved, setIsSaved] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectUserSaved);
-  const [isSaved, setIsSaved] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const { saveArticle, isLoading: isSaving } = useSaveArticle();
   const { deleteArticle, isLoading: isDeleting } = useDeleteSavedArticle();
@@ -60,7 +57,6 @@ const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
   const handleDelete = async () => {
     try {
       await remove(article._id);
-      setIsDeleted(true);
       toast.success('Article deleted!');
       dispatch(refreshUser());
     } catch (error) {
@@ -68,10 +64,6 @@ const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
       toast.error('Failed to delete article');
     }
   };
-
-  if (isBeingLoaded) return <p>✋Loading...✋</p>;
-  if (isBeingLoaded || isDeleted) return null;
-  if (isDeletingAnArticle) return <p>✋Deleting...✋</p>
 
   return (
     <>
@@ -81,12 +73,19 @@ const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
       />
       <div className={css.card_container}>
         {article.image ? (
-          <img className={css.card_image} src={article.image} alt={article.desc} />
+          <img
+            className={css.card_image}
+            src={article.image}
+            alt={article.desc}
+          />
         ) : (
           <Camera className={css.unknown_image} />
         )}
         <div>
-          <Link to={`/authors/${article.ownerId}`} className={css.card_author_name}>
+          <Link
+            to={`/authors/${article.ownerId}`}
+            className={css.card_author_name}
+          >
             {article?.author || 'Unknown author'}
           </Link>
           <h3 className={css.card_title}>{article.title}</h3>
@@ -97,7 +96,7 @@ const ArticleCard = ({ article, isBeingLoaded, isOwnArticle = false }) => {
           <Link className={css.load_more_link} to={`/articles/${article._id}`}>
             Learn more
           </Link>
-          <ButtonAddToBookmarks
+          <ButtonToggleToBookmarks
             onToggle={handleToggleSave}
             isDisabled={isLoaded}
             isSaved={isSaved}
