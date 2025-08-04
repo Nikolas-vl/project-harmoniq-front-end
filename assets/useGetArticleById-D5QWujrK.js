@@ -1,1 +1,0 @@
-import{r}from"./index-D2H9O5UT.js";import{a as l}from"./articlesApi-BS5vR4IO.js";const u=t=>{const[s,c]=r.useState(null),[o,a]=r.useState(!1);return r.useEffect(()=>{if(!t)return;(async()=>{a(!0);try{const e=await l(t);c(e.data.data.article)}catch(e){console.error("Failed to fetch article:",e)}finally{a(!1)}})()},[t]),{article:s,isLoading:o}};export{u};
