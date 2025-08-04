@@ -70,7 +70,7 @@ const ArticlesPage = () => {
           {articles && articles.length > 0 && (
             <Pagination
               page={page}
-              totalPages={pagination.totalPages}
+              totalPages={pagination?.totalPages}
               onPageChange={setPage}
               isLoading={isLoading}
             />
