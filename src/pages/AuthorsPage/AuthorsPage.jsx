@@ -15,10 +15,10 @@ const AuthorsPage = () => {
   const [page, setPage] = useState(initialPage);
   const [perPage] = useState(initialPerPage);
 
-  const { users, paginationData, isLoading, queryParams } = useGetAllUsers(
+  const { users, paginationData, isLoading, queryParams } = useGetAllUsers({
     page,
-    perPage
-  );
+    perPage,
+  });
 
   useSyncQueryParams(queryParams);
 

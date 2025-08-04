@@ -1,8 +1,8 @@
 import css from '../PopularArticles/PopularArticles.module.css';
 import style from './Authors.module.css';
+import AuthorsList from './AuthorsList/AuthorsList';
 import logo from '/src/assets/icons/redirect-logo.svg';
 import { Link } from 'react-router-dom';
-import AuthorsList from './AuthorsList/AuthorsList';
 
 const Authors = () => {
   return (

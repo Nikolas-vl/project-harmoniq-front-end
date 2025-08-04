@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useMemo } from 'react';
 import styles from './ArticlePage.module.css';
 import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
-import { useGetPopularArticles } from '../../api/hooks/articles/useGetPopularArticles';
+import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../api/hooks/users/useDeleteSavedArticle';
 import { useDeleteArticle } from '../../api/hooks/articles/useDeleteArticle';

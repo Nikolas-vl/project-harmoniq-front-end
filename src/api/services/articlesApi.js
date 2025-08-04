@@ -1,8 +1,13 @@
 import axiosInstance from '../axios';
 
-export const getArticles = ({ page, perPage, filter } = {}) => {
+export const getArticles = ({ page, perPage, filter, limit } = {}) => {
   return axiosInstance.get('/articles', {
-    params: { page, perPage, filter },
+    params: {
+      page,
+      perPage,
+      filter,
+      ...(limit !== undefined ? { limit } : {}),
+    },
   });
 };
 

@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getArticles } from '../../services/articlesApi';
 
-export const useGetArticles = (page = 1, perPage = 12, filter = 'all') => {
+export const useGetArticles = ({
+  page = 1,
+  perPage = 12,
+  filter = 'all',
+  limit = null,
+} = {}) => {
   const [articles, setArticles] = useState([]);
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -10,9 +15,9 @@ export const useGetArticles = (page = 1, perPage = 12, filter = 'all') => {
     const fetch = async () => {
       setIsLoading(true);
       try {
-        const res = await getArticles({ page, perPage, filter });
+        const res = await getArticles({ page, perPage, filter, limit });
         setArticles(res.data.data.articles);
-        setPagination(res.data.data.paginationData);
+        setPagination(res.data.data.pagination);
       } catch (err) {
         console.error('Failed to fetch articles:', err);
       } finally {
@@ -20,12 +25,17 @@ export const useGetArticles = (page = 1, perPage = 12, filter = 'all') => {
       }
     };
     fetch();
-  }, [filter, page, perPage]);
+  }, [page, perPage, filter, limit]);
 
   return {
     articles,
     pagination,
     isLoading,
-    queryParams: { page, perPage, filter },
+    queryParams: {
+      page,
+      perPage,
+      filter,
+      ...(limit !== null ? { limit } : {}),
+    },
   };
 };
