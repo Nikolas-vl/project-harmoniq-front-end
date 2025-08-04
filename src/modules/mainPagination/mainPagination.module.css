@@ -54,7 +54,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   &:hover {
     border: 1px solid black;
     border-radius: 50%;

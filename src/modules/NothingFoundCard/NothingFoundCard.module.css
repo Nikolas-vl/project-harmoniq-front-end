@@ -1,3 +1,8 @@
+.not_found_container {
+    width: 361px;
+    margin-bottom: 72px;
+}
+
 .main_container {
     display: flex;
     align-items: flex-start;
@@ -50,6 +55,9 @@
 }
 
 @media only screen and (min-width: 768px) {
+    .not_found_container {
+        width: 704px;
+    }
     .main_container {
         width: 514px;
     }
@@ -59,6 +67,9 @@
 }
 
 @media only screen and (min-width: 1440px) {
+    .not_found_container {
+        width: 1224px;
+    }
     .main_container {
         width: 497px;
     }

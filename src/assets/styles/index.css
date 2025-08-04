@@ -9,6 +9,7 @@ body,
 }
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 #root {
@@ -26,7 +27,8 @@ body {
 }
 
 main {
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
+}
+* {
+  transition: all var(--transition);
 }

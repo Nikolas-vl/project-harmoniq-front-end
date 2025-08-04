@@ -1,3 +1,7 @@
+.section {
+  padding-block: 48px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;

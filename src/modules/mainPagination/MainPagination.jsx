@@ -1,4 +1,4 @@
-import s from './Pagination.module.css';
+import s from './mainPagination.module.css';
 import IconLeft from '../../assets/icons/left.svg?react';
 import IconRight from '../../assets/icons/right.svg?react';
 
@@ -20,7 +20,12 @@ function getPageNumbers(currentPage, totalPages, maxButtons) {
   return pages;
 }
 
-export const Pagination = ({ page, totalPages, onPageChange, isLoading }) => {
+export const MainPagination = ({
+  page,
+  totalPages,
+  onPageChange,
+  isLoading,
+}) => {
   const visibleButtons = totalPages < 5 ? totalPages : 5;
 
   const pages = getPageNumbers(page, totalPages, visibleButtons);
