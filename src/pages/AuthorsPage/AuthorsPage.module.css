@@ -54,12 +54,14 @@
   height: 262px;
   border-radius: 50%;
   margin-bottom: 16px;
-  object-fit: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-gray);
-  background-color: var(--color-light-gray);
+  background-color: var(--color-light-green);
+}
+
+.unknown_avatar img {
+  object-fit: contain;
 }
 
 .name {
