@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/authOperations';
 import styles from './RegisterForm.module.css';
@@ -33,8 +33,8 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordScore, setPasswordScore] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -44,7 +44,6 @@ const RegisterForm = () => {
       confirmPassword: '',
     },
     validationSchema,
-
     onSubmit: async values => {
       setIsSubmitting(true);
       try {
@@ -121,7 +120,10 @@ const RegisterForm = () => {
               name="password"
               placeholder="*********"
               value={values.password}
-              onChange={handleChange}
+              onChange={e => {
+                handleChange(e);
+                setPasswordScore(null); // скидаємо score для оновлення
+              }}
               onBlur={handleBlur}
               className={styles.input}
             />
@@ -146,10 +148,22 @@ const RegisterForm = () => {
             )}
           </div>
           <div className={styles.strengthBarWrapper}>
-            <PasswordStrengthBar
-              password={values.password}
-              className={styles.strengthBar}
-            />
+            {values.password.length > 0 && (
+              <>
+                {passwordScore !== null && passwordScore <= 1 ? (
+                  <div className={styles.weakStrengthBar} />
+                ) : (
+                  <PasswordStrengthBar
+                    password={values.password}
+                    minLength={0}
+                    scoreWords={['Very weak', 'Weak', 'Fair', 'Good', 'Strong']}
+                    shortScoreWord={'Too short'}
+                    className={styles.strengthBar}
+                    onChangeScore={score => setPasswordScore(score)}
+                  />
+                )}
+              </>
+            )}
           </div>
         </label>
 

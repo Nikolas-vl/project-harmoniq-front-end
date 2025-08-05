@@ -35,41 +35,38 @@ const MobileMenu = ({
 
   const [isVisible, setIsVisible] = useState(false);
 
-useEffect(() => {
-  let timer;
+  useEffect(() => {
+    let timer;
 
-  if (isOpen) {
-    setIsVisible(true);
-    document.body.classList.add('no-scroll');
-  } else {
-    document.body.classList.remove('no-scroll');
-    timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 300);
-  }
-
-  return () => clearTimeout(timer);
-}, [isOpen]);
-
-useEffect(() => {
-  const handleResize = () => {
-    const isDesktop = window.innerWidth >= 1440;
-
-    if (isDesktop) {
-      setIsVisible(false);
-      onClose?.(); 
+    if (isOpen) {
+      setIsVisible(true);
+      document.body.classList.add('no-scroll');
+    } else {
       document.body.classList.remove('no-scroll');
+      timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 300);
     }
-  };
-  
-  handleResize();
 
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, [onClose]);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
-if (!isVisible) return null;
+  useEffect(() => {
+    const handleResize = () => {
+      const isDesktop = window.innerWidth >= 1440;
 
+      if (isDesktop && isVisible) {
+        setIsVisible(false);
+        onClose?.();
+        document.body.classList.remove('no-scroll');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [onClose, isVisible]);
+
+  if (!isVisible) return null;
 
   return (
     <div
