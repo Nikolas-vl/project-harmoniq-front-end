@@ -1,21 +1,22 @@
 .list {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
 }
 
 @media only screen and (min-width: 768px) {
-    .list {
-        gap: 24px;
-        padding-left: 52px;
-    }
+  .list {
+    gap: 24px;
+    padding-left: 52px;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
-    .list {
-        max-width: 1225px;
-        flex-wrap: nowrap;
-        padding: 0;
-    }
+  .list {
+    max-width: 1225px;
+    flex-wrap: nowrap;
+    padding: 0;
+  }
 }
