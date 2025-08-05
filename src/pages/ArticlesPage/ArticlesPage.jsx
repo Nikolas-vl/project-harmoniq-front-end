@@ -27,8 +27,6 @@ const ArticlesPage = () => {
 
   useSyncQueryParams(queryParams);
 
-  if (isLoading) return <p>Loading...</p>;
-
   const isNothingFound = !pagination || articles.length === 0;
 
   return (

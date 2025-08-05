@@ -1,7 +1,6 @@
+import { MAX_LENGTH } from '../../constants/authorsItem';
 import css from '../../pages/AuthorsPage/AuthorsPage.module.css';
 import { useNavigate } from 'react-router-dom';
-
-const MAX_LENGTH = 18;
 
 export const AuthorsItem = ({ id, name, avatar }) => {
   const navigate = useNavigate();

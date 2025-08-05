@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { updateUserProfile } from '../../services/usersApi';
+import { useLoader } from '../../../modules/Loader/useLoader';
 
 export const useUpdateUserProfile = () => {
-  const [loading, setLoading] = useState(false);
-
   const [data, setData] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
+  useLoader(isLoading);
   const updateProfile = async (userId, updateData) => {
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await updateUserProfile(userId, updateData);
       setData(response.data);
-      setLoading(false);
+      setIsLoading(false);
       return response.data;
     } catch (err) {
-      setLoading(false);
+      setIsLoading(false);
       console.error('Failed to update profile', err);
     }
   };
 
-  return { updateProfile, loading, data };
+  return { updateProfile, isLoading, data };
 };

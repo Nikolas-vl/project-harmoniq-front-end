@@ -5,6 +5,7 @@ import { useGetAllUsers } from '../../api/hooks/users/useGetAllUsers';
 import { useSyncQueryParams } from '../../utils/useSyncQueryParams';
 import { useSearchParams } from 'react-router-dom';
 import { Pagination } from '../../modules/Pagination/Pagination';
+import { useLoader } from '../../modules/Loader/useLoader';
 
 const AuthorsPage = () => {
   const [searchParams] = useSearchParams();
@@ -21,6 +22,8 @@ const AuthorsPage = () => {
   });
 
   useSyncQueryParams(queryParams);
+
+  useLoader(isLoading);
 
   return (
     <section className={css.wrapper}>

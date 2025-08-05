@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getArticleById } from '../../services/articlesApi';
+import { useLoader } from '../../../modules/Loader/useLoader';
 
 export const useGetArticleById = id => {
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  useLoader(isLoading);
   useEffect(() => {
     if (!id) return;
 

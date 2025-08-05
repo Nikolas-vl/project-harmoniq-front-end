@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAllUsers } from '../../services/usersApi';
+import { useLoader } from '../../../modules/Loader/useLoader';
 
 export const useGetAllUsers = ({
   page = 1,
@@ -10,7 +11,7 @@ export const useGetAllUsers = ({
   const [users, setUsers] = useState([]);
   const [paginationData, setPaginationData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  useLoader(isLoading);
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getArticles } from '../../services/articlesApi';
+import { useLoader } from '../../../modules/Loader/useLoader';
 
 export const useGetArticles = ({
   page = 1,
@@ -10,7 +11,7 @@ export const useGetArticles = ({
   const [articles, setArticles] = useState([]);
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  useLoader(isLoading);
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);

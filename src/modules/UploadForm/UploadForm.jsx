@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 const UploadForm = () => {
   const navigate = useNavigate();
   const userId = useSelector(selectUserId);
-  const { updateProfile, loading } = useUpdateUserProfile();
+  const { updateProfile, isLoading } = useUpdateUserProfile();
 
   const [previewUrl, setPreviewUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -88,9 +88,9 @@ const UploadForm = () => {
         <button
           type="submit"
           className={styles.saveBtn}
-          disabled={!selectedFile || loading}
+          disabled={!selectedFile || isLoading}
         >
-          {loading ? 'Uploading...' : 'Save'}
+          {isLoading ? <span className="loading"></span> : 'Save'}
         </button>
       </form>
     </div>
