@@ -9,12 +9,14 @@ const ButtonToggleToBookmarks = ({
   isOwnArticle,
   onDelete,
   isLoadingDelete,
+  styles = '',
+  text,
 }) => {
   return isOwnArticle ? (
     <button
       onClick={onDelete}
       disabled={isLoadingDelete}
-      className={css.save_button}
+      className={styles ? styles : css.save_button}
     >
       {isLoadingDelete ? <span className="loading"></span> : <DeleteIcon />}
     </button>
@@ -22,9 +24,19 @@ const ButtonToggleToBookmarks = ({
     <button
       onClick={onToggle}
       disabled={isDisabled}
-      className={`${css.save_button} ${isSaved ? css.saved_button : ''}`}
+      className={
+        styles
+          ? styles
+          : `${css.save_button} ${isSaved ? css.saved_button : ''}`
+      }
     >
-      {isDisabled ? <span className="loading"></span> : <SaveIcon />}
+      {isDisabled ? (
+        <span className="loading"></span>
+      ) : (
+        <>
+          {text} <SaveIcon />
+        </>
+      )}
     </button>
   );
 };

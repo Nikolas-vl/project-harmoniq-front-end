@@ -1,13 +1,12 @@
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import styles from './ArticlePage.module.css';
 import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
 import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../api/hooks/users/useDeleteSavedArticle';
 import { useDeleteArticle } from '../../api/hooks/articles/useDeleteArticle';
-import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import { selectUserSaved, selectUserId } from '../../redux/auth/authSelectors';
 import { refreshUser } from '../../redux/auth/authOperations';
 import Loader from '../../modules/Loader/Loader';
@@ -15,16 +14,15 @@ import ModalErrorSave from '../../modules/ModalErrorSave/ModalErrorSave';
 import toast from 'react-hot-toast';
 import TopRightIcon from '../../assets/icons/top-right.svg?react';
 import ButtonToggleToBookmarks from '../../modules/ButtonToggleToBookmarks/ButtonToggleToBookmarks';
+import { useLoader } from '../../modules/Loader/useLoader';
 
-const renderArticleContent = text =>
-  text.split('/n').map((line, index) => (
-    <span key={index}>
-      {line.trim()}
-      <br />
-    </span>
-  ));
+const renderArticleContent = text => {
+  if (!text) return null;
 
-const RECS_COUNT = 3;
+  const normalizedText = text.replaceAll('/n', '\n').replace(/\\n/g, '\n');
+
+  return <div style={{ whiteSpace: 'pre-wrap' }}>{normalizedText}</div>;
+};
 
 const ArticlePage = () => {
   const { id: articleId } = useParams();
@@ -34,32 +32,25 @@ const ArticlePage = () => {
   const savedArticles = useSelector(selectUserSaved);
 
   const { article, isLoading: isArticleLoading } = useGetArticleById(articleId);
-  const { articles: popularArticles = [], isLoading: isPopularLoading } =
-    useGetPopularArticles(8);
+  const { articles: popularArticles = [] } = useGetArticles({
+    filter: 'popular',
+    limit: 3,
+  });
 
-  useGetUserInfo(userId);
+  useLoader(isArticleLoading);
 
   const { saveArticle, isLoading: isSaving } = useSaveArticle();
   const { deleteArticle, isLoading: isDeleting } = useDeleteSavedArticle();
   const { remove, isLoading: isDeletingAnArticle } = useDeleteArticle();
 
-  const [isSaved, setIsSaved] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
-  useEffect(() => {
-    setIsSaved(savedArticles.some(savedId => savedId === articleId));
-  }, [savedArticles, articleId]);
+  const isSaved = useMemo(
+    () => savedArticles.includes(articleId),
+    [savedArticles, articleId]
+  );
 
   const isOwnArticle = article?.ownerId === userId;
-
-  const randomRecommendations = useMemo(() => {
-    if (!popularArticles.length) return [];
-
-    const filtered = popularArticles.filter(a => a._id !== articleId);
-    const shuffled = filtered.sort(() => 0.5 - Math.random());
-
-    return shuffled.slice(0, RECS_COUNT);
-  }, [popularArticles, articleId]);
 
   const isLoaded = isSaving || isDeleting;
 
@@ -72,12 +63,10 @@ const ArticlePage = () => {
     try {
       if (isSaved) {
         await deleteArticle(userId, articleId);
-        setIsSaved(false);
         toast.success('Removed from saved!');
         dispatch(refreshUser());
       } else {
         await saveArticle(userId, articleId);
-        setIsSaved(true);
         toast.success('Saved!');
         dispatch(refreshUser());
       }
@@ -98,7 +87,6 @@ const ArticlePage = () => {
     }
   };
 
-  if (isArticleLoading) return <Loader fullScreen />;
   if (!article) return <p>Article not found</p>;
 
   let publicationDate = 'Unknown date';
@@ -169,13 +157,12 @@ const ArticlePage = () => {
 
                 <div className={styles.recommendations}>
                   <h3>You can also interested</h3>
-                  {isPopularLoading ? (
-                    <p>Loading...</p>
-                  ) : randomRecommendations.length === 0 ? (
+
+                  {popularArticles.length === 0 ? (
                     <p>No recommendations available</p>
                   ) : (
                     <ul className={styles.recommendationsList}>
-                      {randomRecommendations.map(
+                      {popularArticles.map(
                         ({ _id, title, author, ownerId }) => (
                           <li key={_id} className={styles.recommendationItem}>
                             <div className={styles.recText}>
@@ -215,7 +202,8 @@ const ArticlePage = () => {
                 isOwnArticle={isOwnArticle}
                 onDelete={handleDelete}
                 isLoadingDelete={isDeletingAnArticle}
-                className={styles.saveButton}
+                styles={styles.saveButton}
+                text={isSaved ? 'Remove from saved' : 'Save'}
               />
             </aside>
           </div>
