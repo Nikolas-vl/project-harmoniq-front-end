@@ -39,7 +39,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/photo"
+          path="/update-profile"
           element={
             <PrivateRoute>
               <UploadPhoto />
