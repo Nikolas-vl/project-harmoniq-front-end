@@ -1,1 +1,0 @@
-import{r as o}from"./index-FuH_kWGc.js";import{s as c}from"./usersApi-xHuqhiyv.js";const f=()=>{const[r,e]=o.useState(!1);return{saveArticle:async(s,t)=>{e(!0);try{await c(s,t)}catch(a){console.error("Failed to save article:",a)}finally{e(!1)}},isLoading:r}};export{f as u};
