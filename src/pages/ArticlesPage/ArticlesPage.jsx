@@ -70,8 +70,18 @@ const ArticlesPage = () => {
 
           {isOpen && (
             <ul className={s.dropdownList}>
-              <li onClick={() => selectOption('all')}>All</li>
-              <li onClick={() => selectOption('popular')}>Popular</li>
+              <li
+                onClick={() => filter !== 'all' && selectOption('all')}
+                className={filter === 'all' || filter === null ? s.isActive : ''}
+              >
+                All
+              </li>
+              <li
+                onClick={() => filter !== 'popular' && selectOption('popular')}
+                className={filter === 'popular' ? s.isActive : ''}
+              >
+                Popular
+              </li>
             </ul>
           )}
         </div>
