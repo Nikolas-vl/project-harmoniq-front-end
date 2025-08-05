@@ -85,7 +85,6 @@
 
 .isActive {
   background-color: var(--color-light-green);
-  border-radius: 4px;
   pointer-events: none;
   font-weight: 600;
 }
