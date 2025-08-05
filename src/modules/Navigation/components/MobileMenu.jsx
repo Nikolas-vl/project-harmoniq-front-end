@@ -57,23 +57,45 @@ const MobileMenu = ({
       }`}
       onClick={handleBackdropClick}
     >
-      <div className={`${styles.mobileMenuContent} ${isOpen ? styles.showMenu : styles.hideMenu}`}>
+      <div
+        className={`${styles.mobileMenuContent} ${
+          isOpen ? styles.showMenu : styles.hideMenu
+        }`}
+      >
         {/* Навігація */}
-        
+
         <nav className={styles.mobileMenuNavigation}>
           <ul className={styles.mobileLinkList}>
             <li>
-              <NavLink to="/" onClick={onClose}>
+              <NavLink
+                to="/"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ''}`
+                }
+              >
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/articles" onClick={onClose}>
+              <NavLink
+                to="/articles"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ''}`
+                }
+              >
                 Articles
               </NavLink>
             </li>
             <li>
-              <NavLink to="/authors" onClick={onClose}>
+              <NavLink
+                to="/authors"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ''}`
+                }
+              >
                 Creators
               </NavLink>
             </li>
@@ -82,7 +104,13 @@ const MobileMenu = ({
               (isAuthenticated ? (
                 <>
                   <li>
-                    <NavLink to={`/authors/${userId}`} onClick={onClose}>
+                    <NavLink
+                      to={`/authors/${userId}`}
+                      onClick={onClose}
+                      className={({ isActive }) =>
+                        `${styles.link} ${isActive ? styles.active : ''}`
+                      }
+                    >
                       My Profile
                     </NavLink>
                   </li>
@@ -107,7 +135,13 @@ const MobileMenu = ({
               (isAuthenticated ? (
                 <>
                   <li>
-                    <NavLink to={`/authors/${userId}`} onClick={onClose}>
+                    <NavLink
+                      to={`/authors/${userId}`}
+                      onClick={onClose}
+                      className={({ isActive }) =>
+                        `${styles.link} ${isActive ? styles.active : ''}`
+                      }
+                    >
                       My Profile
                     </NavLink>
                   </li>
