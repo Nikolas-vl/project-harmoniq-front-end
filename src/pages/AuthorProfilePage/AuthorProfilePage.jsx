@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import styles from './AuthorProfilePage.module.css';
@@ -15,6 +15,7 @@ import {
 } from '../../redux/auth/authSelectors';
 import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
 import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
+import editor from '../../assets/icons/uploadPhoto/editor.svg';
 
 const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
@@ -29,7 +30,7 @@ const AuthorProfilePage = () => {
 
   const [activeTab, setActiveTab] = useState(TABS.all);
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
-  const { user, userArticles, isLoading } = useGetUserInfo(authorId);
+  const { user, userArticles } = useGetUserInfo(authorId);
 
   const displayName = isOwnProfile
     ? currentUserName
@@ -62,7 +63,7 @@ const AuthorProfilePage = () => {
   }, [activeTab, authorId]);
 
   return (
-    <div className={`container ${styles['author-profile']}`}>
+    <section className={`container ${styles['author-profile']}`}>
       {isOwnProfile && <h1 className={styles['header']}>My profile</h1>}
       <div className={styles['author-profile__header']}>
         {displayAvatar ? (
@@ -79,7 +80,21 @@ const AuthorProfilePage = () => {
           </div>
         )}
         <div className={styles['author-profile__name__articles-amount']}>
-          <h2 className={styles['author-profile__name']}>{displayName}</h2>
+          <div className={styles['author-profile__name-wrapper']}>
+            <h2 className={styles['author-profile__name']}>{displayName}</h2>
+            {isOwnProfile && (
+              <Link
+                to="/update-profile"
+                className={styles['edit-profile-link']}
+              >
+                <img
+                  src={editor}
+                  alt="Change photo"
+                  className={styles.editIcon}
+                />
+              </Link>
+            )}
+          </div>
           <p className={styles['author-profile__articles-amount']}>
             Articles: {displayArticlesAmount}
           </p>
@@ -90,49 +105,41 @@ const AuthorProfilePage = () => {
         <ProfileTabs setActiveTab={handleChangeTabs} activeTab={activeTab} />
       )}
 
-      {isLoading ? (
-        <p className={styles['author-profile__loading']}>Loading articles...</p>
+      {visibleArticles?.length === 0 ? (
+        <NothingFoundCard
+          title="Nothing found."
+          text={
+            isOwnProfile && activeTab === TABS.saved
+              ? 'Save your first article'
+              : 'Write your first article'
+          }
+          linkText={
+            isOwnProfile && activeTab === TABS.saved
+              ? 'Go to articles'
+              : 'Create an article'
+          }
+          linkPath={
+            isOwnProfile && activeTab === TABS.saved ? '/articles' : '/create'
+          }
+        />
       ) : (
         <>
-          {visibleArticles?.length === 0 ? (
-            <NothingFoundCard
-              title="Nothing found."
-              text={
-                isOwnProfile && activeTab === TABS.saved
-                  ? 'Save your first article'
-                  : 'Write your first article'
-              }
-              linkText={
-                isOwnProfile && activeTab === TABS.saved
-                  ? 'Go to articles'
-                  : 'Create an article'
-              }
-              linkPath={
-                isOwnProfile && activeTab === TABS.saved
-                  ? '/articles'
-                  : '/create'
-              }
-            />
-          ) : (
-            <>
-              <ArticlesList
-                articles={visibleArticles}
-                isOwnProfile={isOwnProfile && activeTab === TABS.all}
-              />
+          <ArticlesList
+            articles={visibleArticles}
+            isOwnProfile={isOwnProfile && activeTab === TABS.all}
+          />
 
-              {visibleArticles.length < (currentArticles?.length || 0) && (
-                <button
-                  className={styles['author-profile__load-more-btn']}
-                  onClick={handleLoadMore}
-                >
-                  Load More
-                </button>
-              )}
-            </>
+          {visibleArticles.length < (currentArticles?.length || 0) && (
+            <button
+              className={styles['author-profile__load-more-btn']}
+              onClick={handleLoadMore}
+            >
+              Load More
+            </button>
           )}
         </>
       )}
-    </div>
+    </section>
   );
 };
 

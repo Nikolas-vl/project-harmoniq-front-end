@@ -6,7 +6,6 @@ import AppRoutes from './routes/AppRoutes';
 import { refreshUser } from './redux/auth/authOperations';
 import Loader from './modules/Loader/Loader';
 
-
 function App() {
   const dispatch = useDispatch();
 
@@ -17,8 +16,8 @@ function App() {
   return (
     <>
       <Toaster position="top-center" />
-      <Loader />
       <Layout>
+        <Loader />
         <AppRoutes />
       </Layout>
     </>

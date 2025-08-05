@@ -35,41 +35,38 @@ const MobileMenu = ({
 
   const [isVisible, setIsVisible] = useState(false);
 
-useEffect(() => {
-  let timer;
+  useEffect(() => {
+    let timer;
 
-  if (isOpen) {
-    setIsVisible(true);
-    document.body.classList.add('no-scroll');
-  } else {
-    document.body.classList.remove('no-scroll');
-    timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 300);
-  }
-
-  return () => clearTimeout(timer);
-}, [isOpen]);
-
-useEffect(() => {
-  const handleResize = () => {
-    const isDesktop = window.innerWidth >= 1440;
-
-    if (isDesktop && isVisible) {
-      setIsVisible(false);
-      onClose?.(); 
+    if (isOpen) {
+      setIsVisible(true);
+      document.body.classList.add('no-scroll');
+    } else {
       document.body.classList.remove('no-scroll');
+      timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 300);
     }
-  };
-  
-  handleResize();
 
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, [onClose, isVisible]);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
-if (!isVisible) return null;
+  useEffect(() => {
+    const handleResize = () => {
+      const isDesktop = window.innerWidth >= 1440;
 
+      if (isDesktop && isVisible && isVisible) {
+        setIsVisible(false);
+        onClose?.();
+        document.body.classList.remove('no-scroll');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [onClose, isVisible, isVisible]);
+
+  if (!isVisible) return null;
 
   return (
     <div
@@ -78,23 +75,45 @@ if (!isVisible) return null;
       }`}
       onClick={handleBackdropClick}
     >
-      <div className={`${styles.mobileMenuContent} ${isOpen ? styles.showMenu : styles.hideMenu}`}>
+      <div
+        className={`${styles.mobileMenuContent} ${
+          isOpen ? styles.showMenu : styles.hideMenu
+        }`}
+      >
         {/* Навігація */}
-        
+
         <nav className={styles.mobileMenuNavigation}>
           <ul className={styles.mobileLinkList}>
             <li>
-              <NavLink to="/" onClick={onClose}>
+              <NavLink
+                to="/"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ''}`
+                }
+              >
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/articles" onClick={onClose}>
+              <NavLink
+                to="/articles"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ''}`
+                }
+              >
                 Articles
               </NavLink>
             </li>
             <li>
-              <NavLink to="/authors" onClick={onClose}>
+              <NavLink
+                to="/authors"
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ''}`
+                }
+              >
                 Creators
               </NavLink>
             </li>
@@ -103,7 +122,13 @@ if (!isVisible) return null;
               (isAuthenticated ? (
                 <>
                   <li>
-                    <NavLink to={`/authors/${userId}`} onClick={onClose}>
+                    <NavLink
+                      to={`/authors/${userId}`}
+                      onClick={onClose}
+                      className={({ isActive }) =>
+                        `${styles.link} ${isActive ? styles.active : ''}`
+                      }
+                    >
                       My Profile
                     </NavLink>
                   </li>
@@ -128,7 +153,13 @@ if (!isVisible) return null;
               (isAuthenticated ? (
                 <>
                   <li>
-                    <NavLink to={`/authors/${userId}`} onClick={onClose}>
+                    <NavLink
+                      to={`/authors/${userId}`}
+                      onClick={onClose}
+                      className={({ isActive }) =>
+                        `${styles.link} ${isActive ? styles.active : ''}`
+                      }
+                    >
                       My Profile
                     </NavLink>
                   </li>

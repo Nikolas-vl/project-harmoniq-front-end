@@ -3,10 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-
-const TestAuth = lazy(() => import('../pages/Test/TestAuth'));
-const TestUsers = lazy(() => import('../pages/Test/TestUsers'));
-const TestArticles = lazy(() => import('../pages/Test/TestArticles'));
+import Loader from '../modules/Loader/Loader';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ArticlesPage = lazy(() => import('../pages/ArticlesPage/ArticlesPage'));
@@ -25,17 +22,13 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/articles" element={<ArticlesPage />} />
         <Route path="/articles/:id" element={<ArticlePage />} />
         <Route path="/authors" element={<AuthorsPage />} />
         <Route path="/authors/:id" element={<AuthorProfilePage />} />
-
-        <Route path="/testauth" element={<TestAuth />} />
-        <Route path="/testusers" element={<TestUsers />} />
-        <Route path="/testarticles" element={<TestArticles />} />
 
         <Route
           path="/create"
@@ -46,7 +39,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/photo"
+          path="/update-profile"
           element={
             <PrivateRoute>
               <UploadPhoto />

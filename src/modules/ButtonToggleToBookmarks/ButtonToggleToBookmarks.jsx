@@ -9,25 +9,33 @@ const ButtonToggleToBookmarks = ({
   isOwnArticle,
   onDelete,
   isLoadingDelete,
+  styles = '',
+  text,
 }) => {
   return isOwnArticle ? (
     <button
       onClick={onDelete}
       disabled={isLoadingDelete}
-      className={css.save_button}
+      className={styles ? styles : css.save_button}
     >
-      <DeleteIcon />
+      {isLoadingDelete ? <span className="loading"></span> : <DeleteIcon />}
     </button>
   ) : (
     <button
       onClick={onToggle}
       disabled={isDisabled}
-      className={`${css.save_button} ${isSaved ? css.saved_button : ''}`}
+      className={
+        styles
+          ? styles
+          : `${css.save_button} ${isSaved ? css.saved_button : ''}`
+      }
     >
       {isDisabled ? (
-        <span style={{ fontSize: '16px', margin: 0 }}>✋</span>
+        <span className="loading"></span>
       ) : (
-        <SaveIcon />
+        <>
+          {text} <SaveIcon />
+        </>
       )}
     </button>
   );

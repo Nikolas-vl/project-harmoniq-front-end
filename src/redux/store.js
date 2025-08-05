@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 
 import authReducer from './auth/authSlice';
-import globalReducer from './globalSlice';
+import loaderReducer from './loader/loaderSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -24,7 +24,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    global: globalReducer,
+    loader: loaderReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

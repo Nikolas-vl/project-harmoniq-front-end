@@ -1,7 +1,7 @@
+import { MAX_LENGTH } from '../../constants/authorsItem';
 import css from '../../pages/AuthorsPage/AuthorsPage.module.css';
 import { useNavigate } from 'react-router-dom';
-
-const MAX_LENGTH = 18;
+import photoPlaceholder from '../../assets/icons/uploadPhoto/photo.svg';
 
 export const AuthorsItem = ({ id, name, avatar }) => {
   const navigate = useNavigate();
@@ -12,10 +12,16 @@ export const AuthorsItem = ({ id, name, avatar }) => {
 
   const trimmedName =
     name.length > MAX_LENGTH ? name.slice(0, MAX_LENGTH) + '...' : name;
-
+  const isAvatar = Boolean(avatar);
   return (
     <li className={css.authorItem} onClick={handleClick}>
-      <img src={avatar} alt={name} className={css.avatar} />
+      {isAvatar ? (
+        <img src={avatar} alt={name} className={css.avatar} />
+      ) : (
+        <div className={css.unknown_avatar}>
+          <img src={photoPlaceholder} alt="placeholder" />
+        </div>
+      )}
       <p className={css.name}>{trimmedName}</p>
     </li>
   );

@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react';
 import ArticlesCard from '../../ArticleCard/ArticleCard';
 import css from './PopularArticlesList.module.css';
-import { useGetPopularArticles } from '../../../api/hooks/articles/useGetPopularArticles';
+
 import NothingFoundCard from '../../NothingFoundCard/NothingFoundCard';
+import { useGetArticles } from '../../../api/hooks/articles/useGetArticles';
 
 const PopularArticlesList = () => {
-  const [visibleCount, setVisibleCount] = useState(4);
-
-  const { articles, isLoading } = useGetPopularArticles(visibleCount);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      setVisibleCount(screenWidth >= 1440 ? 3 : 4);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const { articles, isLoading } = useGetArticles({
+    filter: 'popular',
+    limit: 4,
+  });
 
   if (!isLoading && articles.length === 0) {
     return (
@@ -32,14 +21,10 @@ const PopularArticlesList = () => {
     );
   }
 
-  if (isLoading) {
-    return <p>✋Loading...✋</p>;
-  }
-
   return (
     <ul className={css.list}>
-      {articles.slice(0, visibleCount).map((item, index) => (
-        <li key={index}>
+      {articles.map((item, index) => (
+        <li key={index} className={index === 3 ? css.hiddenOnDesktop : ''}>
           <ArticlesCard article={item} />
         </li>
       ))}
