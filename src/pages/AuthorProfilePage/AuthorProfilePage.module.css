@@ -154,3 +154,31 @@
     width: 473px;
   }
 }
+
+.author-profile__name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.edit-profile-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-green);
+  transition: background-color 0.3s ease;
+}
+
+.edit-profile-link:hover {
+  background-color: var(--color-green-darker);
+}
+
+.editIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  
+}
