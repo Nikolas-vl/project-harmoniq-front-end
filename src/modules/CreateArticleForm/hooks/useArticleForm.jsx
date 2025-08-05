@@ -48,6 +48,8 @@ export const useArticleForm = onSubmitSuccess => {
             (value && ['image/jpeg', 'image/png'].includes(value.type))
         ),
     }),
+    validateOnBlur: false, // <--- додаємо
+    validateOnChange: false,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const formData = {

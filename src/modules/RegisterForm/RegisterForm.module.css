@@ -189,3 +189,13 @@
   overflow: hidden;
   pointer-events: none;
 }
+
+.weakStrengthBar {
+  height: 2px;
+  width: 24%;
+  background-color: #ff4d4ddd;
+  border-radius: 2px;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  margin-top: 5px;
+}
