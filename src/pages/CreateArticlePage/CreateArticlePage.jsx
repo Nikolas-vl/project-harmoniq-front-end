@@ -1,5 +1,5 @@
 import ArticleForm from '../../modules/CreateArticleForm/ArticleForm';
-import * as s from './styles/index.module.css';
+import * as s from './index.module.css';
 
 const CreateArticlePage = () => {
   return (
