@@ -49,7 +49,7 @@ export const Pagination = ({ page, totalPages, onPageChange, isLoading }) => {
         onClick={() => setNextPage(p => Math.max(p - 1, 1))}
         disabled={nextPage === 1 || isLoading}
       >
-        <IconLeft />
+        {isLoading ? <span className="loading"></span> : <IconLeft />}
       </button>
 
       {pages.map(p => (
@@ -68,7 +68,7 @@ export const Pagination = ({ page, totalPages, onPageChange, isLoading }) => {
         onClick={() => setNextPage(p => Math.min(p + 1, totalPages))}
         disabled={nextPage === totalPages || isLoading}
       >
-        <IconRight />
+        {isLoading ? <span className="loading"></span> : <IconRight />}
       </button>
     </div>
   );

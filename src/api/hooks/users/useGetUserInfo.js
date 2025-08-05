@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getUserInfo } from '../../services/usersApi';
+import { useLoader } from '../../../modules/Loader/useLoader';
 
 export const useGetUserInfo = userId => {
   const [user, setUser] = useState(null);
   const [userArticles, setUserArticles] = useState([]);
   const [savedArticles, setSavedArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  useLoader(isLoading);
   useEffect(() => {
     if (!userId) return;
 

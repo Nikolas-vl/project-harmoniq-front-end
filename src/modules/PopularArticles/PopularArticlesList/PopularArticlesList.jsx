@@ -21,10 +21,6 @@ const PopularArticlesList = () => {
     );
   }
 
-  if (isLoading) {
-    return <p>✋Loading...✋</p>;
-  }
-
   return (
     <ul className={css.list}>
       {articles.map((item, index) => (

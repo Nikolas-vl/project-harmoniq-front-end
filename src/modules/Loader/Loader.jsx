@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { PacmanLoader } from 'react-spinners';
-import PropTypes from 'prop-types';
 import styles from './Loader.module.css';
+import { selectIsLoading } from '../../redux/loader/loaderSelectors';
 
 const Loader = ({ size = 50, color = '#4fa94d', fullScreen = true }) => {
-  const isLoading = useSelector(state => state.global.isLoading);
+  const isLoading = useSelector(selectIsLoading);
 
   if (!isLoading) return null;
 
@@ -18,12 +18,6 @@ const Loader = ({ size = 50, color = '#4fa94d', fullScreen = true }) => {
       <PacmanLoader size={size} color={color} aria-hidden="true" />
     </div>
   );
-};
-
-Loader.propTypes = {
-  size: PropTypes.number,
-  color: PropTypes.string,
-  fullScreen: PropTypes.bool,
 };
 
 export default Loader;

@@ -57,7 +57,11 @@ const ArticleForm = () => {
         type="submit"
         className={s.button}
       >
-        Publish Article
+        {formik.isSubmitting || isLoading ? (
+          <span className="loading"></span>
+        ) : (
+          'Publish Article'
+        )}
       </button>
     </form>
   );

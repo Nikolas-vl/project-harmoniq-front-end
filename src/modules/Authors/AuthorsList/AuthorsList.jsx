@@ -8,10 +8,6 @@ import { useGetAllUsers } from '../../../api/hooks/users/useGetAllUsers';
 const AuthorsList = () => {
   const { users, isLoading } = useGetAllUsers({ filter: 'popular', limit: 6 });
 
-  if (isLoading) {
-    return <p>✋Loading...✋</p>;
-  }
-
   if (!isLoading && users.length === 0) {
     return (
       <Link to="/authors" className={cardCss.card_container}>

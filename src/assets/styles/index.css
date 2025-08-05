@@ -28,7 +28,24 @@ body {
 
 main {
   flex-grow: 1;
+  position: relative;
 }
 * {
   transition: all var(--transition);
+}
+.loading {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #4fa94d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

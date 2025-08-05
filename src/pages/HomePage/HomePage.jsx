@@ -5,12 +5,12 @@ import About from '../../modules/About/About';
 
 const HomePage = () => {
   return (
-    <>
+    <section>
       <Hero />
       <About />
       <PopularArticles />
       <Authors />
-    </>
+    </section>
   );
 };
 
