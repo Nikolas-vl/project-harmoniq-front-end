@@ -32,23 +32,44 @@ const MobileMenu = ({
 
     onClose();
   };
+
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      setIsVisible(true);
-      document.body.classList.add('no-scroll');
-    } else {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 300);
+useEffect(() => {
+  let timer;
 
+  if (isOpen) {
+    setIsVisible(true);
+    document.body.classList.add('no-scroll');
+  } else {
+    document.body.classList.remove('no-scroll');
+    timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 300);
+  }
+
+  return () => clearTimeout(timer);
+}, [isOpen]);
+
+useEffect(() => {
+  const handleResize = () => {
+    const isDesktop = window.innerWidth >= 1440;
+
+    if (isDesktop) {
+      setIsVisible(false);
+      onClose?.(); 
       document.body.classList.remove('no-scroll');
-      return () => clearTimeout(timer);
     }
-  }, [isOpen]);
+  };
+  
+  handleResize();
 
-  if (!isVisible) return null;
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, [onClose]);
+
+if (!isVisible) return null;
+
 
   return (
     <div
