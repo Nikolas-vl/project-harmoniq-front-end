@@ -15,7 +15,6 @@ import {
 } from '../../redux/auth/authSelectors';
 import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
 import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
-import { useLoader } from '../../modules/Loader/useLoader';
 
 const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
@@ -30,9 +29,7 @@ const AuthorProfilePage = () => {
 
   const [activeTab, setActiveTab] = useState(TABS.all);
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
-  const { user, userArticles, isLoading } = useGetUserInfo(authorId);
-
-  useLoader(isLoading);
+  const { user, userArticles } = useGetUserInfo(authorId);
 
   const displayName = isOwnProfile
     ? currentUserName
