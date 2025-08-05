@@ -55,7 +55,7 @@ const RegisterForm = () => {
         };
 
         await dispatch(register(user)).unwrap();
-        navigate('/photo', {state: {isNew: true}});
+        navigate('/update-profile', { state: { isNew: true } });
       } catch (error) {
         toast.error(error.message || 'Registration failed');
       } finally {

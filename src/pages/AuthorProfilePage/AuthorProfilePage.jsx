@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import styles from './AuthorProfilePage.module.css';
@@ -15,6 +15,7 @@ import {
 } from '../../redux/auth/authSelectors';
 import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
 import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
+import editor from '../../assets/icons/uploadPhoto/editor.svg';
 
 const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
@@ -79,7 +80,21 @@ const AuthorProfilePage = () => {
           </div>
         )}
         <div className={styles['author-profile__name__articles-amount']}>
-          <h2 className={styles['author-profile__name']}>{displayName}</h2>
+          <div className={styles['author-profile__name-wrapper']}>
+            <h2 className={styles['author-profile__name']}>{displayName}</h2>
+            {isOwnProfile && (
+              <Link
+                to="/update-profile"
+                className={styles['edit-profile-link']}
+              >
+                <img
+                  src={editor}
+                  alt="Change photo"
+                  className={styles.editIcon}
+                />
+              </Link>
+            )}
+          </div>
           <p className={styles['author-profile__articles-amount']}>
             Articles: {displayArticlesAmount}
           </p>

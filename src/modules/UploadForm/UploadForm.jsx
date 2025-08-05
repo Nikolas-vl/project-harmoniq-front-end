@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
-
+import { useDispatch } from 'react-redux';
+import { refreshUser } from '../../redux/auth/authOperations';
 import styles from './UploadForm.module.css';
 
 import closeIcon from '../../assets/icons/uploadPhoto/close.svg';
@@ -18,6 +19,7 @@ import { selectUserId } from '../../redux/auth/authSelectors';
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 
 const UploadForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isNewUser = location.state?.isNew === true;
@@ -36,12 +38,8 @@ const UploadForm = () => {
   }, [user]);
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .min(2, 'At least 2 characters')
-      .max(32)
-      .trim(),
-    oldPassword: Yup.string()
-      .min(6, 'At least 6 characters'),
+    name: Yup.string().min(2, 'At least 2 characters').max(32).trim(),
+    oldPassword: Yup.string().min(6, 'At least 6 characters'),
     newPassword: Yup.string()
       .min(6, 'At least 6 characters')
       .when('oldPassword', {
@@ -87,7 +85,9 @@ const UploadForm = () => {
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
           const isNameChanged = values.name.trim() !== user?.name;
-          const isPasswordChanged = values.oldPassword && values.newPassword;
+          const isPasswordChanged =
+            values.oldPassword.trim().length > 0 &&
+            values.newPassword.trim().length > 0;
           const hasChanges = isNameChanged || isPasswordChanged || selectedFile;
 
           if (isNewUser && !selectedFile) {
@@ -102,7 +102,7 @@ const UploadForm = () => {
 
           const updateData = {};
           if (selectedFile) updateData.image = selectedFile;
-          if (isNameChanged) updateData.name = values.name.trim();
+          if (isNameChanged) updateData.newName = values.name.trim();
           if (isPasswordChanged) {
             updateData.oldPassword = values.oldPassword;
             updateData.newPassword = values.newPassword;
@@ -110,6 +110,7 @@ const UploadForm = () => {
 
           try {
             await updateProfile(userId, updateData);
+            dispatch(refreshUser());
             toast.success('Profile updated');
             navigate(`/authors/${userId}`);
           } catch (err) {
@@ -122,7 +123,11 @@ const UploadForm = () => {
       >
         {({ setFieldError, isSubmitting }) => (
           <Form className={styles.form}>
-            <button type="button" className={styles.closeBtn} onClick={handleClose}>
+            <button
+              type="button"
+              className={styles.closeBtn}
+              onClick={handleClose}
+            >
               <img src={closeIcon} alt="close" className={styles.icon} />
             </button>
 
@@ -133,9 +138,17 @@ const UploadForm = () => {
             <label htmlFor="photo" className={styles.fileInputWrapper}>
               {previewUrl ? (
                 <div className={styles.previewWrapper}>
-                  <img src={previewUrl} alt="Preview" className={styles.preview} />
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className={styles.preview}
+                  />
                   {userId && (
-                    <img src={editor} alt="Change photo" className={styles.editIcon} />
+                    <img
+                      src={editor}
+                      alt="Change photo"
+                      className={styles.editIcon}
+                    />
                   )}
                 </div>
               ) : (
@@ -150,14 +163,26 @@ const UploadForm = () => {
                 className={styles.fileInput}
               />
             </label>
-            <ErrorMessage name="image" component="div" className={styles.error} />
+            <ErrorMessage
+              name="image"
+              component="div"
+              className={styles.error}
+            />
 
             {!isNewUser && (
               <>
                 <label className={styles.labelChangeInfo}>
                   New name:
-                  <Field type="text" name="name" className={styles.inputChangeInfo} />
-                  <ErrorMessage name="name" component="div" className={styles.error} />
+                  <Field
+                    type="text"
+                    name="name"
+                    className={styles.inputChangeInfo}
+                  />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className={styles.error}
+                  />
                 </label>
 
                 <label className={styles.labelChangeInfo}>
@@ -175,13 +200,19 @@ const UploadForm = () => {
                     >
                       <img
                         src={showOldPassword ? eye : eyeCrossed}
-                        alt={showOldPassword ? 'Show password' : 'Hide password'}
+                        alt={
+                          showOldPassword ? 'Show password' : 'Hide password'
+                        }
                         width={24}
                         height={24}
                       />
                     </span>
                   </div>
-                  <ErrorMessage name="oldPassword" component="div" className={styles.error} />
+                  <ErrorMessage
+                    name="oldPassword"
+                    component="div"
+                    className={styles.error}
+                  />
                 </label>
 
                 <label className={styles.labelChangeInfo}>
@@ -199,13 +230,19 @@ const UploadForm = () => {
                     >
                       <img
                         src={showNewPassword ? eye : eyeCrossed}
-                        alt={showNewPassword ? 'Show password' : 'Hide password'}
+                        alt={
+                          showNewPassword ? 'Show password' : 'Hide password'
+                        }
                         width={24}
                         height={24}
                       />
                     </span>
                   </div>
-                  <ErrorMessage name="newPassword" component="div" className={styles.error} />
+                  <ErrorMessage
+                    name="newPassword"
+                    component="div"
+                    className={styles.error}
+                  />
                 </label>
               </>
             )}
