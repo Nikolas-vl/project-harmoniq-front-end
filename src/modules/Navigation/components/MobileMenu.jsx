@@ -55,7 +55,7 @@ const MobileMenu = ({
     const handleResize = () => {
       const isDesktop = window.innerWidth >= 1440;
 
-      if (isDesktop && isVisible) {
+      if (isDesktop && isVisible && isVisible) {
         setIsVisible(false);
         onClose?.();
         document.body.classList.remove('no-scroll');
@@ -64,7 +64,7 @@ const MobileMenu = ({
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [onClose, isVisible]);
+  }, [onClose, isVisible, isVisible]);
 
   if (!isVisible) return null;
 
