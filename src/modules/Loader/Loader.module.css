@@ -5,17 +5,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
+  z-index: 9000;
   pointer-events: all;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
 }
-
-.inline {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
+.fixedCenter {
+  position: fixed;
+  z-index: 9001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
