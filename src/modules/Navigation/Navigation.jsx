@@ -92,7 +92,7 @@ function Navigation() {
       {/* Навігація (десктоп) */}
       {isDesktop && (
         <ul className={styles.linkList}>
-          <li>
+          <li className={styles.linkListItem}>
             <NavLink
               to="/"
               className={({ isActive }) => (isActive ? styles.active : '')}
@@ -100,7 +100,7 @@ function Navigation() {
               Home
             </NavLink>
           </li>
-          <li>
+          <li className={styles.linkListItem}>
             <NavLink
               to="/articles"
               className={({ isActive }) => (isActive ? styles.active : '')}
@@ -108,7 +108,7 @@ function Navigation() {
               Articles
             </NavLink>
           </li>
-          <li>
+          <li className={styles.linkListItem}>
             <NavLink
               to="/authors"
               end

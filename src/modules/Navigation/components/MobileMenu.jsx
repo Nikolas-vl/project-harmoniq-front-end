@@ -55,7 +55,7 @@ useEffect(() => {
   const handleResize = () => {
     const isDesktop = window.innerWidth >= 1440;
 
-    if (isDesktop) {
+    if (isDesktop && isVisible) {
       setIsVisible(false);
       onClose?.(); 
       document.body.classList.remove('no-scroll');
@@ -66,7 +66,7 @@ useEffect(() => {
 
   window.addEventListener('resize', handleResize);
   return () => window.removeEventListener('resize', handleResize);
-}, [onClose]);
+}, [onClose, isVisible]);
 
 if (!isVisible) return null;
 
