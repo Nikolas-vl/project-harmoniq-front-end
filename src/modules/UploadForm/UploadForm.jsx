@@ -74,7 +74,7 @@ const UploadForm = () => {
   };
 
   return (
-    <div className={`container ${styles.wrapper}`}>
+    <div className={styles.wrapper}>
       <Formik
         enableReinitialize
         initialValues={{
