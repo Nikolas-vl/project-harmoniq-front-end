@@ -40,80 +40,82 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={s.loginForm}>
-      <h1 className={s.h1LoginForm}>Login</h1>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form noValidate className={s.loginFormFields}>
-            <div className={s.fieldWrapper}>
-              <label htmlFor="email" className={s.labelLoginForm}>
-                Enter your email address
-              </label>
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                className={s.inputLoginForm}
-                placeholder="email@gmail.com"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={s.errorLogin}
-              />
-            </div>
-            <div className={s.fieldWrapper}>
-              <label htmlFor="password" className={s.labelLoginForm}>
-                Enter a password
-              </label>
-              <div className={s.inputWrapper}>
-                <span
-                  onClick={() => setShowPassword(prev => !prev)}
-                  className={s.seePass}
-                >
-                  <img
-                    src={showPassword ? eyeOpen : eyeCrossed}
-                    alt={showPassword ? 'Show password' : 'Hide password'}
-                    width={24}
-                    height={24}
-                  />
-                </span>
+    <div className={`container`}>
+      <div className={s.loginForm}>
+        <h1 className={s.h1LoginForm}>Login</h1>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <Form noValidate className={s.loginFormFields}>
+              <div className={s.fieldWrapper}>
+                <label htmlFor="email" className={s.labelLoginForm}>
+                  Enter your email address
+                </label>
                 <Field
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
+                  id="email"
+                  name="email"
+                  type="email"
                   className={s.inputLoginForm}
-                  placeholder="*********"
+                  placeholder="email@gmail.com"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={s.errorLogin}
                 />
               </div>
-              <ErrorMessage
-                name="password"
-                component="div"
-                className={s.errorLogin}
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={s.loginBtn}
-            >
-              Login
-            </button>
-          </Form>
-        )}
-      </Formik>
-      <div>
-        <p className={s.askOfRegister}>
-          Don't have an account?{' '}
-          <Link to="/register" className={s.linkToRegister}>
-            {' '}
-            Register
-          </Link>
-        </p>
+              <div className={s.fieldWrapper}>
+                <label htmlFor="password" className={s.labelLoginForm}>
+                  Enter a password
+                </label>
+                <div className={s.inputWrapper}>
+                  <span
+                    onClick={() => setShowPassword(prev => !prev)}
+                    className={s.seePass}
+                  >
+                    <img
+                      src={showPassword ? eyeOpen : eyeCrossed}
+                      alt={showPassword ? 'Show password' : 'Hide password'}
+                      width={24}
+                      height={24}
+                    />
+                  </span>
+                  <Field
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    className={s.inputLoginForm}
+                    placeholder="*********"
+                  />
+                </div>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={s.errorLogin}
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={s.loginBtn}
+              >
+                Login
+              </button>
+            </Form>
+          )}
+        </Formik>
+        <div>
+          <p className={s.askOfRegister}>
+            Don't have an account?{' '}
+            <Link to="/register" className={s.linkToRegister}>
+              {' '}
+              Register
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

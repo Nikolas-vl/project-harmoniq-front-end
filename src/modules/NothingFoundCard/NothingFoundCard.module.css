@@ -1,5 +1,6 @@
 .not_found_container {
-    width: 361px;
+    width: 100%;
+    max-width: 361px;
     margin-bottom: 72px;
 }
 
@@ -8,7 +9,8 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
-    width: 361px;
+    width: 100%;
+    max-width: 361px;
     height: 299px;
     padding: 12px;
     background-color: var(--color-light-green);
@@ -43,7 +45,8 @@
     color: var(--color-green-darker);
     border: 1px solid #374f42;
     border-radius: 64px;
-    width: 337px;
+    width: 100%;
+    max-width: 337px;
     padding: 8px;
     transition: var(--transition);
 }

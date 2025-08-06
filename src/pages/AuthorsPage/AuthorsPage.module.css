@@ -2,9 +2,7 @@
 
 .wrapper {
   margin: 48px auto;
-  padding: 0 12px;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 .title {
@@ -111,6 +109,34 @@
   text-align: center;
   margin-top: 32px;
 }
+
+@media (max-width: 392px) {
+  .list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .authorItem {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .avatar,
+  .unknown_avatar {
+    width: 100%;
+    max-width: 262px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 12px;
+  }
+
+  .loadMore {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
 
 @media (min-width: 768px) and (max-width: 1439px) {
   .list {
