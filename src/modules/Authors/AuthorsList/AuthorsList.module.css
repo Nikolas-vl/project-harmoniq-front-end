@@ -6,6 +6,15 @@
   align-items: flex-start;
 }
 
+@media only screen and (max-width: 392px) {
+  .list {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 16px;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .list {
     gap: 24px;

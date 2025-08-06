@@ -188,3 +188,49 @@
     width: 184px;
   }
 }
+
+@media (max-width: 393px) {
+  .heroImage {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 361 / 323;
+    margin-bottom: 16px ;
+  }
+
+  .heroTitle {
+    font-size: 25px;
+    line-height: 1.2;
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 0 16px;
+    margin-bottom: 16px ;
+
+  }
+
+  .articlesBtn,
+  .registerBtn {
+    width: 100%;
+    max-width: 280px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .buttons {
+    gap: 16px;
+    align-items: center;
+  }
+
+  .content {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}

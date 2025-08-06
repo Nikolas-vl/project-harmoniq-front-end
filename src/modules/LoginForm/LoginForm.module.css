@@ -2,7 +2,8 @@
     background-color: #D1E0D8;
     border-radius: 32px;
     padding: 48px 32px;
-    width: 330px;
+    width: 100%;
+    max-width: 330px;
     min-height: 408px;
     display: flex;
     align-items: center;
@@ -17,7 +18,8 @@
 
 @media (min-width: 768px) {
     .loginForm {
-        width: 522px;
+        width: 100%;
+        max-width: 522px;
         min-height: 408px;
         margin-top: 232px;
         margin-bottom: 232px;
@@ -26,7 +28,8 @@
 
 @media (min-width: 1200px) {
     .loginForm {
-        width: 392px;
+        width: 100%;
+        max-width: 392px;
         min-height: 408px;
         margin-top: 172px;
     }
@@ -41,7 +44,8 @@
 
 .loginFormFields {
     border: none;
-    width: 266px;
+    width: 100%;
+    max-width: 266px;
     min-height: 203px;
     display: flex;
     flex-direction: column;
@@ -51,14 +55,16 @@
 
 @media (min-width: 768px) {
     .loginFormFields {
-        width: 458px;
+        width: 100%;
+        max-width: 458px;
         min-height: 203px;
     }
 }
 
 @media (min-width: 1200px) {
     .loginFormFields {
-        width: 328px;
+        width: 100%;
+        max-width: 328px;
         min-height: 203px;
     }
 }
@@ -90,7 +96,8 @@
     border-radius: 8px;
     padding: 8px;
     padding-right: 32px;
-    width: 266px;
+    width: 100%;
+    max-width: 266px;
     height: 41px;
     background-color: #F7FFFB;
     font-weight: 400;
@@ -120,14 +127,16 @@
 
 @media (min-width: 768px) {
     .inputLoginForm {
-        width: 458px;
+        width: 100%;
+        max-width: 458px;
         height: 41px;
     }
 }
 
 @media (min-width: 1200px) {
     .inputLoginForm {
-        width: 328px;
+        width: 100%;
+        max-width: 328px;
         height: 41px;
     }
 }
@@ -135,7 +144,8 @@
 .loginBtn {
     border-radius: 64px;
     padding: 8px;
-    width: 266px;
+    width: 100%;
+    max-width: 266px;
     height: 38px;
     background-color: #649179;
     color: #F7FFFB;
@@ -164,14 +174,16 @@
 
 @media (min-width: 768px) {
     .loginBtn {
-        width: 458px;
+        width: 100%;
+        max-width: 458px;
         height: 38px;
     }
 }
 
 @media (min-width: 1200px) {
     .loginBtn {
-        width: 328px;
+        width: 100%;
+        max-width: 328px;
         height: 38px;
     }
 }

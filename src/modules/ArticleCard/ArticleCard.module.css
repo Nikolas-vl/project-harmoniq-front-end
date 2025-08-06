@@ -1,19 +1,20 @@
 .card_container {
   border-radius: 32px;
   padding: 12px;
-  width: 361px;
+  width: 100%;
+  max-width: 361px;
   height: 492px;
   background-color: var(--color-light-green);
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   flex-direction: column;
+  justify-content: space-between;
   transition: var(--transition);
 }
 
 .card_image {
   display: block;
-  width: 337px;
+  width: 100%;
+  max-width: 337px;
   height: 233px;
   object-fit: cover;
   border-radius: 24px;
@@ -29,7 +30,8 @@
   font-size: 24px;
   color: var(--color-gray);
   background-color: var(--color-light-gray);
-  width: 337px;
+  width: 100%;
+  max-width: 337px;
   height: 233px;
 }
 
@@ -50,9 +52,9 @@
   font-family: var(--ff-manrope);
   font-weight: 700;
   font-size: 24px;
+  width: 100%;
   max-width: 264px;
   color: var(--color-black);
-  width: 264px;
 }
 
 .card_description {
@@ -64,18 +66,21 @@
   font-family: var(--ff-manrope);
   font-weight: 400;
   font-size: 16px;
-  max-width: 337px;
   line-height: 1.55;
+  width: 100%;
+  max-width: 337px;
   color: var(--color-black);
 }
 
 .card_button_container {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 8px;
+  flex-wrap: nowrap;
 }
 
 .load_more_link {
-  display: block;
   text-align: center;
   font-family: var(--ff-manrope);
   font-weight: 700;
@@ -85,43 +90,61 @@
   border: 1px solid #374f42;
   border-radius: 64px;
   padding: 8px;
-  width: 289px;
   height: 40px;
+  flex: 1 1 auto;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Стилі для кнопки збереження — просто нагадаю, якщо треба щось обмежити */
+.bookmark_button {
+  height: 40px;
+  flex-shrink: 0;
 }
 
 @media only screen and (min-width: 768px) {
   .card_container {
-    width: 340px;
+    max-width: 340px;
   }
+
   .card_image {
-    width: 316px;
+    max-width: 316px;
   }
+
   .unknown_image {
-    width: 316px;
+    max-width: 316px;
   }
+
   .card_description {
     max-width: 316px;
   }
+
   .load_more_link {
-    width: 268px;
+    max-width: 268px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .card_container {
-    width: 392px;
+    max-width: 392px;
   }
+
   .card_image {
-    width: 368px;
+    max-width: 368px;
   }
+
   .unknown_image {
-    width: 368px;
+    max-width: 368px;
   }
+
   .card_description {
     max-width: 368px;
   }
+
   .load_more_link {
-    width: 320px;
+    max-width: 320px;
     transition: var(--transition);
   }
 }

@@ -9,6 +9,7 @@ import { selectUserId } from '../../../redux/user/userSelectors';
 
 export const useArticleForm = onSubmitSuccess => {
   const ownerId = useSelector(selectUserId);
+  const [touchedFields, setTouchedFields] = useState({ image: false });
   const [draft, setDraft] = useLocalStorageState('articleDraft', {
     title: '',
     text: '',
@@ -32,7 +33,8 @@ export const useArticleForm = onSubmitSuccess => {
         .max(100, 'Title must be at most 100 characters'),
       text: Yup.string()
         .required('Text is required')
-        .min(100, 'Text must be at least 100 characters'),
+        .min(2000, 'Text must be at least 2000 characters')
+        .max(10000, 'Text must be at most 10000 characters'),
       image: Yup.mixed()
         .required('Image is required')
         .test(
@@ -48,8 +50,8 @@ export const useArticleForm = onSubmitSuccess => {
             (value && ['image/jpeg', 'image/png'].includes(value.type))
         ),
     }),
-    validateOnBlur: false, // <--- додаємо
-    validateOnChange: false,
+    validateOnBlur: false,
+    validateOnChange: true,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const formData = {
@@ -77,10 +79,12 @@ export const useArticleForm = onSubmitSuccess => {
   });
 
   const handleFileChange = file => {
+    setTouchedFields(prev => ({ ...prev, image: true }));
+    formik.setFieldTouched('image', true, false);
     if (!file) {
       setPreviewUrl(cameraPlaceholder);
       formik.setFieldValue('image', null);
-
+      formik.validateField('image');
       return;
     }
 
@@ -90,13 +94,18 @@ export const useArticleForm = onSubmitSuccess => {
     setPreviewUrl(localUrl);
 
     formik.setFieldValue('image', file);
+    formik.validateField('image');
   };
 
   const handleTitleChange = value => {
+    formik.setFieldTouched('title', true, false);
+    formik.setFieldValue('title', value);
     setDraft(prev => ({ ...prev, title: value }));
   };
 
   const handleTextChange = value => {
+    formik.setFieldTouched('text', true, false);
+    formik.setFieldValue('text', value);
     setDraft(prev => ({ ...prev, text: value }));
   };
 
@@ -106,5 +115,6 @@ export const useArticleForm = onSubmitSuccess => {
     handleFileChange,
     handleTitleChange,
     handleTextChange,
+    touchedFields,
   };
 };

@@ -81,3 +81,30 @@
 .pageBtn:disabled {
   cursor: not-allowed;
 }
+
+@media (max-width: 393px) {
+  .paginationContainer {
+    gap: 6px;
+    max-width: 288px;
+    padding: 0;
+    align-items: center;
+  }
+
+  .navBtn {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+  }
+
+  .pageBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .active {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}

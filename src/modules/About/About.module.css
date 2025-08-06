@@ -22,7 +22,8 @@
 .textBox {
   border-radius: 32px;
   padding: 32px;
-  width: 361px;
+  width: 100%;
+  max-width: 361px;
   height: 365px;
   background: var(--color-light-green);
 }
@@ -49,12 +50,14 @@
   }
 
   .textBox {
-    width: 431px;
+    width: 100%;
+    max-width: 431px;
     height: 326px;
   }
 
   .aboutText {
-    width: 367px;
+    width: 100%;
+    max-width: 367px;
   }
 }
 
@@ -70,7 +73,8 @@
   }
 
   .textBox {
-    width: 496px;
+    width: 100%;
+    max-width: 496px;
     height: 326px;
   }
 
