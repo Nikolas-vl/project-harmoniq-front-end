@@ -1,6 +1,6 @@
 import s from '../styles/index.module.css';
 
-const InputFileUpload = ({ error, onChange, photoUrl }) => {
+const InputFileUpload = ({ error, onChange, photoUrl, touched }) => {
   const handleFileChange = e => {
     const file = e.target.files[0];
     if (!file) return;
@@ -31,7 +31,9 @@ const InputFileUpload = ({ error, onChange, photoUrl }) => {
         className={s.fileInput}
         onChange={handleFileChange}
       />
-      <span className={s.error}>{error ? error : '\u00A0'}</span>
+      <span className={touched ? (error ? s.error : s.success) : ''}>
+        {touched ? (error ? error : 'Image is valid') : '\u00A0'}
+      </span>
     </label>
   );
 };

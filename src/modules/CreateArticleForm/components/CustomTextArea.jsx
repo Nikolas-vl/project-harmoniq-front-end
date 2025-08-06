@@ -34,7 +34,9 @@ const CustomTextArea = ({ touched, error, value, onChange }) => {
         onChange={e => onChange(e.target.value)}
         style={{ resize: 'none', overflow: 'hidden' }}
       ></textarea>
-      <span className={s.error}>{touched && error ? error : '\u00A0'}</span>
+      <span className={touched ? (error ? s.error : s.success) : ''}>
+        {touched ? (error ? error : 'Text is valid') : '\u00A0'}
+      </span>
     </label>
   );
 };

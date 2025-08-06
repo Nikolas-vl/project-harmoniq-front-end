@@ -135,3 +135,10 @@ label {
     grid-column: 1;
   }
 }
+
+.success {
+  color: green;
+  font-size: 14px;
+  margin-top: 4px;
+  display: block;
+}

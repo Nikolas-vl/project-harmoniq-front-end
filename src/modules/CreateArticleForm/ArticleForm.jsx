@@ -27,12 +27,19 @@ const ArticleForm = () => {
     }
   });
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    formik.setFieldTouched('image', true, true);
+    formik.handleSubmit();
+  };
+
   return (
-    <form className={s.form} onSubmit={formik.handleSubmit}>
+    <form className={s.form} onSubmit={handleSubmit}>
       <InputFileUpload
         onChange={handleFileChange}
         photoUrl={previewUrl}
         error={formik.errors.image}
+        touched={formik.touched.image}
       />
       <InputWithScroll
         value={formik.values.title}
