@@ -4,10 +4,7 @@ import { useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { refreshUser } from '../../redux/auth/authOperations';
 import styles from './UploadForm.module.css';
-
 import closeIcon from '../../assets/icons/uploadPhoto/close.svg';
 import cameraIcon from '../../assets/icons/uploadPhoto/photo.svg';
 import editor from '../../assets/icons/uploadPhoto/editor.svg';
@@ -15,11 +12,10 @@ import eye from '../../assets/icons/eye.svg';
 import eyeCrossed from '../../assets/icons/eye-crossed.svg';
 
 import { useUpdateUserProfile } from '../../api/hooks/users/useUpdateUserProfile';
-import { selectUserId } from '../../redux/auth/authSelectors';
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
+import { selectUserId } from '../../redux/user/userSelectors';
 
 const UploadForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isNewUser = location.state?.isNew === true;
@@ -110,7 +106,6 @@ const UploadForm = () => {
 
           try {
             await updateProfile(userId, updateData);
-            dispatch(refreshUser());
             toast.success('Profile updated');
             navigate(`/authors/${userId}`);
           } catch (err) {

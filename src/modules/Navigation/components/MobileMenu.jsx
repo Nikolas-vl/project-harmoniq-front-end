@@ -5,10 +5,9 @@ import UserMenu from './UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
 import CreateArticle from './CreateArticle/CreateArticleButton';
-
-import { selectUserId } from '../../../redux/auth/authSelectors';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { selectUserId } from '../../../redux/user/userSelectors';
 
 const MobileMenu = ({
   isOpen,
@@ -64,7 +63,7 @@ const MobileMenu = ({
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [onClose, isVisible, isVisible]);
+  }, [onClose, isVisible]);
 
   if (!isVisible) return null;
 

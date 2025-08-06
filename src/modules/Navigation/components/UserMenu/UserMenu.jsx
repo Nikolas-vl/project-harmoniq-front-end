@@ -1,17 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './UserMenu.module.css';
-import {
-  selectUserAvatarUrl,
-  selectUserName,
-} from '../../../../redux/auth/authSelectors';
 import exitImg from '../../../../assets/icons/exit-icon.svg';
 import { Link } from 'react-router-dom';
+import {
+  selectUserAvatarUrl,
+  selectUserId,
+  selectUserName,
+} from '../../../../redux/user/userSelectors';
 
 const UserMenu = ({ onLogoutClick, onUserClick }) => {
   const userName = useSelector(selectUserName);
   const userAvatar = useSelector(selectUserAvatarUrl);
-  const userId = useSelector(state => state.auth.user.id);
+  const userId = useSelector(selectUserId);
 
   return (
     <div className={styles.userContainer}>

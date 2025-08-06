@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
 import AuthButtons from './components/AuthButtons';
 import Burger from './components/Burger/Burger';
@@ -11,17 +10,19 @@ import UserMenu from './components/UserMenu/UserMenu';
 import CreateArticle from './components/CreateArticle/CreateArticleButton';
 import { logout } from '../../redux/auth/authOperations';
 import ModalLogout from './components/ModalLogout/ModalLogout';
+import { selectUserId } from '../../redux/user/userSelectors';
+import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
 function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.auth.user.id);
+  const userId = useSelector(selectUserId);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const [activeAuthButton, setActiveAuthButton] = useState('join');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const isAuthenticated = useSelector(selectIsLoggedIn);
 
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1440);
   const [isTablet, setIsTablet] = useState(
@@ -86,7 +87,6 @@ function Navigation() {
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev);
   };
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   return (
     <nav className={styles.nav}>
       {/* Навігація (десктоп) */}
@@ -131,7 +131,7 @@ function Navigation() {
       )}
 
       {isDesktop &&
-        (isAuthenticated ? (
+        (isLoggedIn ? (
           <>
             <CreateArticle />
             <UserMenu onLogoutClick={handleLogoutClick} />
@@ -145,7 +145,7 @@ function Navigation() {
         ))}
 
       {isTablet &&
-        (isAuthenticated ? (
+        (isLoggedIn ? (
           <>
             <CreateArticle />
           </>

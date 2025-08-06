@@ -1,17 +1,24 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import Layout from './modules/Layout/Layout';
 import AppRoutes from './routes/AppRoutes';
-import { refreshUser } from './redux/auth/authOperations';
 import Loader from './modules/Loader/Loader';
+import { setNavigateHandler } from './utils/navigationService';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from './redux/auth/authOperations';
 
 function App() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    setNavigateHandler(navigate);
+  }, [navigate]);
 
   return (
     <>
