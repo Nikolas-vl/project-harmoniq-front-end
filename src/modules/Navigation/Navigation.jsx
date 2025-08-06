@@ -23,7 +23,6 @@ function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1440);
   const [isTablet, setIsTablet] = useState(
     window.innerWidth >= 768 && window.innerWidth < 1440
@@ -118,7 +117,7 @@ function Navigation() {
             </NavLink>
           </li>
           {isLoggedIn && (
-            <li>
+            <li className={styles.linkListItem}>
               <NavLink
                 to={`/authors/${userId}`}
                 className={({ isActive }) => (isActive ? styles.active : '')}

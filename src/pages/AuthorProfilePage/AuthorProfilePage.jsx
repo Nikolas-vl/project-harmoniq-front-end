@@ -80,41 +80,71 @@ const AuthorProfilePage = () => {
   return (
     <section className={`container ${styles['author-profile']}`}>
       {isOwnProfile && <h1 className={styles['header']}>My profile</h1>}
-      <div className={styles['author-profile__header']}>
-        {displayAvatar ? (
-          <img
-            className={styles['author-profile__avatar']}
-            src={displayAvatar}
-            alt={displayName}
-            width={100}
-            height={100}
-          />
-        ) : (
-          <div className={styles['author-profile__avatar-placeholder']}>
-            {displayName?.charAt(0).toUpperCase()}
-          </div>
-        )}
-        <div className={styles['author-profile__name__articles-amount']}>
-          <div className={styles['author-profile__name-wrapper']}>
-            <h2 className={styles['author-profile__name']}>{displayName}</h2>
-            {isOwnProfile && (
-              <Link
-                to="/update-profile"
-                className={styles['edit-profile-link']}
-              >
-                <img
-                  src={editor}
-                  alt="Change photo"
-                  className={styles.editIcon}
-                />
-              </Link>
+      {isOwnProfile ? (
+        <Link
+          to="/update-profile"
+          className={styles['author-profile__header-link']}
+        >
+          <div className={styles['author-profile__header']}>
+            {displayAvatar ? (
+              <img
+                className={styles['author-profile__avatar']}
+                src={displayAvatar}
+                alt={displayName}
+                width={100}
+                height={100}
+              />
+            ) : (
+              <div className={styles['author-profile__avatar-placeholder']}>
+                {displayName?.charAt(0).toUpperCase()}
+              </div>
             )}
+
+            <div className={styles['author-profile__name__articles-amount']}>
+              <div className={styles['author-profile__name-wrapper']}>
+                <h2 className={styles['author-profile__name']}>
+                  {displayName}
+                </h2>
+              </div>
+              <p className={styles['author-profile__articles-amount']}>
+                Articles: {displayArticlesAmount}
+              </p>
+            </div>
+
+            <div className={styles['edit-profile-link']}>
+              <img
+                src={editor}
+                alt="Edit profile"
+                className={styles.editIcon}
+              />
+            </div>
           </div>
-          <p className={styles['author-profile__articles-amount']}>
-            Articles: {displayArticlesAmount}
-          </p>
+        </Link>
+      ) : (
+        <div className={styles['author-profile__header']}>
+          {displayAvatar ? (
+            <img
+              className={styles['author-profile__avatar']}
+              src={displayAvatar}
+              alt={displayName}
+              width={100}
+              height={100}
+            />
+          ) : (
+            <div className={styles['author-profile__avatar-placeholder']}>
+              {displayName?.charAt(0).toUpperCase()}
+            </div>
+          )}
+          <div className={styles['author-profile__name__articles-amount']}>
+            <div className={styles['author-profile__name-wrapper']}>
+              <h2 className={styles['author-profile__name']}>{displayName}</h2>
+            </div>
+            <p className={styles['author-profile__articles-amount']}>
+              Articles: {displayArticlesAmount}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
       {isOwnProfile && (
         <ProfileTabs setActiveTab={handleChangeTabs} activeTab={activeTab} />

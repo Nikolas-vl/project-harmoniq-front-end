@@ -20,7 +20,11 @@
   gap: 16px;
   align-items: center;
   margin-bottom: 24px;
+  position: relative;
   width: fit-content;
+  cursor: pointer;
+  min-height: 110px;
+  padding-right: 32px;
 }
 
 .author-profile__avatar {
@@ -91,6 +95,7 @@
   font-size: 16px;
   color: #374f42;
   background: transparent;
+  transition: background-color 0.3s ease;
 }
 
 .author-profile__action-btn:hover {
@@ -113,6 +118,8 @@
   font-weight: 700;
   font-size: 18px;
   color: #f7fffb;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .author-profile__load-more-btn:hover {
@@ -161,24 +168,36 @@
   gap: 12px;
 }
 
+.author-profile__header-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .edit-profile-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--color-green);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--color-green);
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-.edit-profile-link:hover {
+.author-profile__header-link:hover .edit-profile-link,
+.author-profile__header:hover .edit-profile-link {
   background-color: var(--color-green-darker);
 }
 
 .editIcon {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
-  
+  pointer-events: none;
 }
