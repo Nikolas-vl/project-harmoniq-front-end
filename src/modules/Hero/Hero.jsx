@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import s from './Hero.module.css';
 import '../../../src/assets/styles/container.css';
+import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
+import { selectUserId } from '../../redux/user/userSelectors';
 
 const Hero = () => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const userId = useSelector(state => state.auth.user.id);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const userId = useSelector(selectUserId);
 
   return (
     <section className={s.hero}>

@@ -10,11 +10,11 @@ const ModalLogout = ({ isOpen, onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout()).unwrap(); 
+      await dispatch(logout()).unwrap();
     } catch (error) {
       console.warn('Logout error (ignored on client):', error);
     } finally {
-      localStorage.clear(); 
+      localStorage.clear();
       onClose();
       navigate('/login');
     }

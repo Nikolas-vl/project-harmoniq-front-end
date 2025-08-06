@@ -143,11 +143,13 @@
 
 @media (min-width: 768px) {
   .form {
+    min-width: 522px;
     padding: 48px 32px;
   }
 }
 
 @media (min-width: 1440px) {
   .form {
+    min-width: 392px;
   }
 }

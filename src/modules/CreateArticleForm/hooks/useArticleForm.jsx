@@ -5,7 +5,7 @@ import { getDescription } from '../utils/getDescription';
 import { useLocalStorageState } from './useLocalStorageState';
 import cameraPlaceholder from '../../../assets/icons/createArticlePage/camera.svg';
 import { useSelector } from 'react-redux';
-import { selectUserId } from '../../../redux/auth/authSelectors';
+import { selectUserId } from '../../../redux/user/userSelectors';
 
 export const useArticleForm = onSubmitSuccess => {
   const ownerId = useSelector(selectUserId);
@@ -66,11 +66,10 @@ export const useArticleForm = onSubmitSuccess => {
 
         setDraft({ title: '', text: '', image: null });
         setPreviewUrl(cameraPlaceholder);
-      } catch (error) {
+      } catch {
         setErrors({
           submit: 'Помилка при створенні статті. Спробуйте пізніше.',
         });
-        console.log(error);
       } finally {
         setSubmitting(false);
       }

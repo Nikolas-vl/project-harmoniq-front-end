@@ -1,9 +1,8 @@
 import css from './Footer.module.css';
 import logo from '/src/assets/icons/footer-logo.svg';
 import { Link, NavLink } from 'react-router-dom';
-
-import { selectUserId } from '../../redux/auth/authSelectors';
 import { useSelector } from 'react-redux';
+import { selectUserId } from '../../redux/user/userSelectors';
 
 const Footer = () => {
   const userId = useSelector(selectUserId);

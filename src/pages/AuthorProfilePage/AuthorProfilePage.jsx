@@ -1,10 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import styles from './AuthorProfilePage.module.css';
 import NothingFoundCard from '../../modules/NothingFoundCard/NothingFoundCard';
 import { useGetUserInfo } from '../../api/hooks/users/useGetUserInfo';
 import ArticlesList from '../../modules/ArticlesList/ArticlesList';
+import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
+import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
+import editor from '../../assets/icons/uploadPhoto/editor.svg';
 import {
   selectSavedArticles,
   selectUserArticles,
@@ -12,25 +15,37 @@ import {
   selectUserAvatarUrl,
   selectUserId,
   selectUserName,
-} from '../../redux/auth/authSelectors';
-import { ProfileTabs } from '../../modules/ProfileTabs/ProfileTabs';
-import { ARTICLES_PER_PAGE, TABS } from '../../constants/profilePage';
-import editor from '../../assets/icons/uploadPhoto/editor.svg';
+} from '../../redux/user/userSelectors';
+import { fetchUserProfile } from '../../redux/user/userOperations';
 
 const AuthorProfilePage = () => {
   const { id: authorId } = useParams();
+  const dispatch = useDispatch();
+
   const currentUserId = useSelector(selectUserId);
+
+  const isOwnProfile = currentUserId === authorId;
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (isOwnProfile) {
+        await dispatch(fetchUserProfile());
+      }
+    };
+
+    fetchProfile();
+  }, [dispatch, isOwnProfile]);
+
   const currentUserName = useSelector(selectUserName);
   const currentUserAvatar = useSelector(selectUserAvatarUrl);
   const currentUserArticles = useSelector(selectUserArticles);
   const currentUserSavedArticles = useSelector(selectSavedArticles);
   const userAmounthArticles = useSelector(selectUserArticlesAmount);
 
-  const isOwnProfile = currentUserId === authorId;
-
   const [activeTab, setActiveTab] = useState(TABS.all);
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
-  const { user, userArticles } = useGetUserInfo(authorId);
+  const { user, userArticles } = useGetUserInfo(
+    !isOwnProfile ? authorId : null
+  );
 
   const displayName = isOwnProfile
     ? currentUserName

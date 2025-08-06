@@ -29,17 +29,11 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const resultAction = await dispatch(login(values));
-
-      if (login.fulfilled.match(resultAction)) {
-        navigate('/');
-      } else if (login.rejected.match(resultAction)) {
-        setErrors({ password: 'Invalid email or password' });
-        toast.error('Login failed. Please check your credentials.');
-      }
+      await dispatch(login(values)).unwrap();
+      navigate('/');
     } catch (error) {
-      console.error('Unexpected error during login', error);
-      toast.error('Something went wrong. Please try again later.');
+      setErrors({ password: 'Invalid email or password', error });
+      toast.error('Login failed. Please check your credentials.');
     } finally {
       setSubmitting(false);
     }

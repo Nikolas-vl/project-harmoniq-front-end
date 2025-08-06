@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useMemo } from 'react';
 import styles from './ArticlePage.module.css';
 import { useGetArticleById } from '../../api/hooks/articles/useGetArticleById';
@@ -7,14 +7,14 @@ import { useGetArticles } from '../../api/hooks/articles/useGetArticles';
 import { useSaveArticle } from '../../api/hooks/users/useSaveArticle';
 import { useDeleteSavedArticle } from '../../api/hooks/users/useDeleteSavedArticle';
 import { useDeleteArticle } from '../../api/hooks/articles/useDeleteArticle';
-import { selectUserSaved, selectUserId } from '../../redux/auth/authSelectors';
-import { refreshUser } from '../../redux/auth/authOperations';
+
 import Loader from '../../modules/Loader/Loader';
 import ModalErrorSave from '../../modules/ModalErrorSave/ModalErrorSave';
 import toast from 'react-hot-toast';
 import TopRightIcon from '../../assets/icons/top-right.svg?react';
 import ButtonToggleToBookmarks from '../../modules/ButtonToggleToBookmarks/ButtonToggleToBookmarks';
 import { useLoader } from '../../modules/Loader/useLoader';
+import { selectUserId, selectUserSaved } from '../../redux/user/userSelectors';
 
 const renderArticleContent = text => {
   if (!text) return null;
@@ -26,7 +26,6 @@ const renderArticleContent = text => {
 
 const ArticlePage = () => {
   const { id: articleId } = useParams();
-  const dispatch = useDispatch();
 
   const userId = useSelector(selectUserId);
   const savedArticles = useSelector(selectUserSaved);
@@ -64,11 +63,9 @@ const ArticlePage = () => {
       if (isSaved) {
         await deleteArticle(userId, articleId);
         toast.success('Removed from saved!');
-        dispatch(refreshUser());
       } else {
         await saveArticle(userId, articleId);
         toast.success('Saved!');
-        dispatch(refreshUser());
       }
     } catch (err) {
       toast.error('Something went wrong');
@@ -80,7 +77,6 @@ const ArticlePage = () => {
     try {
       await remove(articleId);
       toast.success('Article deleted!');
-      dispatch(refreshUser());
     } catch (error) {
       console.error('Failed to delete:', error);
       toast.error('Failed to delete article');
