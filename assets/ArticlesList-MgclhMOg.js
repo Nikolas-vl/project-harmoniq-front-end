@@ -1,1 +1,0 @@
-import{j as s}from"./index-DWWhECSa.js";import{A as c}from"./NothingFoundCard-DrBph_eD.js";const l="_list_1qnsc_1",m="_item_1qnsc_8",i={list:l,item:m},a=({articles:e,isOwnProfile:r})=>s.jsx(s.Fragment,{children:s.jsx("ul",{className:i.list,children:e.map(t=>s.jsx("li",{className:i.item,children:s.jsx(c,{article:t,isOwnArticle:r})},t._id))})});export{a as A};
