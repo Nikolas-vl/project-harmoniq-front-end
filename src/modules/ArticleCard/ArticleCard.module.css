@@ -9,6 +9,9 @@
   flex-direction: column;
   justify-content: space-between;
   transition: var(--transition);
+  @media (width<390px) {
+    max-width: 288px;
+  }
 }
 
 .card_image {

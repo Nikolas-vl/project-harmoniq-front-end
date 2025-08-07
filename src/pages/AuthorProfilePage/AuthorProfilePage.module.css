@@ -19,7 +19,6 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  margin-bottom: 24px;
   position: relative;
   width: fit-content;
   cursor: pointer;
@@ -173,6 +172,12 @@
   display: inline-block;
   text-decoration: none;
   color: inherit;
+  border-radius: 20px;
+  padding: 5px;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid black;
+  }
 }
 
 .edit-profile-link {

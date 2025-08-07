@@ -1,7 +1,7 @@
 .author-profile__tabs {
   display: flex;
   gap: 38px;
-  margin-bottom: 24px;
+  margin-block: 24px;
 }
 .author-profile__tab-btn {
   font-weight: 700;
