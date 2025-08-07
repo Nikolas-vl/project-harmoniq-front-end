@@ -1,212 +1,209 @@
 .loginForm {
-    background-color: #D1E0D8;
-    border-radius: 32px;
-    padding: 48px 32px;
-    width: 100%;
-    max-width: 330px;
-    min-height: 408px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    gap: 20px;
-    margin: auto;
-    margin-top: 85px;
-    margin-bottom: 85px;
-
+  background-color: #d1e0d8;
+  border-radius: 32px;
+  padding: 48px 32px;
+  width: 100%;
+  max-width: 330px;
+  min-height: 408px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  margin: auto;
+  margin-top: 85px;
+  margin-bottom: 85px;
 }
 
 @media (min-width: 768px) {
-    .loginForm {
-        width: 100%;
-        max-width: 522px;
-        min-height: 408px;
-        margin-top: 232px;
-        margin-bottom: 232px;
-    }
+  .loginForm {
+    width: 100%;
+    max-width: 522px;
+    min-height: 408px;
+    margin-top: 232px;
+    margin-bottom: 232px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .loginForm {
-        width: 100%;
-        max-width: 392px;
-        min-height: 408px;
-        margin-top: 172px;
-    }
+  .loginForm {
+    width: 100%;
+    max-width: 392px;
+    min-height: 408px;
+    margin-top: 172px;
+  }
 }
 
 .h1LoginForm {
-    font-weight: 700;
-    font-size: 32px;
-    text-align: center;
-    color: #070721;
+  font-weight: 700;
+  font-size: 32px;
+  text-align: center;
+  color: #070721;
 }
 
 .loginFormFields {
-    border: none;
-    width: 100%;
-    max-width: 266px;
-    min-height: 203px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
+  border: none;
+  width: 100%;
+  max-width: 266px;
+  min-height: 203px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 @media (min-width: 768px) {
-    .loginFormFields {
-        width: 100%;
-        max-width: 458px;
-        min-height: 203px;
-    }
+  .loginFormFields {
+    width: 100%;
+    max-width: 458px;
+    min-height: 203px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .loginFormFields {
-        width: 100%;
-        max-width: 328px;
-        min-height: 203px;
-    }
+  .loginFormFields {
+    width: 100%;
+    max-width: 328px;
+    min-height: 203px;
+  }
 }
 
 .fieldWrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
 }
 
 .inputWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .labelLoginForm {
-    font-size: 12px;
-    font-weight: 400;
-    color: #070721;
-    margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #070721;
+  margin-bottom: 4px;
 }
 
 .inputLoginForm {
-    border: 1px solid #9F9F9F;
-    border-radius: 8px;
-    padding: 8px;
-    padding-right: 32px;
-    width: 100%;
-    max-width: 266px;
-    height: 41px;
-    background-color: #F7FFFB;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 155%;
+  border: 1px solid #9f9f9f;
+  border-radius: 8px;
+  padding: 8px;
+  padding-right: 32px;
+  width: 100%;
+  max-width: 266px;
+  height: 41px;
+  background-color: #f7fffb;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 155%;
 }
 
 .seePass {
-    position: absolute;
-    right: 12px;
-    cursor: pointer;
-    fill: #020202;
-    pointer-events: auto;
-    transition: fill 0.2s;
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  fill: #020202;
+  pointer-events: auto;
+  transition: fill 0.2s;
 }
 
 .seePass:hover {
-    fill: blueviolet;
+  fill: blueviolet;
 }
 
 .inputLoginForm::placeholder {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 155%;
-    color: #595D62;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 155%;
+  color: #595d62;
 }
 
 @media (min-width: 768px) {
-    .inputLoginForm {
-        width: 100%;
-        max-width: 458px;
-        height: 41px;
-    }
+  .inputLoginForm {
+    width: 100%;
+    max-width: 458px;
+    height: 41px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .inputLoginForm {
-        width: 100%;
-        max-width: 328px;
-        height: 41px;
-    }
+  .inputLoginForm {
+    width: 100%;
+    max-width: 328px;
+    height: 41px;
+  }
 }
 
 .loginBtn {
-    border-radius: 64px;
-    padding: 8px;
-    width: 100%;
-    max-width: 266px;
-    height: 38px;
-    background-color: #649179;
-    color: #F7FFFB;
-    font-family: var(--font-family);
-    font-weight: 700;
-    font-size: 16px;
-    margin-top: 11px;
-    transition: all 250 ease-in-out;
+  border-radius: 64px;
+  padding: 8px;
+  width: 100%;
+  max-width: 266px;
+  height: 38px;
+  background-color: #649179;
+  color: #f7fffb;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 11px;
+  transition: all 250 ease-in-out;
 }
 
 .loginBtn:hover {
-    background-color: #374F42;
+  background-color: #374f42;
 }
 
 .loginBtn:focus {
-    box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12),
-        0 0 0 2px #fff;
-    background-color: #649179;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
+  background-color: #649179;
 }
 
 .loginBtn:disabled {
-    box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
-    background-color: #649179;
-    opacity: 0.3;
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
+  background-color: #649179;
+  opacity: 0.3;
 }
 
 @media (min-width: 768px) {
-    .loginBtn {
-        width: 100%;
-        max-width: 458px;
-        height: 38px;
-    }
+  .loginBtn {
+    width: 100%;
+    max-width: 458px;
+    height: 38px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .loginBtn {
-        width: 100%;
-        max-width: 328px;
-        height: 38px;
-    }
+  .loginBtn {
+    width: 100%;
+    max-width: 328px;
+    height: 38px;
+  }
 }
 
 .askOfRegister {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 155%;
-    text-align: center;
-    color: #070721;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 155%;
+  text-align: center;
+  color: #070721;
 }
 
 .linkToRegister {
-    font-weight: 700;
-    text-decoration: underline;
-    text-decoration-skip-ink: none;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
 }
 
 .errorLogin {
-    position: absolute;
-    bottom: -16px;
-    left: 0;
-    color: crimson;
-    font-size: 10px;
-    margin: 0;
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  color: crimson;
+  font-size: 10px;
+  margin: 0;
 }
