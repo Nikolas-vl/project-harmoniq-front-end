@@ -21,7 +21,7 @@ const InputFileUpload = ({ error, onChange, photoUrl, touched }) => {
         id="photo-preview"
         src={photoUrl}
         alt="Click to upload"
-        className={`${s.camera} ${error ? s.errored : ''}`}
+        className={`${s.camera} ${touched && error ? s.errored : ''}`}
       />
       <input
         name="image"
