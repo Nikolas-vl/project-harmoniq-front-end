@@ -1,4 +1,3 @@
-// userSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { login, register, logout } from '../auth/authOperations';
 import { fetchUserProfile } from './userOperations';

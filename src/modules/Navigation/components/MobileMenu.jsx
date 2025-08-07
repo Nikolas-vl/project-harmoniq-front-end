@@ -79,8 +79,6 @@ const MobileMenu = ({
           isOpen ? styles.showMenu : styles.hideMenu
         }`}
       >
-        {/* Навігація */}
-
         <nav className={styles.mobileMenuNavigation}>
           <ul className={styles.mobileLinkList}>
             <li>

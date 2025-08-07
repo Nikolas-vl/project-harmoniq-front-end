@@ -88,7 +88,6 @@ function Navigation() {
   };
   return (
     <nav className={styles.nav}>
-      {/* Навігація (десктоп) */}
       {isDesktop && (
         <ul className={styles.linkList}>
           <li className={styles.linkListItem}>
@@ -157,12 +156,10 @@ function Navigation() {
           </button>
         ))}
 
-      {/* Бургер */}
       {(isTablet || isMobile) && (
         <Burger isOpen={isMenuOpen} onClick={toggleMenu} />
       )}
 
-      {/* Мобільне меню */}
       <MobileMenu
         isOpen={isMenuOpen}
         isTablet={isTablet}
