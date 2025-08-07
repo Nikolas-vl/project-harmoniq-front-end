@@ -29,7 +29,6 @@ const ArticlesPage = () => {
 
   const isNothingFound = !pagination || articles.length === 0;
 
-  // Dropdown logic
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -72,7 +71,9 @@ const ArticlesPage = () => {
             <ul className={s.dropdownList}>
               <li
                 onClick={() => filter !== 'all' && selectOption('all')}
-                className={filter === 'all' || filter === null ? s.isActive : ''}
+                className={
+                  filter === 'all' || filter === null ? s.isActive : ''
+                }
               >
                 All
               </li>

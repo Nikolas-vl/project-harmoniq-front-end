@@ -9,14 +9,11 @@
   width: fit-content;
 }
 
-/* Tablet */
 @media only screen and (min-width: 768px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* Desktop */
 
 @media only screen and (min-width: 1440px) {
   .list {

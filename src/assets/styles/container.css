@@ -1,4 +1,3 @@
-/* Mobile-first default */
 .container {
   min-width: 320px;
   max-width: 100%;
@@ -6,14 +5,12 @@
   padding-inline: 16px;
 }
 
-/* Phone */
 @media only screen and (min-width: 393px) {
   .container {
     max-width: 393px;
   }
 }
 
-/* Tablet */
 @media only screen and (min-width: 768px) {
   .container {
     max-width: 768px;
@@ -21,7 +18,6 @@
   }
 }
 
-/* Desktop */
 @media only screen and (min-width: 1440px) {
   .container {
     max-width: 1440px;

@@ -172,7 +172,6 @@
   pointer-events: none;
 }
 
-/* try fix miracles streng_bar */
 .strengthBar {
   transition: opacity var(--transition);
   opacity: 1;

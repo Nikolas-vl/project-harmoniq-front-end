@@ -122,7 +122,7 @@ const RegisterForm = () => {
               value={values.password}
               onChange={e => {
                 handleChange(e);
-                setPasswordScore(null); // скидаємо score для оновлення
+                setPasswordScore(null);
               }}
               onBlur={handleBlur}
               className={styles.input}

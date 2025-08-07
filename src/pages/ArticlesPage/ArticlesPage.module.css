@@ -17,16 +17,6 @@
   color: var(--color--black);
 }
 
-/* .select {
-  width: 169px;
-  height: 33px;
-  padding: 4px 8px;
-  font-size: 16px;
-  border: 1px solid #9f9f9f;
-  border-radius: 4px;
-  cursor: pointer;
-} */
-
 .dropdown {
   position: relative;
   width: 169px;
@@ -69,7 +59,6 @@
   z-index: 100;
   overflow: hidden;
   padding: 8px;
-  
 }
 
 .dropdownList li {

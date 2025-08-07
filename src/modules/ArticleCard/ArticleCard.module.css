@@ -101,7 +101,6 @@
   text-overflow: ellipsis;
 }
 
-/* Стилі для кнопки збереження — просто нагадаю, якщо треба щось обмежити */
 .bookmark_button {
   height: 40px;
   flex-shrink: 0;
