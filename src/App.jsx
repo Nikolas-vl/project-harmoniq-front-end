@@ -7,6 +7,7 @@ import { setNavigateHandler } from './utils/navigationService';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from './redux/auth/authOperations';
+import { ScrollToTop } from './utils/scrollToTop';
 
 function App() {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ function App() {
   return (
     <>
       <Toaster position="top-center" />
+      <ScrollToTop />
+
       <Layout>
         <Loader />
         <AppRoutes />
