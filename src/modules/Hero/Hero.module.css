@@ -88,8 +88,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-
 }
 
 .registerBtn:hover {
@@ -195,7 +193,7 @@
     max-width: 100%;
     height: auto;
     aspect-ratio: 361 / 323;
-    margin-bottom: 16px ;
+    margin-bottom: 16px;
   }
 
   .heroTitle {
@@ -205,8 +203,7 @@
     width: 100%;
     text-align: center;
     padding: 0 16px;
-    margin-bottom: 16px ;
-
+    margin-bottom: 16px;
   }
 
   .articlesBtn,
@@ -220,6 +217,7 @@
   .buttons {
     gap: 16px;
     align-items: center;
+    width: 100%;
   }
 
   .content {
