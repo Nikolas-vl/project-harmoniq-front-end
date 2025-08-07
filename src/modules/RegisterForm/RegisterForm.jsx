@@ -67,150 +67,162 @@ const RegisterForm = () => {
     formik;
 
   return (
-    <section className={styles.section}>
-      <h1 className={styles.title}>Register</h1>
-      <p className={styles.title_}>
-        Join our community of mindfulness and wellbeing!
-      </p>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="name" className={styles.label}>
-          Enter your name
-          <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Max"
-            value={values.name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={styles.input}
-          />
-          <div className={styles.errorContainer}>
-            {touched.name && errors.name && (
-              <span className={styles.error}>{errors.name}</span>
-            )}
-          </div>
-        </label>
-
-        <label htmlFor="email" className={styles.label}>
-          Enter your email address
-          <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="email@gmail.com"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={styles.input}
-          />
-          <div className={styles.errorContainer}>
-            {touched.email && errors.email && (
-              <span className={styles.error}>{errors.email}</span>
-            )}
-          </div>
-        </label>
-
-        <label htmlFor="password" className={styles.label}>
-          Create a strong password
-          <div className={styles.passwordWrapper}>
+    <section className={`container ${styles.section}`}>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Register</h1>
+        <p className={styles.title_}>
+          Join our community of mindfulness and wellbeing!
+        </p>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <label htmlFor="name" className={styles.label}>
+            Enter your name
             <input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="*********"
-              value={values.password}
-              onChange={e => {
-                handleChange(e);
-                setPasswordScore(null);
-              }}
-              onBlur={handleBlur}
-              className={styles.input}
-            />
-
-            <button
-              type="button"
-              className={styles.toggleButton}
-              onClick={() => setShowPassword(prev => !prev)}
-              aria-label="Toggle password visibility"
-            >
-              <img
-                src={showPassword ? eyeCrossed : eye}
-                alt={showPassword ? 'Hide password' : 'Show password'}
-                width="24"
-                height="24"
-              />
-            </button>
-          </div>
-          <div className={styles.errorContainer}>
-            {touched.password && errors.password && (
-              <span className={styles.error}>{errors.password}</span>
-            )}
-          </div>
-          <div className={styles.strengthBarWrapper}>
-            {values.password.length > 0 && (
-              <>
-                {passwordScore !== null && passwordScore <= 1 ? (
-                  <div className={styles.weakStrengthBar} />
-                ) : (
-                  <PasswordStrengthBar
-                    password={values.password}
-                    minLength={0}
-                    scoreWords={['Very weak', 'Weak', 'Fair', 'Good', 'Strong']}
-                    shortScoreWord={'Too short'}
-                    className={styles.strengthBar}
-                    onChangeScore={score => setPasswordScore(score)}
-                  />
-                )}
-              </>
-            )}
-          </div>
-        </label>
-
-        <label htmlFor="confirmPassword" className={styles.label}>
-          Repeat your password
-          <div className={styles.passwordWrapper}>
-            <input
-              id="confirmPassword"
-              type={showConfirmPassword ? 'text' : 'password'}
-              name="confirmPassword"
-              placeholder="*********"
-              value={values.confirmPassword}
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Max"
+              value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
               className={styles.input}
             />
-            <button
-              type="button"
-              className={styles.toggleButton}
-              onClick={() => setShowConfirmPassword(prev => !prev)}
-              aria-label="Toggle confirm password visibility"
-            >
-              <img
-                src={showConfirmPassword ? eyeCrossed : eye}
-                alt={showConfirmPassword ? 'Hide password' : 'Show password'}
-                width="24"
-                height="24"
-              />
-            </button>
-          </div>
-          <div className={styles.errorContainer}>
-            {touched.confirmPassword && errors.confirmPassword && (
-              <span className={styles.error}>{errors.confirmPassword}</span>
-            )}
-          </div>
-        </label>
+            <div className={styles.errorContainer}>
+              {touched.name && errors.name && (
+                <span className={styles.error}>{errors.name}</span>
+              )}
+            </div>
+          </label>
 
-        <button type="submit" className={styles.button} disabled={isSubmitting}>
-          {isSubmitting ? 'Creating...' : 'Create account'}
-        </button>
-      </form>
-      <p className={styles.footerText}>
-        Already have an account?{' '}
-        <Link to="/login" className={styles.link}>
-          Log in
-        </Link>
-      </p>
+          <label htmlFor="email" className={styles.label}>
+            Enter your email address
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="email@gmail.com"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={styles.input}
+            />
+            <div className={styles.errorContainer}>
+              {touched.email && errors.email && (
+                <span className={styles.error}>{errors.email}</span>
+              )}
+            </div>
+          </label>
+
+          <label htmlFor="password" className={styles.label}>
+            Create a strong password
+            <div className={styles.passwordWrapper}>
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="*********"
+                value={values.password}
+                onChange={e => {
+                  handleChange(e);
+                  setPasswordScore(null);
+                }}
+                onBlur={handleBlur}
+                className={styles.input}
+              />
+
+              <button
+                type="button"
+                className={styles.toggleButton}
+                onClick={() => setShowPassword(prev => !prev)}
+                aria-label="Toggle password visibility"
+              >
+                <img
+                  src={showPassword ? eyeCrossed : eye}
+                  alt={showPassword ? 'Hide password' : 'Show password'}
+                  width="24"
+                  height="24"
+                />
+              </button>
+            </div>
+            <div className={styles.errorContainer}>
+              {touched.password && errors.password && (
+                <span className={styles.error}>{errors.password}</span>
+              )}
+            </div>
+            <div className={styles.strengthBarWrapper}>
+              {values.password.length > 0 && (
+                <>
+                  {passwordScore !== null && passwordScore <= 1 ? (
+                    <div className={styles.weakStrengthBar} />
+                  ) : (
+                    <PasswordStrengthBar
+                      password={values.password}
+                      minLength={0}
+                      scoreWords={[
+                        'Very weak',
+                        'Weak',
+                        'Fair',
+                        'Good',
+                        'Strong',
+                      ]}
+                      shortScoreWord={'Too short'}
+                      className={styles.strengthBar}
+                      onChangeScore={score => setPasswordScore(score)}
+                    />
+                  )}
+                </>
+              )}
+            </div>
+          </label>
+
+          <label htmlFor="confirmPassword" className={styles.label}>
+            Repeat your password
+            <div className={styles.passwordWrapper}>
+              <input
+                id="confirmPassword"
+                type={showConfirmPassword ? 'text' : 'password'}
+                name="confirmPassword"
+                placeholder="*********"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={styles.input}
+              />
+              <button
+                type="button"
+                className={styles.toggleButton}
+                onClick={() => setShowConfirmPassword(prev => !prev)}
+                aria-label="Toggle confirm password visibility"
+              >
+                <img
+                  src={showConfirmPassword ? eyeCrossed : eye}
+                  alt={showConfirmPassword ? 'Hide password' : 'Show password'}
+                  width="24"
+                  height="24"
+                />
+              </button>
+            </div>
+            <div className={styles.errorContainer}>
+              {touched.confirmPassword && errors.confirmPassword && (
+                <span className={styles.error}>{errors.confirmPassword}</span>
+              )}
+            </div>
+          </label>
+
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Creating...' : 'Create account'}
+          </button>
+        </form>
+        <p className={styles.footerText}>
+          Already have an account?{' '}
+          <Link to="/login" className={styles.link}>
+            Log in
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };

@@ -1,11 +1,7 @@
 import RegisterForm from '../../modules/RegisterForm/RegisterForm';
 
 const RegisterPage = () => {
-  return (
-    <section>
-      <RegisterForm />
-    </section>
-  );
+  return <RegisterForm />;
 };
 
 export default RegisterPage;
