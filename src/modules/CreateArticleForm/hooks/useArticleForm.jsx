@@ -9,7 +9,6 @@ import { selectUserId } from '../../../redux/user/userSelectors';
 
 export const useArticleForm = onSubmitSuccess => {
   const ownerId = useSelector(selectUserId);
-  const [touchedFields, setTouchedFields] = useState({ image: false });
   const [draft, setDraft] = useLocalStorageState('articleDraft', {
     title: '',
     text: '',
@@ -33,8 +32,7 @@ export const useArticleForm = onSubmitSuccess => {
         .max(100, 'Title must be at most 100 characters'),
       text: Yup.string()
         .required('Text is required')
-        .min(2000, 'Text must be at least 2000 characters')
-        .max(10000, 'Text must be at most 10000 characters'),
+        .min(100, 'Text must be at least 100 characters'),
       image: Yup.mixed()
         .required('Image is required')
         .test(
@@ -79,7 +77,6 @@ export const useArticleForm = onSubmitSuccess => {
   });
 
   const handleFileChange = file => {
-    setTouchedFields(prev => ({ ...prev, image: true }));
     formik.setFieldTouched('image', true, false);
     if (!file) {
       setPreviewUrl(cameraPlaceholder);
@@ -115,6 +112,5 @@ export const useArticleForm = onSubmitSuccess => {
     handleFileChange,
     handleTitleChange,
     handleTextChange,
-    touchedFields,
   };
 };
